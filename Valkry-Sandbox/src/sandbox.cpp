@@ -4,12 +4,8 @@
 class sandbox : public valkry::app
 {
 public:
-	Sandbox() {}
-	~Sandbox() {}
-
 	void Run()
 	{
-		std::cout << "Sandbox creation successful\n";
 		while (true);
 	}
 };

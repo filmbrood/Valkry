@@ -60,7 +60,7 @@ project "Valkry-Sandbox"
 
 	includedirs
 	{
-		"Valkry/src/"
+		"Valkry/"
 	}
 	
 	links
