@@ -8,6 +8,6 @@ int main()
 	valkry::LogInfo("Application Created");
 
 	auto app = valkry::createapp();
-	app->Run();
+	app->run();
 	delete app;
 }

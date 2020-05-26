@@ -1,0 +1,3 @@
+[submodule "Valkry/vendor/glfw"]
+	path = Valkry/vendor/glfw
+	url = https://github.com/TheCherno/glfw.git

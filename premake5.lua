@@ -10,6 +10,13 @@ workspace "Valkry"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["glfw"] = "Valkry/vendor/glfw/include"
+
+group "Dependencies"
+include "Valkry/vendor/glfw"
+
+group ""
 project "Valkry"
 	location "Valkry"
 	kind "StaticLib"
@@ -18,21 +25,23 @@ project "Valkry"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
+	
 	files
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp",
 	}
 
 	includedirs
 	{
-		
+		"%{IncludeDir.glfw}",
 	}
 	
 	links
 	{
-		
+		"GLFW"
 	}
 
 	filter "configurations:Debug"
@@ -60,7 +69,8 @@ project "Valkry-Sandbox"
 
 	includedirs
 	{
-		"Valkry/"
+		"Valkry/",
+		"%{IncludeDir.glfw}",
 	}
 	
 	links

@@ -1,7 +1,7 @@
 #include "logging.h"
-#include <iostream>
 #include <chrono>
 #include <ctime>
+#include <iostream>
 
 namespace valkry {
 
@@ -27,7 +27,7 @@ namespace valkry {
 
 		auto* timeOutput = std::localtime(&epochSeconds);
 
-		std::cout << "[" << timeOutput->tm_hour << ":" << timeOutput->tm_min << ":" << timeOutput->tm_sec << "] [VALKRY-INFO] " << desc;
+		std::cout << "[" << timeOutput->tm_hour << ":" << timeOutput->tm_min << ":" << timeOutput->tm_sec << "] [VALKRY-WARNING] " << desc;
 
 		if (data)
 			std::cout << " - " << data;

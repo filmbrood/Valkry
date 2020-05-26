@@ -1,5 +1,4 @@
 #include "app.h"
-#include <iostream>
 
 namespace valkry{
 
@@ -13,7 +12,7 @@ namespace valkry{
 
 	}
 
-	void app::Run()
+	void app::run()
 	{
 		
 	}

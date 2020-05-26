@@ -4,12 +4,13 @@ namespace valkry{
 
 	class app
 	{
-	public:
+	private:
 
+	public:
 		app();
 		~app();
 
-		virtual void Run() = 0;
+		virtual void run() = 0;
 	};
 
 	//define in application
