@@ -13,6 +13,6 @@ namespace valkry{
 	};
 
 	//define in application
-	app* MakeApp();
+	app* createapp();
 
 }

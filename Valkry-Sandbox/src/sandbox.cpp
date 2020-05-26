@@ -10,7 +10,7 @@ public:
 	}
 };
 
-valkry::app* valkry::MakeApp()
+valkry::app* valkry::createapp()
 {
 	return new sandbox;
 }
