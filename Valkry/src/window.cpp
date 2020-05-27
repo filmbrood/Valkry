@@ -49,4 +49,14 @@ namespace valkry {
 		glfwPollEvents();
 	}
 
+	void window::close()
+	{
+		glfwSetWindowShouldClose(win, GLFW_TRUE);
+	}
+
+	bool window::isClosed()
+	{
+		return glfwWindowShouldClose(win);
+	}
+
 }

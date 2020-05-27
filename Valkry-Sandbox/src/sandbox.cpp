@@ -4,16 +4,9 @@
 class sandbox : public valkry::app
 {
 public:
-	void run()
+	void update()
 	{
-		valkry::LogWarn("Warning Test");
-		valkry::LogError("Error Test");
-		valkry::LogFatal("Fatal Test");
-
-		valkry::window testWindow(1280, 720, "Valkry");
-
-		while (true)
-			testWindow.refresh();
+		valkry::LogInfo("Update!");
 	}
 };
 

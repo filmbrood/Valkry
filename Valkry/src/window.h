@@ -24,6 +24,8 @@ namespace valkry {
 
 		void setClearColor();
 		void refresh();
+		void close();
+		bool isClosed();
 	};
 
 }
