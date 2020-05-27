@@ -1,4 +1,11 @@
 # Valkry
-Another OpenGL renderer exercise like my previous attempt, Oka, but written from the ground-up for less unnecessary abstraction and more flexibility for experimention in GLSL.
+OpenGL renderer and application framework coded from the ground up for more flexible GLSL shader scripting.
 
-Still heavily a work-in-progress.
+Design Goals:
+- Create a powerful, cross-platform 3D OpenGL renderer to be utilized as a learning tool for GLSL graphics programming.
+
+To Do:
+- [ ] Implement rendering framework
+- [ ] Event system
+- [ ] UI implementation through ImGui
+- [ ] In-app GLSL scripting and compilation
