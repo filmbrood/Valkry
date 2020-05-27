@@ -15,6 +15,7 @@ namespace valkry{
 
 	void vertexbuffer::setData(const void* vertices, unsigned int verticesSize)
 	{
+		glBindBuffer(GL_ARRAY_BUFFER, renderer_ID);
 		glBufferData(GL_ARRAY_BUFFER, verticesSize, vertices, GL_STATIC_DRAW);
 	}
 

@@ -4,25 +4,18 @@
 class sandbox : public valkry::app
 {
 private:
-	float testvertices[9] = {
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, 0.0f
-	};
-
 	valkry::window windowtest;
-
-	valkry::vertexbuffer testbuffer;
+	valkry::shader* shadertest;
 public:
-	
+
+	void setup()
+	{
+		shadertest = new valkry::shader("shaders/test_shader.glsl");
+	}
+
 	void update()
 	{
 		windowtest.refresh();
-
-		testbuffer.setData(testvertices, sizeof(testvertices));
-		testbuffer.bind();
-		
-		glDrawArrays(GL_TRIANGLES, 0, 3);
 	}
 };
 

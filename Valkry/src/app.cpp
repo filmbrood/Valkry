@@ -1,4 +1,8 @@
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include "app.h"
+#include "logging.h"
 
 namespace valkry{
 
@@ -8,6 +12,11 @@ namespace valkry{
 	}
 
 	app::~app()
+	{
+
+	}
+
+	void app::setup()
 	{
 
 	}
