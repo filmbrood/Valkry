@@ -6,8 +6,7 @@ namespace valkry{
 	class app
 	{
 	private:
-		valkry::window appwindow;
-
+		bool running = true;
 	public:
 		app();
 		~app();

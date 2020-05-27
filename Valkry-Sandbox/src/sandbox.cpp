@@ -4,8 +4,11 @@
 class sandbox : public valkry::app
 {
 public:
+	valkry::window windowtest;
+
 	void update()
 	{
+		windowtest.refresh();
 		valkry::LogInfo("Update!");
 	}
 };

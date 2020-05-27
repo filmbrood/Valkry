@@ -9,12 +9,12 @@ namespace valkry {
 	private:
 		GLFWwindow* win;
 
-		int sizeX, sizeY;
+		int sizeX = 1280, sizeY = 720;
 		bool vsync = false;
-		std::string title;
+		std::string title = "Valkry";
 
 	public:
-		window(int width, int height, std::string name);
+		window();
 		~window();
 
 		GLFWwindow* getWindow();

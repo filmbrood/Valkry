@@ -3,7 +3,7 @@
 
 namespace valkry {
 
-	window::window(int width, int height, std::string name) : sizeX(width), sizeY(height), title(name)
+	window::window()
 	{
 		if (!glfwInit())
 			LogError("GLFW failed to initialize");

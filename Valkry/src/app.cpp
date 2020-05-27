@@ -2,7 +2,7 @@
 
 namespace valkry{
 
-	app::app() : appwindow(valkry::window(1280, 720, "Valkry"))
+	app::app()
 	{
 		
 	}
@@ -14,13 +14,8 @@ namespace valkry{
 
 	void app::run()
 	{
-		while (!appwindow.isClosed())
-		{
-			appwindow.refresh();
+		while (running)
 			update();
-		}
-
-		appwindow.close();
 	}
 
 }
