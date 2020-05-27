@@ -1,5 +1,6 @@
 #include "glad/glad.h"
 #include "vertexbuffer.h"
+#include "logging.h"
 
 namespace valkry{
 
@@ -17,6 +18,8 @@ namespace valkry{
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, renderer_ID);
 		glBufferData(GL_ARRAY_BUFFER, verticesSize, vertices, GL_STATIC_DRAW);
+
+		LogInfo("Created vertex buffer with render ID ", renderer_ID);
 	}
 
 	void vertexbuffer::bind()

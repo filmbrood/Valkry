@@ -14,7 +14,7 @@ namespace valkry {
 
 		std::cout << "[" << timeOutput->tm_hour << ":" << timeOutput->tm_min << ":" << timeOutput->tm_sec << "] [VALKRY-INFO] " << desc;
 		
-		if (data)
+		if (data != NULL)
 			std::cout << " - " << data;
 
 		std::cout << "\n";
@@ -29,7 +29,7 @@ namespace valkry {
 
 		std::cout << "[" << timeOutput->tm_hour << ":" << timeOutput->tm_min << ":" << timeOutput->tm_sec << "] [VALKRY-WARNING] " << desc;
 
-		if (data)
+		if (data != NULL)
 			std::cout << " - " << data;
 
 		std::cout << "\n";
@@ -44,7 +44,7 @@ namespace valkry {
 
 		std::cout << "[" << timeOutput->tm_hour << ":" << timeOutput->tm_min << ":" << timeOutput->tm_sec << "] [VALKRY-ERROR] " << desc;
 
-		if (data)
+		if (data != NULL)
 			std::cout << " - " << data;
 
 		std::cout << "\n";
@@ -59,7 +59,7 @@ namespace valkry {
 
 		std::cout << "[" << timeOutput->tm_hour << ":" << timeOutput->tm_min << ":" << timeOutput->tm_sec << "] [VALKRY-FATAL] " << desc;
 
-		if (data)
+		if (data != NULL)
 			std::cout << " - " << data;
 
 		std::cout << "\n";

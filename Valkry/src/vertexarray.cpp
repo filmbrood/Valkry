@@ -1,11 +1,13 @@
 #include "glad/glad.h"
 #include "vertexarray.h"
+#include "logging.h"
 
 namespace valkry{
 
 	vertexarray::vertexarray()
 	{
 		glGenVertexArrays(1, &renderer_ID);
+		LogInfo("Generated vertex array with render ID", renderer_ID);
 	}
 
 	vertexarray::~vertexarray()

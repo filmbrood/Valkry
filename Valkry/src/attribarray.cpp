@@ -1,5 +1,6 @@
 #include "attribarray.h"
 #include "glad/glad.h"
+#include "logging.h"
 
 namespace valkry{
 
@@ -7,6 +8,7 @@ namespace valkry{
 	{
 		renderer_ID = ID;
 		glVertexAttribPointer(renderer_ID, size, GL_FLOAT, GL_FALSE, stride, (void*)offset);
+		LogInfo("Set vertex attrib array", renderer_ID);
 	}
 
 	void attribarray::enable()

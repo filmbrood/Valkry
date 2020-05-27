@@ -1,5 +1,6 @@
 #include "glad/glad.h"
 #include "indexbuffer.h"
+#include "logging.h"
 
 namespace valkry{
 
@@ -16,6 +17,7 @@ namespace valkry{
 	void indexbuffer::setData(const void* indices, unsigned int indicesSize)
 	{
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, indices, GL_STATIC_DRAW);
+		LogInfo("Created index buffer with render ID", renderer_ID);
 	}
 
 	void indexbuffer::bind()

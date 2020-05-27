@@ -47,13 +47,18 @@ namespace valkry {
 		return sizeY;
 	}
 
-	void window::setClearColor()
+	void window::setClearColor(float red, float green, float blue, float alpha)
 	{
-
+		r = red;
+		g = green;
+		b = blue;
+		a = alpha;
 	}
 
 	void window::refresh()
 	{
+		glClearColor(r, g, b, a);
+		glClear(GL_COLOR_BUFFER_BIT);
 		glfwSwapBuffers(win);
 		glfwPollEvents();
 	}
