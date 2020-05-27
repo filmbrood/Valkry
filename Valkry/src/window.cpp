@@ -52,6 +52,7 @@ namespace valkry {
 	void window::close()
 	{
 		glfwSetWindowShouldClose(win, GLFW_TRUE);
+		glfwTerminate();
 	}
 
 	bool window::isClosed()

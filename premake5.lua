@@ -32,11 +32,13 @@ project "Valkry"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/**.h",
 		"%{prj.name}/**.cpp",
+		"%{prj.name}/vendor/glad/src/**.c"
 	}
 
 	includedirs
 	{
 		"%{IncludeDir.glfw}",
+		"%{prj.name}/vendor/glad/include"
 	}
 	
 	links

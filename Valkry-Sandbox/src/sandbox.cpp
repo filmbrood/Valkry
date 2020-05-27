@@ -9,7 +9,7 @@ public:
 	void update()
 	{
 		windowtest.refresh();
-		valkry::LogInfo("Update!");
+		
 	}
 };
 
