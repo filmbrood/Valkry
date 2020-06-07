@@ -16,8 +16,8 @@ namespace valkry{
 
 	void indexbuffer::setData(const void* indices, unsigned int indicesSize)
 	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_ID);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, indices, GL_STATIC_DRAW);
-		LogInfo("Created index buffer with render ID", renderer_ID);
 	}
 
 	void indexbuffer::bind()

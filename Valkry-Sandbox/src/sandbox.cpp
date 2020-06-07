@@ -5,35 +5,24 @@ class sandbox : public valkry::app
 {
 private:
 	valkry::window windowtest;
+	valkry::shader shadertest;
+	valkry::renderer renderer;
 
-	valkry::shader* shadertest;
-	valkry::vertexbuffer buffertest;
-	valkry::attribarray testattribarray;
 public:
-
 	void setup()
 	{
-		float testverts[] = {
-			-1.0f, -1.0f, 0.0f,
-			 1.0f, -1.0f, 0.0f,
-			 0.0f, 1.0f, 0.0f
-		};
-
-		shadertest = new valkry::shader("shaders/test_shader.glsl");
-		buffertest.setData(testverts, sizeof(testverts));
-		testattribarray.setData(0, 3, 12, 0);
-		testattribarray.enable();
-
-		windowtest.setClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		shadertest.setSource("shaders/test_shader.glsl");
 	}
 
 	void update()
 	{
-		shadertest->bind();
-		buffertest.bind();
+		windowtest.setClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-		// Render command to go here
-		windowtest.refresh();
+		windowtest.beginFrame();
+		
+		renderer.DrawQuad(shadertest, 0.5f, 1.0f);
+
+		windowtest.endFrame();
 	}
 };
 

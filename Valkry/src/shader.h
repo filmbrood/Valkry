@@ -12,9 +12,10 @@ namespace valkry {
 		std::string fragmentsrc;
 
 	public:
-		shader(std::string path);
+		shader();
 		~shader();
 
+		void setSource(std::string path);
 		void bind();
 		void unbind();
 	};

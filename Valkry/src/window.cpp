@@ -55,10 +55,14 @@ namespace valkry {
 		a = alpha;
 	}
 
-	void window::refresh()
+	void window::beginFrame()
 	{
 		glClearColor(r, g, b, a);
 		glClear(GL_COLOR_BUFFER_BIT);
+	}
+
+	void window::endFrame()
+	{
 		glfwSwapBuffers(win);
 		glfwPollEvents();
 	}

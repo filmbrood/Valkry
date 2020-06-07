@@ -9,7 +9,6 @@ namespace valkry {
 
 	public:
 		void setData(unsigned int ID, unsigned int size, unsigned int stride, unsigned int offset);
-		void enable();
 	};
 
 }

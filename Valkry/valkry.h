@@ -11,3 +11,5 @@
 #include "src/attribarray.h"
 
 #include "src/shader.h"
+
+#include "src/renderer.h"

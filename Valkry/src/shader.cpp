@@ -7,7 +7,17 @@
 
 namespace valkry {
 
-	shader::shader(std::string path)
+	shader::shader()
+	{
+		
+	}
+
+	shader::~shader()
+	{
+
+	}
+
+	void shader::setSource(std::string path)
 	{
 		filepath = path;
 
@@ -38,7 +48,7 @@ namespace valkry {
 				ss[(int)type] << line << "\n";
 			}
 		}
-		
+
 		// Send stringstream arrays into shader source strings
 		vertexsrc = ss[0].str();
 		fragmentsrc = ss[1].str();
@@ -94,19 +104,14 @@ namespace valkry {
 		glDeleteShader(fragment);
 	}
 
-	shader::~shader()
-	{
-
-	}
-
 	void shader::bind()
 	{
-
+		glUseProgram(renderer_ID);
 	}
 
 	void shader::unbind()
 	{
-
+		glUseProgram(0);
 	}
 
 }
