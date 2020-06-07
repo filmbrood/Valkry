@@ -3,7 +3,7 @@
 
 namespace valkry{
 
-	void renderer::DrawQuad(shader& shader, float width, float height)
+	void renderer::DrawQuad(shader& shader, float width, float height, float posx, float posy)
 	{
 		// Create data for drawing quad
 		float vertices[] = {
@@ -32,13 +32,29 @@ namespace valkry{
 		ibo.setData(indices, sizeof(indices));
 
 		//Bind all necessary things before drawing
-		vao.bind();
-		vbo.bind();
-		ibo.bind();
 		shader.bind();
+		vao.bind();
+
+		glm::mat4 modelMatrix = glm::mat4(1.0f);
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(posx, posy, 0.0f));
+
+		shader.setMat4("projectionMatrix", projectionMatrix);
+		shader.setMat4("viewMatrix", viewMatrix);
+		shader.setMat4("modelMatrix", modelMatrix);
 
 		//Draw the quad
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	}
+
+	void renderer::SetProjectionMatrix(float screenWidth, float screenHeight)
+	{
+		projectionMatrix = glm::perspective(glm::radians(70.0f), screenWidth / screenHeight, 0.0f, 100.0f);
+	}
+
+	void renderer::SetViewMatrix(float posx, float posy)
+	{
+		viewMatrix = glm::mat4(1.0f);
+		viewMatrix = glm::translate(viewMatrix, glm::vec3(posx, posy, -1.0f));
 	}
 
 }

@@ -17,10 +17,11 @@ public:
 	void update()
 	{
 		windowtest.setClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-
 		windowtest.beginFrame();
 		
-		renderer.DrawQuad(shadertest, 0.5f, 1.0f);
+		renderer.SetProjectionMatrix(1280.0f, 720.0f);
+		renderer.SetViewMatrix(sin(glfwGetTime()), 0.0f);
+		renderer.DrawQuad(shadertest, 1.0f, 1.0f, 0.0f, 0.0f);
 
 		windowtest.endFrame();
 	}
