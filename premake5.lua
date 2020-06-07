@@ -79,6 +79,7 @@ project "Valkry-Sandbox"
 	{
 		"Valkry/",
 		"%{IncludeDir.glfw}",
+		"%{IncludeDir.glm}"
 	}
 	
 	links

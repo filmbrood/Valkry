@@ -114,4 +114,58 @@ namespace valkry {
 		glUseProgram(0);
 	}
 
+	void shader::setFloat(const std::string name, float value)
+	{
+		auto location = glGetUniformLocation(renderer_ID, name.c_str());
+		if (location < -1)
+			LogError("Uniform location not found", renderer_ID);
+		glUniform1f(location, value);
+	}
+
+	void shader::setInt(const std::string name, int value)
+	{
+		auto location = glGetUniformLocation(renderer_ID, name.c_str());
+		if (location < -1)
+			LogError("Uniform location not found", renderer_ID);
+		glUniform1i(location, value);
+	}
+
+	void shader::setBool(const std::string name, int value)
+	{
+		auto location = glGetUniformLocation(renderer_ID, name.c_str());
+
+		if (location < -1)
+			LogError("Uniform location not found", renderer_ID);
+
+		glUniform1i(location, (int)value);
+	}
+
+	void shader::setVec2(const std::string name, float value1, float value2)
+	{
+		glm::vec2 value = glm::vec2(value1, value2);
+
+		auto location = glGetUniformLocation(renderer_ID, name.c_str());
+
+		if (location < -1)
+			LogError("Uniform location not found", renderer_ID);
+
+		glUniform2fv(location, 1, glm::value_ptr(value));
+	}
+
+	void shader::setVec3(const std::string name, float value1, float value2, float value3)
+	{
+		glm::vec3 value = glm::vec3(value1, value2, value3);
+		glUniform3fv(glGetUniformLocation(renderer_ID, name.c_str()), 1, glm::value_ptr(value));
+	}
+
+	void shader::setMat4(const std::string name, glm::mat4 value)
+	{
+		auto location = glGetUniformLocation(renderer_ID, name.c_str());
+
+		if (location < -1)
+			LogError("Uniform location not found", renderer_ID);
+
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
+	}
+
 }
