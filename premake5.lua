@@ -12,6 +12,8 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["glfw"] = "Valkry/vendor/glfw/include"
+IncludeDir["glad"] = "Valkry/vendor/glad/include"
+IncludeDir["glm"] = "Valkry/vendor/glm"
 
 group "Dependencies"
 include "Valkry/vendor/glfw"
@@ -32,13 +34,16 @@ project "Valkry"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/**.h",
 		"%{prj.name}/**.cpp",
-		"%{prj.name}/vendor/glad/src/**.c"
+		"%{prj.name}/vendor/glad/src/**.c",
+		"%{prj.name}/vendor/glm/**.hpp",
+		"%{prj.name}/vendor/glm/**.inl",
 	}
 
 	includedirs
 	{
 		"%{IncludeDir.glfw}",
-		"%{prj.name}/vendor/glad/include"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.glad}"
 	}
 	
 	links
@@ -67,6 +72,7 @@ project "Valkry-Sandbox"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/shaders/**.glsl",
 	}
 
 	includedirs
