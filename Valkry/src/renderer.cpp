@@ -3,11 +3,14 @@
 
 namespace valkry{
 
+<<<<<<< HEAD
 	renderer::renderer()
 	{
 		LogInfo("Initialized Valkry Renderer");
 	}
 
+=======
+>>>>>>> 0e68f78c2250b45f71aa8f95faa8ef55a86cfafd
 	void renderer::DrawQuad(shader& shader, float width, float height, float posx, float posy)
 	{
 		// Create data for drawing quad
@@ -53,7 +56,11 @@ namespace valkry{
 
 	void renderer::SetProjectionMatrix(float screenWidth, float screenHeight)
 	{
+<<<<<<< HEAD
 		projectionMatrix = glm::ortho(0.0f, screenWidth, screenHeight, 0.0f, -50.0f, 50.0f);
+=======
+		projectionMatrix = glm::perspective(glm::radians(70.0f), screenWidth / screenHeight, 0.0f, 100.0f);
+>>>>>>> 0e68f78c2250b45f71aa8f95faa8ef55a86cfafd
 	}
 
 	void renderer::SetViewMatrix(float posx, float posy)
