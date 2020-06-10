@@ -13,8 +13,10 @@ namespace valkry{
 
 		void run();
 
+		virtual void closeApp();
 		virtual void setup() = 0;
 		virtual void update() = 0;
+		virtual void events() = 0;
 	};
 
 	//define in application

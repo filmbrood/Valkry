@@ -26,8 +26,10 @@ namespace valkry {
 		int getHeight();
 
 		void setClearColor(float red, float green, float blue, float alpha);
+
 		void beginFrame();
 		void endFrame();
+
 		void close();
 		bool isClosed();
 	};

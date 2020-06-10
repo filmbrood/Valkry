@@ -16,6 +16,11 @@ namespace valkry{
 
 	}
 
+	void app::closeApp()
+	{
+		running = false;
+	}
+
 	void app::setup()
 	{
 
@@ -23,8 +28,13 @@ namespace valkry{
 
 	void app::run()
 	{
+		setup();
+
 		while (running)
+		{
 			update();
+			events();
+		}
 	}
 
 }
