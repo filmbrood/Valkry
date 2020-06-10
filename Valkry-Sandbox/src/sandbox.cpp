@@ -1,5 +1,9 @@
 #include <valkry.h>
-#include <iostream>
+
+valkry::keyevent LEFT_KEY(GLFW_KEY_LEFT);
+valkry::keyevent RIGHT_KEY(GLFW_KEY_RIGHT);
+valkry::keyevent UP_KEY(GLFW_KEY_UP);
+valkry::keyevent DOWN_KEY(GLFW_KEY_DOWN);
 
 class player
 {
@@ -71,16 +75,16 @@ public:
 		if (windowtest.isClosed())
 			this->closeApp();
 
-		if (glfwGetKey(windowtest.getWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS)
+		if (RIGHT_KEY.isPressed(windowtest))
 			player.moveRight();
 
-		if (glfwGetKey(windowtest.getWindow(), GLFW_KEY_LEFT) == GLFW_PRESS)
+		if (LEFT_KEY.isPressed(windowtest))
 			player.moveLeft();
 
-		if (glfwGetKey(windowtest.getWindow(), GLFW_KEY_UP) == GLFW_PRESS)
+		if (UP_KEY.isPressed(windowtest))
 			player.moveUp();
 
-		if (glfwGetKey(windowtest.getWindow(), GLFW_KEY_DOWN) == GLFW_PRESS)
+		if (DOWN_KEY.isPressed(windowtest))
 			player.moveDown();
 	}
 };
