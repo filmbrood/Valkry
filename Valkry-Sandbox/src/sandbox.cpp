@@ -68,7 +68,7 @@ public:
 		windowtest.beginFrame();
 		
 		shadertest.setVec3("color", 0.1f, 0.5f, 0.2f);
-		renderer2D.DrawQuad(shadertest, 1500, 1500, 640.0f, 360.0f);
+		renderer2D.DrawQuad(shadertest, 1500, 1500, 0.0f, 0.0f);
 
 		shadertest.setVec3("color", sin(4 * glfwGetTime()), 0.0f, 1.0f);
 		renderer2D.DrawQuad(shadertest, 100.0f, 100.0f, player.getPosX(), player.getPosY());
