@@ -9,9 +9,17 @@ namespace valkry {
 	{
 		if (!glfwInit())
 			LogError("GLFW failed to initialize");
+	}
 
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	window::~window()
+	{
+		glfwTerminate();
+	}
+
+	void window::create(int GLVersionMajor, int GLVersionMinor)
+	{
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GLVersionMajor);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, GLVersionMinor);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		win = glfwCreateWindow(sizeX, sizeY, title.c_str(), NULL, NULL);
@@ -27,14 +35,15 @@ namespace valkry {
 			LogFatal("Failed to initialize Glad");
 	}
 
-	window::~window()
-	{
-		glfwTerminate();
-	}
-
 	GLFWwindow* window::getWindow()
 	{
 		return win;
+	}
+
+	void window::setDimensions(int width, int height)
+	{
+		sizeX = width;
+		sizeY = height;
 	}
 
 	int window::getWidth()
@@ -53,6 +62,11 @@ namespace valkry {
 		g = green;
 		b = blue;
 		a = alpha;
+	}
+
+	void window::setTitle(std::string title)
+	{
+		this->title = title;
 	}
 
 	void window::beginFrame()

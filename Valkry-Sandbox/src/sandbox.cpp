@@ -1,5 +1,8 @@
 #include <valkry.h>
 
+#define SCREENWIDTH 1280
+#define SCREENHEIGHT 720
+
 valkry::keyevent LEFT_KEY(GLFW_KEY_LEFT);
 valkry::keyevent RIGHT_KEY(GLFW_KEY_RIGHT);
 valkry::keyevent UP_KEY(GLFW_KEY_UP);
@@ -55,14 +58,17 @@ private:
 public:
 	void setup()
 	{
-		shadertest.setSource("shaders/test_shader.glsl");
-
-		renderer2D.SetProjectionMatrix(1280.0f, 720.0f);
+		windowtest.setDimensions(SCREENWIDTH, SCREENHEIGHT);
+		windowtest.setTitle("Valkry Renderer 0.0.0");
+		windowtest.create(3, 3);
 		windowtest.setClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
+		shadertest.setSource("shaders/test_shader.glsl");
 	}
 
 	void update()
 	{
+		renderer2D.SetProjectionMatrix(SCREENWIDTH, SCREENHEIGHT);
 		renderer2D.SetViewMatrix(0.0f, 0.0f);
 
 		windowtest.beginFrame();

@@ -20,12 +20,17 @@ namespace valkry {
 		window();
 		~window();
 
+		void create(int GLVersionMajor = 3, int GlVersionMinor = 3);
+
 		GLFWwindow* getWindow();
 
+		void setDimensions(int width, int height);
 		int getWidth();
 		int getHeight();
 
 		void setClearColor(float red, float green, float blue, float alpha);
+
+		void setTitle(std::string title);
 
 		void beginFrame();
 		void endFrame();
