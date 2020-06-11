@@ -23,23 +23,24 @@ public:
 
 	void moveRight()
 	{
-		posx++;
-	}
-
-	void moveDown()
-	{
-		posy++;
-	}
-
-	void moveUp()
-	{
-		posy--;
+		posx += 5.0f;
 	}
 
 	void moveLeft()
 	{
-		posx--;
+		posx -= 5.0f;
 	}
+
+	void moveDown()
+	{
+		posy += 5.0f;
+	}
+
+	void moveUp()
+	{
+		posy -= 5.0f;
+	}
+
 };
 
 class sandbox : public valkry::app
@@ -47,7 +48,7 @@ class sandbox : public valkry::app
 private:
 	valkry::window windowtest;
 	valkry::shader shadertest;
-	valkry::renderer renderer;
+	valkry::renderer2D renderer2D;
 
 	player player;
 
@@ -55,17 +56,22 @@ public:
 	void setup()
 	{
 		shadertest.setSource("shaders/test_shader.glsl");
-		renderer.SetProjectionMatrix(1280.0f, 720.0f);
+
+		renderer2D.SetProjectionMatrix(1280.0f, 720.0f);
 		windowtest.setClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	}
 
 	void update()
 	{
-		renderer.SetViewMatrix(0.0f, 0.0f);
+		renderer2D.SetViewMatrix(0.0f, 0.0f);
 
 		windowtest.beginFrame();
 		
-		renderer.DrawQuad(shadertest, 100.0f, 100.0f, player.getPosX(), player.getPosY());
+		shadertest.setVec3("color", 0.1f, 0.5f, 0.2f);
+		renderer2D.DrawQuad(shadertest, 1500, 1500, 640.0f, 360.0f);
+
+		shadertest.setVec3("color", sin(4 * glfwGetTime()), 0.0f, 1.0f);
+		renderer2D.DrawQuad(shadertest, 100.0f, 100.0f, player.getPosX(), player.getPosY());
 
 		windowtest.endFrame();
 	}

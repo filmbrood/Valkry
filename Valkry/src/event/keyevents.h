@@ -1,5 +1,5 @@
 #pragma once
-#include "../window.h"
+#include "../app/window.h"
 #include "GLFW/glfw3.h"
 
 namespace valkry {

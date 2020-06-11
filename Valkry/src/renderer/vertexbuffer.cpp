@@ -1,6 +1,6 @@
 #include "glad/glad.h"
 #include "vertexbuffer.h"
-#include "logging.h"
+#include "../app/logging.h"
 
 namespace valkry{
 

@@ -1,14 +1,14 @@
 #include <glad/glad.h>
-#include "renderer.h"
+#include "renderer2D.h"
 
 namespace valkry{
 
-	renderer::renderer()
+	renderer2D::renderer2D()
 	{
-		LogInfo("Initialized Valkry Renderer");
+		LogInfo("Initialized Valkry 2D Renderer");
 	}
 
-	void renderer::DrawQuad(shader& shader, float width, float height, float posx, float posy)
+	void renderer2D::DrawQuad(shader& shader, float width, float height, float posx, float posy)
 	{
 		// Create data for drawing quad
 		float vertices[] = {
@@ -51,12 +51,12 @@ namespace valkry{
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	}
 
-	void renderer::SetProjectionMatrix(float screenWidth, float screenHeight)
+	void renderer2D::SetProjectionMatrix(float screenWidth, float screenHeight)
 	{
 		projectionMatrix = glm::ortho(0.0f, screenWidth, screenHeight, 0.0f, -50.0f, 50.0f);
 	}
 
-	void renderer::SetViewMatrix(float posx, float posy)
+	void renderer2D::SetViewMatrix(float posx, float posy)
 	{
 		viewMatrix = glm::mat4(1.0f);
 		viewMatrix = glm::translate(viewMatrix, glm::vec3(posx, posy, -1.0f));

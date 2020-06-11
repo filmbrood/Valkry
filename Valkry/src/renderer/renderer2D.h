@@ -1,6 +1,6 @@
 #pragma once
 
-#include "logging.h"
+#include "../app/logging.h"
 #include "vertexarray.h"
 #include "vertexbuffer.h"
 #include "indexbuffer.h"
@@ -15,14 +15,14 @@
 
 namespace valkry {
 
-	class renderer
+	class renderer2D
 	{
 	private:
 		glm::mat4 viewMatrix = glm::mat4(1.0f);
 		glm::mat4 projectionMatrix = glm::mat4(1.0f);
 
 	public:
-		renderer();
+		renderer2D();
 
 		void DrawQuad(shader& shader, float width, float height, float posx, float posy);
 

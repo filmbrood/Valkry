@@ -1,17 +1,15 @@
 #pragma once
 
-#include "src/app.h"
-#include "src/entry_point.h"
-#include "src/logging.h"
+#include "src/app/app.h"
+#include "src/app/entry_point.h"
+#include "src/app/logging.h"
+#include "src/app/window.h"
 
-#include "src/window.h"
-#include "src/vertexarray.h"
-#include "src/vertexbuffer.h"
-#include "src/indexbuffer.h"
-#include "src/attribarray.h"
-
-#include "src/shader.h"
-
-#include "src/renderer.h"
+#include "src/renderer/vertexarray.h"
+#include "src/renderer/vertexbuffer.h"
+#include "src/renderer/indexbuffer.h"
+#include "src/renderer/attribarray.h"
+#include "src/renderer/shader.h"
+#include "src/renderer/renderer2D.h"
 
 #include "src/event/keyevents.h"
