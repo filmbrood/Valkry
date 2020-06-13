@@ -1,36 +1,26 @@
 #include "app.h"
 #include "logging.h"
 
-namespace valkry{
+namespace Valkry{
 
-	app::app()
+	void App::CloseApp()
 	{
-		
+		running_ = false;
 	}
 
-	app::~app()
-	{
-
-	}
-
-	void app::closeApp()
-	{
-		running = false;
-	}
-
-	void app::setup()
+	void App::OnInit()
 	{
 
 	}
 
-	void app::run()
+	void App::Run()
 	{
-		setup();
+		OnInit();
 
-		while (running)
+		while (running_)
 		{
-			update();
-			events();
+			OnUpdate();
+			OnEvent();
 		}
 	}
 

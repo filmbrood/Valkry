@@ -1,24 +1,25 @@
 #pragma once
 #include "window.h"
 
-namespace valkry{
+namespace Valkry{
 
-	class app
+	class App
 	{
 	private:
-		bool running = true;
+		bool running_ = true;
+
 	public:
-		app();
-		~app();
+		// Calls OnInit(), then OnUpdate() and OnEvent() on while loop as long as running_ is true
+		void Run();
 
-		void run();
+		// Sets running_ variable to false
+		virtual void CloseApp();
 
-		virtual void closeApp();
-		virtual void setup() = 0;
-		virtual void update() = 0;
-		virtual void events() = 0;
+		virtual void OnInit() = 0;
+		virtual void OnUpdate() = 0;
+		virtual void OnEvent() = 0;
 	};
 
-	//define in application
-	app* createapp();
+	// Must be defined in application
+	App* CreateApp();
 }

@@ -2,30 +2,30 @@
 #include "vertexbuffer.h"
 #include "../app/logging.h"
 
-namespace valkry{
+namespace Valkry{
 
-	vertexbuffer::vertexbuffer()
+	VertexBuffer::VertexBuffer()
 	{
-		glGenBuffers(1, &renderer_ID);
+		glGenBuffers(1, &renderer_id_);
 	}
 
-	vertexbuffer::~vertexbuffer()
+	VertexBuffer::~VertexBuffer()
 	{
-		glDeleteBuffers(1, &renderer_ID);
+		glDeleteBuffers(1, &renderer_id_);
 	}
 
-	void vertexbuffer::setData(const void* vertices, unsigned int verticesSize)
+	void VertexBuffer::SetData(const void* vertices, unsigned int size)
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, renderer_ID);
-		glBufferData(GL_ARRAY_BUFFER, verticesSize, vertices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, renderer_id_);
+		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 	}
 
-	void vertexbuffer::bind()
+	void VertexBuffer::Bind()
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, renderer_ID);
+		glBindBuffer(GL_ARRAY_BUFFER, renderer_id_);
 	}
 
-	void vertexbuffer::unbind()
+	void VertexBuffer::Unbind()
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}

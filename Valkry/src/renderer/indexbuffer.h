@@ -1,19 +1,19 @@
 #pragma once
 
-namespace valkry{
+namespace Valkry{
 
-	class indexbuffer
+	class IndexBuffer
 	{
 	private:
-		unsigned int renderer_ID;
+		unsigned int renderer_id_;
 
 	public:
-		indexbuffer();
-		~indexbuffer();
+		IndexBuffer();
+		~IndexBuffer();
 
-		void setData(const void* indices, unsigned int indicesSize);
-		void bind();
-		void unbind();
+		void SetData(const void* indices, unsigned int size);
+		void Bind();
+		void Unbind();
 	};
 
 }

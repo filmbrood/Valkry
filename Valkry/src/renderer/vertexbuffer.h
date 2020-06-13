@@ -1,19 +1,23 @@
 #pragma once
 
-namespace valkry{
+namespace Valkry{
 
-	class vertexbuffer
+	class VertexBuffer
 	{
 	private:
-		unsigned int renderer_ID;
+		unsigned int renderer_id_;
 
 	public:
-		vertexbuffer();
-		~vertexbuffer();
+		// Constructor generates the vertex buffer and binds it to renderer_id_, Destructor deletes the vertex buffer
+		VertexBuffer();
+		~VertexBuffer();
 
-		void setData(const void* vertices, unsigned int verticesSize);
-		void bind();
-		void unbind();
+		// Sets vertex buffer data from an array of vertices
+		void SetData(const void* vertices, unsigned int size);
+
+		// Binds and unbinds the vertex buffer for drawing
+		void Bind();
+		void Unbind();
 	};
 
 }

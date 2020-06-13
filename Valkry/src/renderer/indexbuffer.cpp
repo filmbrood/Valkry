@@ -2,30 +2,30 @@
 #include "indexbuffer.h"
 #include "../app/logging.h"
 
-namespace valkry{
+namespace Valkry{
 
-	indexbuffer::indexbuffer()
+	IndexBuffer::IndexBuffer()
 	{
-		glGenBuffers(1, &renderer_ID);
+		glGenBuffers(1, &renderer_id_);
 	}
 
-	indexbuffer::~indexbuffer()
+	IndexBuffer::~IndexBuffer()
 	{
-		glDeleteBuffers(1, &renderer_ID);
+		glDeleteBuffers(1, &renderer_id_);
 	}
 
-	void indexbuffer::setData(const void* indices, unsigned int indicesSize)
+	void IndexBuffer::SetData(const void* indices, unsigned int size)
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_ID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, indices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id_);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
 	}
 
-	void indexbuffer::bind()
+	void IndexBuffer::Bind()
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_ID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id_);
 	}
 
-	void indexbuffer::unbind()
+	void IndexBuffer::Unbind()
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}

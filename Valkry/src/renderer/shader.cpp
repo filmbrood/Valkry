@@ -1,38 +1,29 @@
 #include <glad/glad.h>
 
 #include "shader.h"
+#include "../app/logging.h"
+
 #include <fstream>
 #include <sstream>
-#include "logging.h"
 
-namespace valkry {
+namespace Valkry {
 
-	shader::shader()
+	void Shader::SetSource(std::string path)
 	{
-		
-	}
-
-	shader::~shader()
-	{
-
-	}
-
-	void shader::setSource(std::string path)
-	{
-		filepath = path;
+		// Parsing shader file, looking for vertex and fragment code
+		filepath_ = path;
 
 		std::ifstream stream;
 		std::string line;
 		std::stringstream ss[2];
 
-		stream.open(filepath);
+		stream.open(filepath_);
 
 		enum class shaderType
 		{
 			NONE = -1, VERTEX = 0, FRAGMENT = 1
 		};
 
-		// Parsing shader file, looking for vertex and fragment code
 		shaderType type = shaderType::NONE;
 		while (getline(stream, line))
 		{
@@ -50,11 +41,11 @@ namespace valkry {
 		}
 
 		// Send stringstream arrays into shader source strings
-		vertexsrc = ss[0].str();
-		fragmentsrc = ss[1].str();
+		vertexsource_ = ss[0].str();
+		fragmentsource_ = ss[1].str();
 
-		const char* vertexsrc_char = vertexsrc.c_str();
-		const char* fragmentsrc_char = fragmentsrc.c_str();
+		const char* vertexsrc_char = vertexsource_.c_str();
+		const char* fragmentsrc_char = fragmentsource_.c_str();
 
 		// Compile vertex and fragment shaders
 		unsigned int vertex, fragment;
@@ -85,85 +76,85 @@ namespace valkry {
 			LogError(infolog);
 		}
 
-		renderer_ID = glCreateProgram();
-		glAttachShader(renderer_ID, vertex);
-		glAttachShader(renderer_ID, fragment);
-		glLinkProgram(renderer_ID);
+		renderer_id_ = glCreateProgram();
+		glAttachShader(renderer_id_, vertex);
+		glAttachShader(renderer_id_, fragment);
+		glLinkProgram(renderer_id_);
 
-		glGetProgramiv(renderer_ID, GL_LINK_STATUS, &success);
+		glGetProgramiv(renderer_id_, GL_LINK_STATUS, &success);
 		if (!success)
 		{
-			glGetProgramInfoLog(renderer_ID, 512, NULL, infolog);
+			glGetProgramInfoLog(renderer_id_, 512, NULL, infolog);
 			LogError("Shader linking failed");
 			LogError(infolog);
 		}
 		else
-			LogInfo("Created shader program with render ID ", renderer_ID);
+			LogInfo("Created shader program with render ID ", renderer_id_);
 
 		glDeleteShader(vertex);
 		glDeleteShader(fragment);
 	}
 
-	void shader::bind()
+	void Shader::Bind()
 	{
-		glUseProgram(renderer_ID);
+		glUseProgram(renderer_id_);
 	}
 
-	void shader::unbind()
+	void Shader::Unbind()
 	{
 		glUseProgram(0);
 	}
 
-	void shader::setFloat(const std::string name, float value)
+	void Shader::SetFloat(const std::string name, float value)
 	{
-		auto location = glGetUniformLocation(renderer_ID, name.c_str());
+		auto location = glGetUniformLocation(renderer_id_, name.c_str());
 		if (location < -1)
-			LogError("Uniform location not found", renderer_ID);
+			LogError("Uniform location not found", renderer_id_);
 		glUniform1f(location, value);
 	}
 
-	void shader::setInt(const std::string name, int value)
+	void Shader::SetInt(const std::string name, int value)
 	{
-		auto location = glGetUniformLocation(renderer_ID, name.c_str());
+		auto location = glGetUniformLocation(renderer_id_, name.c_str());
 		if (location < -1)
-			LogError("Uniform location not found", renderer_ID);
+			LogError("Uniform location not found", renderer_id_);
 		glUniform1i(location, value);
 	}
 
-	void shader::setBool(const std::string name, int value)
+	void Shader::SetBool(const std::string name, int value)
 	{
-		auto location = glGetUniformLocation(renderer_ID, name.c_str());
+		auto location = glGetUniformLocation(renderer_id_, name.c_str());
 
 		if (location < -1)
-			LogError("Uniform location not found", renderer_ID);
+			LogError("Uniform location not found", renderer_id_);
 
 		glUniform1i(location, (int)value);
 	}
 
-	void shader::setVec2(const std::string name, float value1, float value2)
+	void Shader::SetVec2(const std::string name, float value1, float value2)
 	{
 		glm::vec2 value = glm::vec2(value1, value2);
 
-		auto location = glGetUniformLocation(renderer_ID, name.c_str());
+		auto location = glGetUniformLocation(renderer_id_, name.c_str());
 
 		if (location < -1)
-			LogError("Uniform location not found", renderer_ID);
+			LogError("Uniform location not found", renderer_id_);
 
 		glUniform2fv(location, 1, glm::value_ptr(value));
 	}
 
-	void shader::setVec3(const std::string name, float value1, float value2, float value3)
+	void Shader::SetVec3(const std::string name, float value1, float value2, float value3)
 	{
 		glm::vec3 value = glm::vec3(value1, value2, value3);
-		glUniform3fv(glGetUniformLocation(renderer_ID, name.c_str()), 1, glm::value_ptr(value));
+		glUniform3fv(glGetUniformLocation(renderer_id_, name.c_str()), 1, glm::value_ptr(value));
 	}
 
-	void shader::setMat4(const std::string name, glm::mat4 value)
+	void Shader::SetMat4(const std::string name, glm::mat4 value)
 	{
-		auto location = glGetUniformLocation(renderer_ID, name.c_str());
+		auto location = glGetUniformLocation(renderer_id_, name.c_str());
 
 		if (location < -1)
-			LogError("Uniform location not found", renderer_ID);
+			LogError("Uniform location not found", renderer_id_);
 
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 	}

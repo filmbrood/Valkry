@@ -2,32 +2,32 @@
 #include "vertexarray.h"
 #include "../app/logging.h"
 
-namespace valkry{
+namespace Valkry{
 
-	vertexarray::vertexarray()
+	VertexArray::VertexArray()
 	{
-		glGenVertexArrays(1, &renderer_ID);
+		glGenVertexArrays(1, &renderer_id_);
 	}
 
-	vertexarray::~vertexarray()
+	VertexArray::~VertexArray()
 	{
-		glDeleteVertexArrays(1, &renderer_ID);
+		glDeleteVertexArrays(1, &renderer_id_);
 	}
 
-	void vertexarray::setData(vertexbuffer& vertex, indexbuffer& index)
+	void VertexArray::SetData(VertexBuffer& vertex, IndexBuffer& index)
 	{
-		bind();
-		vertex.bind();
-		index.bind();
-		unbind();
+		Bind();
+		vertex.Bind();
+		index.Bind();
+		Unbind();
 	}
 
-	void vertexarray::bind()
+	void VertexArray::Bind()
 	{
-		glBindVertexArray(renderer_ID);
+		glBindVertexArray(renderer_id_);
 	}
 
-	void vertexarray::unbind()
+	void VertexArray::Unbind()
 	{
 		glBindVertexArray(0);
 	}

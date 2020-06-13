@@ -3,93 +3,92 @@
 #include "window.h"
 #include "logging.h"
 
-namespace valkry {
+namespace Valkry {
 
-	window::window()
+	Window::Window()
 	{
 		if (!glfwInit())
 			LogError("GLFW failed to initialize");
 	}
 
-	window::~window()
+	Window::~Window()
 	{
 		glfwTerminate();
 	}
 
-	void window::create(int GLVersionMajor, int GLVersionMinor)
+	void Window::Create(int GLVersionMajor, int GLVersionMinor)
 	{
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GLVersionMajor);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, GLVersionMinor);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		win = glfwCreateWindow(sizeX, sizeY, title.c_str(), NULL, NULL);
+		window_ = glfwCreateWindow(size_x_, size_y_, title_.c_str(), NULL, NULL);
 
-		if (!win)
+		if (!window_)
 			LogError("Failed to create GLFW window");
 		else
 			LogInfo("Created GLFW window");
 
-		glfwMakeContextCurrent(win);
+		glfwMakeContextCurrent(window_);
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 			LogFatal("Failed to initialize Glad");
 	}
 
-	GLFWwindow* window::getWindow()
+	GLFWwindow* Window::GetWindow()
 	{
-		return win;
+		return window_;
 	}
 
-	void window::setDimensions(int width, int height)
+	int Window::GetWidth()
 	{
-		sizeX = width;
-		sizeY = height;
+		return size_x_;
 	}
 
-	int window::getWidth()
+	int Window::GetHeight()
 	{
-		return sizeX;
+		return size_y_;
 	}
 
-	int window::getHeight()
+	void Window::SetDimensions(int width, int height)
 	{
-		return sizeY;
+		size_x_ = width;
+		size_y_ = height;
 	}
 
-	void window::setClearColor(float red, float green, float blue, float alpha)
+	void Window::SetClearColor(float red, float green, float blue, float alpha)
 	{
-		r = red;
-		g = green;
-		b = blue;
-		a = alpha;
+		red_ = red;
+		green_ = green;
+		blue_ = blue;
+		alpha_ = alpha;
 	}
 
-	void window::setTitle(std::string title)
+	void Window::SetTitle(std::string title)
 	{
-		this->title = title;
+		this->title_ = title;
 	}
 
-	void window::beginFrame()
+	void Window::BeginFrame()
 	{
-		glClearColor(r, g, b, a);
+		glClearColor(red_, green_, blue_, alpha_);
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void window::endFrame()
+	void Window::EndFrame()
 	{
-		glfwSwapBuffers(win);
+		glfwSwapBuffers(window_);
 		glfwPollEvents();
 	}
 
-	void window::close()
+	void Window::Close()
 	{
-		glfwSetWindowShouldClose(win, GLFW_TRUE);
-		glfwTerminate();
+		glfwSetWindowShouldClose(window_, GLFW_TRUE);
 	}
 
-	bool window::isClosed()
+	bool Window::CheckIfClosed()
 	{
-		return glfwWindowShouldClose(win);
+		return glfwWindowShouldClose(window_);
 	}
 
 }

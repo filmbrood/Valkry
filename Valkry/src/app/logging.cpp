@@ -3,7 +3,7 @@
 #include <ctime>
 #include <iostream>
 
-namespace valkry {
+namespace Valkry {
 
 	void LogInfo(std::string desc, double data)
 	{

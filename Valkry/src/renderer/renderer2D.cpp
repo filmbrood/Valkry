@@ -1,14 +1,14 @@
 #include <glad/glad.h>
 #include "renderer2D.h"
 
-namespace valkry{
+namespace Valkry{
 
-	renderer2D::renderer2D()
+	Renderer2D::Renderer2D()
 	{
 		LogInfo("Initialized Valkry 2D Renderer");
 	}
 
-	void renderer2D::DrawQuad(shader& shader, float width, float height, float posx, float posy)
+	void Renderer2D::DrawQuad(Shader& shader, float width, float height, float posx, float posy)
 	{
 		// Create data for drawing quad
 		float vertices[] = {
@@ -24,42 +24,42 @@ namespace valkry{
 		};
 
 		//Bind the vertex array, vertex buffer and attrib arrays, and then index buffer
-		vertexarray vao;
-		vao.bind();
+		VertexArray vao;
+		vao.Bind();
 
-		vertexbuffer vbo;
-		vbo.setData(vertices, sizeof(vertices));
+		VertexBuffer vbo;
+		vbo.SetData(vertices, sizeof(vertices));
 
-		attribarray attrib;
-		attrib.setData(0, 3, 3 * sizeof(float), 0);
+		VertexAttribArray attrib;
+		attrib.SetData(0, 3, 3 * sizeof(float), 0);
 
-		indexbuffer ibo;
-		ibo.setData(indices, sizeof(indices));
+		IndexBuffer ibo;
+		ibo.SetData(indices, sizeof(indices));
 
 		//Bind all necessary things before drawing
-		shader.bind();
-		vao.bind();
+		shader.Bind();
+		vao.Bind();
 
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(posx, posy, 0.0f));
 
-		shader.setMat4("projectionMatrix", projectionMatrix);
-		shader.setMat4("viewMatrix", viewMatrix);
-		shader.setMat4("modelMatrix", modelMatrix);
+		shader.SetMat4("projectionMatrix", projectionmatrix_);
+		shader.SetMat4("viewMatrix", viewmatrix_);
+		shader.SetMat4("modelMatrix", modelMatrix);
 
 		//Draw the quad
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	}
 
-	void renderer2D::SetProjectionMatrix(float screenWidth, float screenHeight)
+	void Renderer2D::SetProjectionMatrix(float width, float height)
 	{
-		projectionMatrix = glm::ortho(0.0f, screenWidth, screenHeight, 0.0f, -50.0f, 50.0f);
+		projectionmatrix_ = glm::ortho(0.0f, width, height, 0.0f, -50.0f, 50.0f);
 	}
 
-	void renderer2D::SetViewMatrix(float posx, float posy)
+	void Renderer2D::SetViewMatrix(float posx, float posy)
 	{
-		viewMatrix = glm::mat4(1.0f);
-		viewMatrix = glm::translate(viewMatrix, glm::vec3(posx, posy, -1.0f));
+		viewmatrix_ = glm::mat4(1.0f);
+		viewmatrix_ = glm::translate(viewmatrix_, glm::vec3(posx, posy, -1.0f));
 	}
 
 }

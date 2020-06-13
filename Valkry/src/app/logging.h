@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace valkry {
+namespace Valkry {
 
 	void LogInfo(std::string desc, double data = NULL);
 	void LogWarn(std::string desc, double data = NULL);
