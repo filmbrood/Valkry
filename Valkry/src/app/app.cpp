@@ -8,11 +8,6 @@ namespace Valkry{
 		running_ = false;
 	}
 
-	void App::OnInit()
-	{
-
-	}
-
 	void App::Run()
 	{
 		OnInit();

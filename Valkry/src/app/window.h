@@ -13,6 +13,9 @@ namespace Valkry {
 		bool vsync_ = false;
 		std::string title_ = "Valkry";
 
+		// Stores mouse cursor coordinates
+		double mousex_, mousey_;
+
 		// Float values for background clear color
 		float red_ = 0.0f, green_ = 0.0f, blue_ = 0.0f, alpha_ = 0.0f;
 
@@ -35,7 +38,7 @@ namespace Valkry {
 		// Clears the color buffer, calls glClearColor
 		void BeginFrame();
 
-		// Swaps buffers and polls for events
+		// Swaps buffers and polls for events, updates mouse position
 		void EndFrame();
 
 		// Sets GLFW window to close
@@ -43,6 +46,10 @@ namespace Valkry {
 
 		// Returns whether or not GLFW window has been set to close
 		bool CheckIfClosed();
+
+		// Returns mouse position
+		double GetCursorPositionX();
+		double GetCursorPositionY();
 	};
 
 }

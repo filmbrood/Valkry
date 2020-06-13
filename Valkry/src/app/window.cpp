@@ -79,6 +79,7 @@ namespace Valkry {
 	{
 		glfwSwapBuffers(window_);
 		glfwPollEvents();
+		glfwGetCursorPos(window_, &mousex_, &mousey_);
 	}
 
 	void Window::Close()
@@ -89,6 +90,16 @@ namespace Valkry {
 	bool Window::CheckIfClosed()
 	{
 		return glfwWindowShouldClose(window_);
+	}
+
+	double Window::GetCursorPositionX()
+	{
+		return mousex_;
+	}
+
+	double Window::GetCursorPositionY()
+	{
+		return mousey_;
 	}
 
 }

@@ -1,12 +1,7 @@
-#include <Valkry.h>
+#include <valkry.h>
 
 #define SCREENWIDTH 1280
 #define SCREENHEIGHT 720
-
-Valkry::KeyEvent LEFT_KEY(GLFW_KEY_LEFT);
-Valkry::KeyEvent RIGHT_KEY(GLFW_KEY_RIGHT);
-Valkry::KeyEvent UP_KEY(GLFW_KEY_UP);
-Valkry::KeyEvent DOWN_KEY(GLFW_KEY_DOWN);
 
 class player
 {
@@ -14,94 +9,72 @@ private:
 	float posx = 0.0f, posy = 0.0f;
 
 public:
-	float getPosX()
+	float getPosX() { return posx; }
+
+	float getPosY(){ return posy; }
+
+	void setPos(float x, float y)
 	{
-		return posx;
+		posx = x;
+		posy = y;
 	}
 
-	float getPosY()
-	{
-		return posy;
-	}
+	void moveRight() { posx += 5.0f; }
 
-	void moveRight()
-	{
-		posx += 5.0f;
-	}
+	void moveLeft() { posx -= 5.0f; }
 
-	void moveLeft()
-	{
-		posx -= 5.0f;
-	}
-
-	void moveDown()
-	{
-		posy += 5.0f;
-	}
-
-	void moveUp()
-	{
-		posy -= 5.0f;
-	}
+	void moveDown() { posy += 5.0f; }
+	
+	void moveUp() { posy -= 5.0f; }
 
 };
 
-class sandbox : public Valkry::App
+class Sandbox : public Valkry::App
 {
 private:
-	Valkry::Window windowtest;
-	Valkry::Shader shadertest;
-	Valkry::Renderer2D renderer2D;
+	Valkry::Window sandbox_window;
+	Valkry::Shader flat_shader;
+	Valkry::Renderer2D renderer;
 
 	player player;
 
 public:
 	void OnInit()
 	{
-		windowtest.SetDimensions(SCREENWIDTH, SCREENHEIGHT);
-		windowtest.SetTitle("Valkry Renderer 0.0.0");
-		windowtest.Create(3, 3);
-		windowtest.SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		sandbox_window.SetDimensions(SCREENWIDTH, SCREENHEIGHT);
+		sandbox_window.SetTitle("Valkry Renderer 0.0.0");
+		sandbox_window.Create(3, 3);
+		sandbox_window.SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-		shadertest.SetSource("shaders/test_shader.glsl");
+		flat_shader.SetSource("shaders/flat_color.glsl");
 	}
 
 	void OnUpdate()
 	{
-		renderer2D.SetProjectionMatrix(SCREENWIDTH, SCREENHEIGHT);
-		renderer2D.SetViewMatrix(0.0f, 0.0f);
+		renderer.SetProjectionMatrix(SCREENWIDTH, SCREENHEIGHT);
+		renderer.SetViewMatrix(0.0f, 0.0f);
 
-		windowtest.BeginFrame();
+		sandbox_window.BeginFrame();
 		
-		shadertest.SetVec3("color", 0.1f, 0.5f, 0.2f);
-		renderer2D.DrawQuad(shadertest, 1500, 1500, 0.0f, 0.0f);
+		flat_shader.SetVec3("color", 0.1f, 0.5f, 0.2f);
+		renderer.DrawQuad(flat_shader, 1500, 1500, 0.0f, 0.0f);
 
-		shadertest.SetVec3("color", sin(4 * glfwGetTime()), 0.0f, 1.0f);
-		renderer2D.DrawQuad(shadertest, 100.0f, 100.0f, player.getPosX(), player.getPosY());
+		flat_shader.SetVec3("color", sin(4 * glfwGetTime()), 0.0f, 1.0f);
+		renderer.DrawQuad(flat_shader, 100.0f, 100.0f, player.getPosX(), player.getPosY());
 
-		windowtest.EndFrame();
+		sandbox_window.EndFrame();
 	}
 
 	void OnEvent()
 	{
-		if (windowtest.CheckIfClosed())
+		if (sandbox_window.CheckIfClosed())
 			this->CloseApp();
 
-		if (RIGHT_KEY.Pressed(windowtest))
-			player.moveRight();
-
-		if (LEFT_KEY.Pressed(windowtest))
-			player.moveLeft();
-
-		if (UP_KEY.Pressed(windowtest))
-			player.moveUp();
-
-		if (DOWN_KEY.Pressed(windowtest))
-			player.moveDown();
+		player.setPos(sandbox_window.GetCursorPositionX(), sandbox_window.GetCursorPositionY());
 	}
 };
 
 Valkry::App* Valkry::CreateApp()
 {
-	return new sandbox;
+	return new Sandbox;
 }

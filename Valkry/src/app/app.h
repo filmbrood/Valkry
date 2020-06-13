@@ -15,6 +15,7 @@ namespace Valkry{
 		// Sets running_ variable to false
 		virtual void CloseApp();
 
+		// Interface methods - must be defined in child app classes
 		virtual void OnInit() = 0;
 		virtual void OnUpdate() = 0;
 		virtual void OnEvent() = 0;
