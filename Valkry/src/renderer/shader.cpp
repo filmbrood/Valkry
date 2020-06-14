@@ -1,10 +1,8 @@
+#include "valkrypch.h"
+
 #include <glad/glad.h>
 
 #include "shader.h"
-#include "../app/logging.h"
-
-#include <fstream>
-#include <sstream>
 
 namespace Valkry {
 

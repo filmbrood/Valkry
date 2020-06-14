@@ -1,7 +1,6 @@
+#include "valkrypch.h"
+
 #include "logging.h"
-#include <chrono>
-#include <ctime>
-#include <iostream>
 
 namespace Valkry {
 

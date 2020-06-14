@@ -1,3 +1,5 @@
+#include "valkrypch.h"
+
 #include <glad/glad.h>
 #include "renderer2D.h"
 

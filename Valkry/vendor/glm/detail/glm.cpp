@@ -4,6 +4,9 @@
 #ifndef GLM_ENABLE_EXPERIMENTAL
 #define GLM_ENABLE_EXPERIMENTAL
 #endif
+
+#include "valkrypch.h"
+
 #include <gtx/dual_quaternion.hpp>
 #include <gtc/vec1.hpp>
 #include <gtc/quaternion.hpp>

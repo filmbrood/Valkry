@@ -1,6 +1,7 @@
+#include "valkrypch.h"
+
 #include "glad/glad.h"
 #include "vertexarray.h"
-#include "../app/logging.h"
 
 namespace Valkry{
 

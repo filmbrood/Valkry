@@ -1,5 +1,6 @@
+#include "valkrypch.h"
+
 #include "keyevent.h"
-#include "../app/logging.h"
 
 namespace Valkry {
 
@@ -12,7 +13,6 @@ namespace Valkry {
 	{
 		if (glfwGetKey(win.GetWindow(), keycode_) == GLFW_PRESS)
 		{
-			LogInfo("Key Pressed", keycode_);
 			return true;
 		}
 		else
@@ -23,7 +23,6 @@ namespace Valkry {
 	{
 		if (glfwGetKey(win.GetWindow(), keycode_) == GLFW_RELEASE)
 		{
-			LogInfo("Key Released", keycode_);
 			return true;
 		}
 		else
@@ -34,7 +33,6 @@ namespace Valkry {
 	{
 		if (glfwGetKey(win.GetWindow(), keycode_) == GLFW_REPEAT)
 		{
-			LogInfo("Key Repeated", keycode_);
 			return true;
 		}
 		else

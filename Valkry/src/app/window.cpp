@@ -1,7 +1,7 @@
-#include <glad/glad.h>
+#include "valkrypch.h"
 
+#include <glad/glad.h>
 #include "window.h"
-#include "logging.h"
 
 namespace Valkry {
 
@@ -22,7 +22,10 @@ namespace Valkry {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, GLVersionMinor);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		window_ = glfwCreateWindow(size_x_, size_y_, title_.c_str(), NULL, NULL);
+		if (fullscreen_)
+			window_ = glfwCreateWindow(size_x_, size_y_, title_.c_str(), glfwGetPrimaryMonitor(), NULL);
+		else
+			window_ = glfwCreateWindow(size_x_, size_y_, title_.c_str(), NULL, NULL);
 
 		if (!window_)
 			LogError("Failed to create GLFW window");
@@ -33,6 +36,8 @@ namespace Valkry {
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 			LogFatal("Failed to initialize Glad");
+
+		glViewport(0, 0, (int)size_x_, (int)size_y_);
 	}
 
 	GLFWwindow* Window::GetWindow()
@@ -62,6 +67,27 @@ namespace Valkry {
 		green_ = green;
 		blue_ = blue;
 		alpha_ = alpha;
+	}
+
+	void Window::SetVerticalSync(bool state)
+	{
+		vsync_ = state;
+
+		if (vsync_)
+			glfwSwapInterval(1);
+		else
+			glfwSwapInterval(0);
+	}
+
+	void Window::SetResizable(bool state)
+	{
+		// Just sets the member variable for now, but will have extra code to create a framebuffer callback
+		resizeable_ = state;
+	}
+
+	void Window::SetFullscreen(bool state)
+	{
+		fullscreen_ = state;
 	}
 
 	void Window::SetTitle(std::string title)

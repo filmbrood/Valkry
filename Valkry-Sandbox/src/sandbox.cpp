@@ -1,7 +1,9 @@
 #include <valkry.h>
 
-#define SCREENWIDTH 1280
-#define SCREENHEIGHT 720
+constexpr auto SCREENWIDTH = 1920;
+constexpr auto SCREENHEIGHT = 1080;
+
+Valkry::KeyEvent key_escape(GLFW_KEY_ESCAPE);
 
 class player
 {
@@ -42,16 +44,19 @@ public:
 	void OnInit()
 	{
 		sandbox_window.SetDimensions(SCREENWIDTH, SCREENHEIGHT);
-		sandbox_window.SetTitle("Valkry Renderer 0.0.0");
-		sandbox_window.Create(3, 3);
+		sandbox_window.SetTitle("Valkry Sandbox");
 		sandbox_window.SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		sandbox_window.SetVerticalSync(true);
+		sandbox_window.SetFullscreen(true);
+		sandbox_window.Create(3, 3);
 
 		flat_shader.SetSource("shaders/flat_color.glsl");
+
+		renderer.SetProjectionMatrix(SCREENWIDTH, SCREENHEIGHT);
 	}
 
 	void OnUpdate()
 	{
-		renderer.SetProjectionMatrix(SCREENWIDTH, SCREENHEIGHT);
 		renderer.SetViewMatrix(0.0f, 0.0f);
 
 		sandbox_window.BeginFrame();
@@ -59,7 +64,7 @@ public:
 		flat_shader.SetVec3("color", 0.1f, 0.5f, 0.2f);
 		renderer.DrawQuad(flat_shader, 1500, 1500, 0.0f, 0.0f);
 
-		flat_shader.SetVec3("color", sin(4 * glfwGetTime()), 0.0f, 1.0f);
+		flat_shader.SetVec3("color", 0.0f, 0.1f, 0.8f);
 		renderer.DrawQuad(flat_shader, 100.0f, 100.0f, player.getPosX(), player.getPosY());
 
 		sandbox_window.EndFrame();
@@ -68,7 +73,10 @@ public:
 	void OnEvent()
 	{
 		if (sandbox_window.CheckIfClosed())
-			this->CloseApp();
+			CloseApp();
+
+		if (key_escape.Pressed(sandbox_window))
+			CloseApp();
 
 		player.setPos(sandbox_window.GetCursorPositionX(), sandbox_window.GetCursorPositionY());
 	}

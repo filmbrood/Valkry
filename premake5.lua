@@ -28,6 +28,9 @@ project "Valkry"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 	
+	pchheader "valkrypch.h"
+	pchsource "valkrypch.cpp"
+	
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -41,6 +44,7 @@ project "Valkry"
 
 	includedirs
 	{
+		"Valkry/",
 		"%{IncludeDir.glfw}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.glad}"

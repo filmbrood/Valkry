@@ -1,3 +1,5 @@
+#include "valkrypch.h"
+
 #include "app.h"
 #include "logging.h"
 

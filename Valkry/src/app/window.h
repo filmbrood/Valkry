@@ -11,6 +11,8 @@ namespace Valkry {
 
 		int size_x_ = 1280, size_y_ = 720;
 		bool vsync_ = false;
+		bool fullscreen_ = false;
+		bool resizeable_ = false;
 		std::string title_ = "Valkry";
 
 		// Stores mouse cursor coordinates
@@ -27,13 +29,21 @@ namespace Valkry {
 		// Sets OpenGL version, creates GLFW window context, and initializes Glad OpenGL loader
 		void Create(int GLVersionMajor = 3, int GLVersionMinor = 3);
 
+		// Set window attributes
+		void SetDimensions(int width, int height);
+		void SetTitle(std::string title);
+		void SetClearColor(float red, float green, float blue, float alpha);
+		void SetVerticalSync(bool state);
+		void SetResizable(bool state);
+		void SetFullscreen(bool state);
+
 		GLFWwindow* GetWindow();
 		int GetWidth();
 		int GetHeight();
 
-		void SetDimensions(int width, int height);
-		void SetTitle(std::string title);
-		void SetClearColor(float red, float green, float blue, float alpha);
+		// Returns mouse position
+		double GetCursorPositionX();
+		double GetCursorPositionY();
 
 		// Clears the color buffer, calls glClearColor
 		void BeginFrame();
@@ -46,10 +56,6 @@ namespace Valkry {
 
 		// Returns whether or not GLFW window has been set to close
 		bool CheckIfClosed();
-
-		// Returns mouse position
-		double GetCursorPositionX();
-		double GetCursorPositionY();
 	};
 
 }
