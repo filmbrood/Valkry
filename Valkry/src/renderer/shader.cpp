@@ -6,11 +6,8 @@
 
 namespace Valkry {
 
-	void Shader::SetSource(std::string path)
+	void Shader::ParseSource()
 	{
-		// Parsing shader file, looking for vertex and fragment code
-		filepath_ = path;
-
 		std::ifstream stream;
 		std::string line;
 		std::stringstream ss[2];
@@ -41,7 +38,9 @@ namespace Valkry {
 		// Send stringstream arrays into shader source strings
 		vertexsource_ = ss[0].str();
 		fragmentsource_ = ss[1].str();
-
+	}
+	void Shader::CompileSource()
+	{
 		const char* vertexsrc_char = vertexsource_.c_str();
 		const char* fragmentsrc_char = fragmentsource_.c_str();
 
@@ -91,6 +90,15 @@ namespace Valkry {
 
 		glDeleteShader(vertex);
 		glDeleteShader(fragment);
+	}
+
+	void Shader::SetSource(std::string path)
+	{
+		// Parsing shader file, looking for vertex and fragment code
+		filepath_ = path;
+
+		ParseSource();
+		CompileSource();
 	}
 
 	void Shader::Bind()

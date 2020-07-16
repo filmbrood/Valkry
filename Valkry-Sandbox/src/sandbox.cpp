@@ -76,7 +76,7 @@ public:
 			CloseApp();
 
 		if (key_escape.Pressed(sandbox_window))
-			CloseApp();
+			sandbox_window.Close();
 
 		player.setPos(sandbox_window.GetCursorPositionX(), sandbox_window.GetCursorPositionY());
 	}
