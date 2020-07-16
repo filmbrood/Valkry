@@ -6,6 +6,7 @@
 #include "indexbuffer.h"
 #include "vertexattribarray.h"
 #include "shader.h"
+#include "camera2D.h"
 
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
@@ -21,6 +22,14 @@ namespace Valkry {
 		glm::mat4 viewmatrix_ = glm::mat4(1.0f);
 		glm::mat4 projectionmatrix_ = glm::mat4(1.0f);
 
+		Camera2D camera_;
+
+		// Sets view matrix based on two float coordinates
+		void SetViewMatrix(float posx, float posy);
+
+		// Sets orthographic projection matrix (preferably from screen width and height)
+		void SetProjectionMatrix(float width, float height);
+
 	public:
 		// Constructor logs that renderer has been created
 		Renderer2D();
@@ -28,11 +37,16 @@ namespace Valkry {
 		// Creates vertex array with quad vertices, sends model, view, and projection matrices as uniforms to shader
 		void DrawQuad(Shader& Shader, float width, float height, float posx, float posy);
 
-		// Sets orthographic projection matrix (preferably from screen width and height)
-		void SetProjectionMatrix(float width, float height);
+		// Sets the orthographic projection matrix based on resolution arguments
+		void SetResolution(float width, float height);
 
-		// Sets view matrix based on two float coordinates, but will eventually take in a view matrix from dedicated orthographic camera object
-		void SetViewMatrix(float posx, float posy);
+		// Camera controllers
+		void SetCameraPosition(float posx, float posy);
+		float GetCameraPositionX();
+		float GetCameraPositionY();
+
+		// To be called at the beginning of every frame
+		void Update();
 	};
 
 }

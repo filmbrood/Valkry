@@ -53,6 +53,32 @@ namespace Valkry{
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	}
 
+	void Renderer2D::SetResolution(float width, float height)
+	{
+		SetProjectionMatrix(width, height);
+	}
+
+	void Renderer2D::SetCameraPosition(float x, float y)
+	{
+		camera_.SetPosX(x);
+		camera_.SetPosY(y);
+	}
+
+	float Renderer2D::GetCameraPositionX()
+	{
+		return camera_.GetPosX();
+	}
+
+	float Renderer2D::GetCameraPositionY()
+	{
+		return camera_.GetPosY();
+	}
+
+	void Renderer2D::Update()
+	{
+		SetViewMatrix(camera_.GetPosX() * -1, camera_.GetPosY() * -1);
+	}
+
 	void Renderer2D::SetProjectionMatrix(float width, float height)
 	{
 		projectionmatrix_ = glm::ortho(0.0f, width, height, 0.0f, -50.0f, 50.0f);

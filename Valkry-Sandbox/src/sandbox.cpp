@@ -13,7 +13,7 @@ private:
 public:
 	float getPosX() { return posx; }
 
-	float getPosY(){ return posy; }
+	float getPosY() { return posy; }
 
 	void setPos(float x, float y)
 	{
@@ -40,6 +40,8 @@ private:
 
 	player player;
 
+	float cameraX = 0.0f;
+
 public:
 	void OnInit()
 	{
@@ -52,12 +54,14 @@ public:
 
 		flat_shader.SetSource("shaders/flat_color.glsl");
 
-		renderer.SetProjectionMatrix(SCREENWIDTH, SCREENHEIGHT);
+		renderer.SetResolution(SCREENWIDTH, SCREENHEIGHT);
 	}
 
 	void OnUpdate()
 	{
-		renderer.SetViewMatrix(0.0f, 0.0f);
+		cameraX += 1.0f;
+		renderer.SetCameraPosition(cameraX, 0.0f);
+		renderer.Update();
 
 		sandbox_window.BeginFrame();
 		

@@ -17,11 +17,14 @@ namespace Valkry {
 		std::string vertexsource_;
 		std::string fragmentsource_;
 
+		// Parses source file into vertexsource_ and fragmentsource_ strings
 		void ParseSource();
+
+		// Compiles vertex and fragment shaders, links into program
 		void CompileSource();
 
 	public:
-		// Retrieves GLSL source file from argument path, parses, compiles, and links the vertex and fragment sources into a shader program
+		// Retrieves GLSL source file from argument path. For use with vertex + fragment shader in one file. Denote use with #shader vertex and #shader fragment.
 		void SetSource(std::string path);
 
 		// Binds and unbinds the shader program for drawing
