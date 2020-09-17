@@ -1,5 +1,8 @@
 #pragma once
+#include <vector>
+
 #include "window.h"
+#include "layerstack.h"
 
 namespace Valkry{
 
@@ -8,19 +11,15 @@ namespace Valkry{
 	private:
 		bool running_ = true;
 
+		LayerStack stack_;
 	public:
-		// Calls OnInit(), then OnUpdate() and OnEvent() on while loop as long as running_ is true
+
 		void Run();
+
+		void PushLayer(Layer* layer);
+		void PopLayer();
 
 		// Sets running_ variable to false
 		virtual void CloseApp();
-
-		// Interface methods - must be defined in child app classes
-		virtual void OnInit() = 0;
-		virtual void OnUpdate() = 0;
-		virtual void OnEvent() = 0;
 	};
-
-	// Must be defined in application
-	App* CreateApp();
 }

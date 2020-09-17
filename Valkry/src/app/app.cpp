@@ -12,13 +12,25 @@ namespace Valkry{
 
 	void App::Run()
 	{
-		OnInit();
+		stack_.InitLayers();
 
 		while (running_)
 		{
-			OnUpdate();
-			OnEvent();
+			stack_.RunLayers();
+
+			if (stack_.CheckForClosingFlags())
+				running_ = false;
 		}
+	}
+
+	void App::PushLayer(Layer* layer)
+	{
+		stack_.PushLayer(layer);
+	}
+
+	void App::PopLayer()
+	{
+		stack_.PopLayer();
 	}
 
 }

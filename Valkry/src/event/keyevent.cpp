@@ -13,6 +13,7 @@ namespace Valkry {
 	{
 		if (glfwGetKey(win.GetWindow(), keycode_) == GLFW_PRESS)
 		{
+			LogInfo("Event - Key Pressed");
 			return true;
 		}
 		else

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "src/app/app.h"
-#include "src/app/entrypoint.h"
 #include "src/app/logging.h"
 #include "src/app/window.h"
 
