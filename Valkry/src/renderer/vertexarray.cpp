@@ -15,14 +15,6 @@ namespace Valkry{
 		glDeleteVertexArrays(1, &renderer_id_);
 	}
 
-	void VertexArray::SetData(VertexBuffer& vertex, IndexBuffer& index)
-	{
-		Bind();
-		vertex.Bind();
-		index.Bind();
-		Unbind();
-	}
-
 	void VertexArray::Bind()
 	{
 		glBindVertexArray(renderer_id_);

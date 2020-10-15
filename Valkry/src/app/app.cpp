@@ -9,6 +9,7 @@ namespace Valkry{
 		running_ = false;
 	}
 
+	
 	void App::Run()
 	{
 		stack_.InitLayers();

@@ -7,11 +7,11 @@
 
 namespace Valkry {
 
+	// Handler class for key events. Stores a keycode and contains functions to check that key's state.
 	class KeyEvent
 	{
 	public:
 		KeyEvent(int keycode);
-
 		bool Pressed(Window& window);
 		bool Released(Window& window);
 		bool Repeated(Window& window);
@@ -20,6 +20,7 @@ namespace Valkry {
 		int keycode_;
 	};
 
+	// Global key events that can be polled anywhere by calling Valkry::Keys::[key].
 	namespace Keys {
 		extern KeyEvent ESC;
 

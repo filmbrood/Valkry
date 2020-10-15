@@ -2,18 +2,18 @@
 
 namespace Valkry{
 
+	// Container class for an OpenGL index buffer (element array buffer).
 	class IndexBuffer
 	{
-	private:
-		unsigned int renderer_id_;
-
 	public:
 		IndexBuffer();
 		~IndexBuffer();
-
 		void SetData(const void* indices, unsigned int size);
 		void Bind();
 		void Unbind();
+
+	private:
+		unsigned int renderer_id_;
 	};
 
 }

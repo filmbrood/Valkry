@@ -3,6 +3,7 @@
 
 namespace Valkry {
 
+	// Singleton logging class. Call with Logger::Get().
 	class Logger
 	{
 	public:
@@ -15,15 +16,12 @@ namespace Valkry {
 		void LogFatal(std::string desc, double data = 69420);
 
 	public:
+		// Deconstructor dumps m_LogStream to valkry.log file
 		~Logger();
-
-	private:
-		void DumpLogStreamToFile();
 
 	private:
 		Logger() {}
 		static Logger s_Instance;
-
 		std::string m_LogStream;
 	};
 }

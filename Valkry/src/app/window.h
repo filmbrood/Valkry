@@ -4,8 +4,43 @@
 
 namespace Valkry {
 
+	// Container class for a GLFWwindow.
 	class Window
 	{
+	public:
+		// Constructor initalizes GLFW, Destructor terminates GLFW
+		Window();
+		~Window();
+
+		// Returns GLFWwindow pointer
+		GLFWwindow* GetWindow();
+
+		// Sets OpenGL version, creates GLFW window context, and initializes Glad OpenGL loader
+		void Create();
+		void SetDimensions(int width, int height);
+		void SetTitle(std::string title);
+		void SetClearColor(float red, float green, float blue, float alpha);
+		void SetVerticalSync(bool state);
+		void SetResizable(bool state);
+		void SetFullscreen(bool state);
+		int GetWidth();
+		int GetHeight();
+		double GetCursorPositionX();
+		double GetCursorPositionY();
+
+	public:
+		// Clears the color buffer, calls glClearColor
+		void BeginFrame();
+
+		// Swaps buffers and polls for events, updates mouse position
+		void EndFrame();
+
+		// Sets GLFW window to close
+		void Close();
+
+		// Returns whether or not GLFW window has been set to close
+		bool CheckIfClosed();
+
 	private:
 		GLFWwindow* window_;
 
@@ -18,44 +53,9 @@ namespace Valkry {
 		// Stores mouse cursor coordinates
 		double mousex_, mousey_;
 
-		// Float values for background clear color
+		// Float values for clear color
 		float red_ = 0.0f, green_ = 0.0f, blue_ = 0.0f, alpha_ = 0.0f;
 
-	public:
-		// Constructor initalizes GLFW, Destructor terminates GLFW
-		Window();
-		~Window();
-
-		// Sets OpenGL version, creates GLFW window context, and initializes Glad OpenGL loader
-		void Create(int GLVersionMajor = 3, int GLVersionMinor = 3);
-
-		// Set window attributes
-		void SetDimensions(int width, int height);
-		void SetTitle(std::string title);
-		void SetClearColor(float red, float green, float blue, float alpha);
-		void SetVerticalSync(bool state);
-		void SetResizable(bool state);
-		void SetFullscreen(bool state);
-
-		GLFWwindow* GetWindow();
-		int GetWidth();
-		int GetHeight();
-
-		// Returns mouse position
-		double GetCursorPositionX();
-		double GetCursorPositionY();
-
-		// Clears the color buffer, calls glClearColor
-		void BeginFrame();
-
-		// Swaps buffers and polls for events, updates mouse position
-		void EndFrame();
-
-		// Sets GLFW window to close
-		void Close();
-
-		// Returns whether or not GLFW window has been set to close
-		bool CheckIfClosed();
 	};
 
 }

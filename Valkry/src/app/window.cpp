@@ -19,10 +19,10 @@ namespace Valkry {
 		glfwTerminate();
 	}
 
-	void Window::Create(int GLVersionMajor, int GLVersionMinor)
+	void Window::Create()
 	{
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, GLVersionMajor);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, GLVersionMinor);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		if (fullscreen_)
@@ -106,13 +106,9 @@ namespace Valkry {
 
 	void Window::EndFrame()
 	{
-		
-
 		glfwSwapBuffers(window_);
 		glfwPollEvents();
 		glfwGetCursorPos(window_, &mousex_, &mousey_);
-
-		
 	}
 
 	void Window::Close()
