@@ -6,6 +6,8 @@ void Valkry::Layer::OnClose()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
+
+	Logger::Get().LogInfo("Closing layer " + this->GetName());
 }
 
 void Valkry::Layer::InitImGui(Window& win)

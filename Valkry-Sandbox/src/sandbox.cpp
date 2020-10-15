@@ -3,6 +3,7 @@
 int main()
 {
 	Valkry::App sandbox;
-	sandbox.PushLayer(new TestLayer);
+	TestLayer testlayer;
+	sandbox.PushLayer(&testlayer);
 	sandbox.Run();
 }

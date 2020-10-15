@@ -20,10 +20,11 @@ namespace Valkry{
 		void PopLayer();
 
 		// Sets running_ variable to false
-		virtual void CloseApp(); 
+		virtual void CloseApp();
 
 	private:
 		bool running_ = true;
 		LayerStack stack_;
+		int exitCode = 0;
 	};
 }

@@ -24,6 +24,13 @@ private:
 
 	bool showImGuiDemoWindow = true;
 	bool showImGuiPlayerInfo = true;
+	bool showImGuiSettings = true;
 
 	float deltaTime = 0.0f, lastFrame = 0.0f;
+
+	unsigned int frameCount = 0;
+	float FPS = 0;
+
+	bool vsync = true;
+	std::string vsyncStateString;
 };

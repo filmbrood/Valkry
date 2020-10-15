@@ -8,10 +8,10 @@ void TestLayer::OnInit()
 	SetName("Valkry Sandbox");
 
 	sandbox_window.SetDimensions(SCREENWIDTH, SCREENHEIGHT);
-	sandbox_window.SetTitle(GetName());
+	sandbox_window.SetTitle(this->GetName());
 	sandbox_window.SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-	sandbox_window.SetVerticalSync(true);
-	sandbox_window.SetFullscreen(false);
+	sandbox_window.SetVerticalSync(vsync);
+	sandbox_window.SetFullscreen(true);
 	sandbox_window.Create();
 
 	flat_shader.SetSource("shaders/flat_color.glsl");
@@ -36,45 +36,73 @@ void TestLayer::OnUpdate()
 	flat_shader.SetVec4("color", 0.8f, 0.1f, 0.1f, 0.5f);
 	renderer.DrawQuad(flat_shader, 1, 1, player1.getPosX(), player1.getPosY());
 
-	OnImGuiRender();
+	this->OnImGuiRender();
 
 	sandbox_window.EndFrame();
 
-	UpdateDeltaTime();
+	this->UpdateDeltaTime();
 	player1.setDelta(deltaTime);
+
+	frameCount++;
+	if (frameCount == 10)
+	{
+		FPS = 1 / deltaTime;
+		frameCount = 0;
+	}
 }
 
 void TestLayer::OnImGuiRender()
 {
-	BeginImGuiFrame();
+	this->BeginImGuiFrame();
 
-	ImGui::ShowDemoWindow();
+	if (showImGuiPlayerInfo)
+	{
+		ImGui::Begin("Info", &showImGuiPlayerInfo);
+		ImGui::Text("Player X");
+		ImGui::Text(std::to_string(player1.getPosX()).c_str());
+		ImGui::Text("Player Y");
+		ImGui::Text(std::to_string(player1.getPosY()).c_str());
+		ImGui::Text("");
+		ImGui::Text("Delta Time (ms)");
+		ImGui::Text(std::to_string(deltaTime * 1000).c_str());
+		ImGui::Text("FPS");
+		ImGui::Text(std::to_string(FPS).c_str());
+		ImGui::Text("");
+		ImGui::Text("Camera X");
+		ImGui::Text(std::to_string(renderer.GetCameraPositionX()).c_str());
+		ImGui::Text("Camera Y");
+		ImGui::Text(std::to_string(renderer.GetCameraPositionY()).c_str());
+		ImGui::End();
+	}
 
-	ImGui::Begin("Info", &showImGuiPlayerInfo);
-	ImGui::Text("Player X");
-	ImGui::Text(std::to_string(player1.getPosX()).c_str());
-	ImGui::Text("Player Y");
-	ImGui::Text(std::to_string(player1.getPosY()).c_str());
-	ImGui::Text("");
-	ImGui::Text("Delta Time (ms)");
-	ImGui::Text(std::to_string(deltaTime * 1000).c_str());
-	ImGui::Text("FPS");
-	ImGui::Text(std::to_string((1 / deltaTime)).c_str());
-	ImGui::Text("");
-	ImGui::Text("Camera X");
-	ImGui::Text(std::to_string(renderer.GetCameraPositionX()).c_str());
-	ImGui::Text("Camera Y");
-	ImGui::Text(std::to_string(renderer.GetCameraPositionY()).c_str());
-	ImGui::End();
+	if (showImGuiSettings)
+	{
+		ImGui::Begin("Settings", &showImGuiSettings);
+		if (ImGui::Button("Toggle Vsync"))
+		{
+			if (vsync)
+			{
+				vsync = false;
+				vsyncStateString = "Vsync Off";
+			}
+			else if (!vsync)
+			{
+				vsync = true;
+				vsyncStateString = "Vsync On";
+			}
+		}
+		ImGui::Text(vsyncStateString.c_str());
+		ImGui::End();
+	}
 
-	EndImGuiFrame();
+	this->EndImGuiFrame();
 }
 
 void TestLayer::OnEvent()
 {
 	if (Valkry::Keys::ESC.Pressed(sandbox_window) || sandbox_window.CheckIfClosed())
 	{
-		CloseProgram();
+		this->CloseProgram();
 	}
 
 	if (Valkry::Keys::W.Pressed(sandbox_window))

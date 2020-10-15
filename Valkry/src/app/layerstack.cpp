@@ -16,6 +16,7 @@ void Valkry::LayerStack::InitLayers()
 	for (unsigned int i = 0; i < layers_.size(); i++)
 	{
 		layers_[i]->OnInit();
+		Logger::Get().LogInfo("Pushed layer '" + layers_[i]->GetName() + "' to layer stack");
 	}
 }
 
