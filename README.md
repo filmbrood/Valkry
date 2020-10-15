@@ -1,13 +1,13 @@
 # Valkry
-## OpenGL renderer and application framework.
+### OpenGL renderer and application framework.
 
-### The Rundown
-Valkry is a basic OpenGL renderer with rudimentary event handling and ImGui integration.
+#### The Rundown
+Valkry is a basic OpenGL-based 2D renderer with rudimentary event handling and ImGui integration. 3D rendering, more application features, and other niceties are in the queue.
 
-### Contributing
+#### Contributing
 If you'd like to contribute to Valkry, feel free to clone the repository with `git clone --recursive https://github.com/filmbrood/Valkry.git`.
 
-Valkry has only been built and tested on Windows with Visual Studio 2019, and remains mostly untested with other IDEs on other platforms.
+Valkry is primarily built and tested on Windows with Visual Studio 2019, but has been successfully built and tested on Linux systems with G++, albeit with a few more bugs than the former.
 
-### License
+#### License
 Valkry is governed by the MIT license, detailed in the `LICENSE` file.
