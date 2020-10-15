@@ -14,7 +14,7 @@ IncludeDir = {}
 IncludeDir["glfw"] = "Valkry/vendor/glfw/include"
 IncludeDir["glad"] = "Valkry/vendor/glad/include"
 IncludeDir["glm"] = "Valkry/vendor/glm"
-IncludeDir["imgui"] = "Valkry/vendor/imgui-1.79"
+IncludeDir["imgui"] = "Valkry/vendor/imgui-docking"
 
 group "Dependencies"
 include "Valkry/vendor/glfw"

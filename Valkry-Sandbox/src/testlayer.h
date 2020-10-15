@@ -20,4 +20,6 @@ private:
 	player player1;
 
 	bool showImGuiDemoWindow = true;
+	bool showImGuiTestWindow = true;
+	bool showImGuiViewport = true;
 };

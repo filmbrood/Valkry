@@ -44,16 +44,27 @@ void TestLayer::OnImGuiRender()
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	if (showImGuiDemoWindow)
-		ImGui::ShowDemoWindow(&showImGuiDemoWindow);
+	ImGui::ShowDemoWindow(&showImGuiDemoWindow);
+
+	ImGui::Begin("Test", &showImGuiTestWindow);
+	ImGui::Text("Testtesttest");
+	ImGui::End();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+	if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		GLFWwindow* backup_current_context = glfwGetCurrentContext();
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+		glfwMakeContextCurrent(backup_current_context);
+	}
 }
 
 void TestLayer::OnEvent()
 {
-	if (Valkry::Keys::ESC.Pressed(sandbox_window))
+	if (Valkry::Keys::ESC.Pressed(sandbox_window) || sandbox_window.CheckIfClosed())
 	{
 		CloseProgram();
 	}
