@@ -1,6 +1,7 @@
 project "Valkry-Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++17"
 	staticruntime "off"
 
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
@@ -23,7 +24,7 @@ project "Valkry-Sandbox"
 
 	links
 	{
-		"Valkry"
+		"Valkry", "GLFW", "glad", "imgui-docking"
 	}
 
 	filter "configurations:Debug"
@@ -33,3 +34,6 @@ project "Valkry-Sandbox"
 	filter "configurations:Release"
 		runtime "Release"
 		optimize "On"
+
+	configuration { "linux", "gmake2" }
+	  linkoptions { "-ldl -pthread" }

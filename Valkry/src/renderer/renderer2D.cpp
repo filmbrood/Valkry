@@ -82,7 +82,7 @@ namespace Valkry{
 
 		IndexBuffer ibo;
 		ibo.SetData(indices, sizeof(indices));
-		
+
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(posx, posy, 0.0f));
 
@@ -122,7 +122,7 @@ namespace Valkry{
 
 	void Renderer2D::SetProjectionMatrix(float width, float height)
 	{
-		projectionmatrix_ = glm::ortho(0.0f, width, height, 0.0f, -50.0f, 50.0f);
+		projectionmatrix_ = glm::ortho(0.0f, width, height, 0.0f, -100.0f, 100.0f);
 	}
 
 	void Renderer2D::SetViewMatrix(float posx, float posy)

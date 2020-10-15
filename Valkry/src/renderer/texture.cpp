@@ -1,6 +1,6 @@
 #include "valkrypch.h"
 #include "glad/glad.h"
-#include "Texture.h"
+#include "texture.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "vendor/stb_image/stb_image.h"

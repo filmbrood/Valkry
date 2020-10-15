@@ -48,6 +48,8 @@ void TestLayer::OnImGuiRender()
 {
 	BeginImGuiFrame();
 
+	ImGui::ShowDemoWindow();
+
 	ImGui::Begin("Info", &showImGuiPlayerInfo);
 	ImGui::Text("Player X");
 	ImGui::Text(std::to_string(player1.getPosX()).c_str());
