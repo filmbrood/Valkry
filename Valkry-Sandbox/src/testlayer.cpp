@@ -17,6 +17,8 @@ void TestLayer::OnInit()
 	texture1.LoadFromPath("res/concrete_diffuse.png");
 
 	renderer.SetResolution(1280, 720);
+
+	InitImGui(sandbox_window);
 }
 
 void TestLayer::OnUpdate()
@@ -31,7 +33,22 @@ void TestLayer::OnUpdate()
 	flat_shader.SetVec4("color", 0.8f, 0.1f, 0.1f, 0.5f);
 	renderer.DrawQuad(flat_shader, 100.0f, 100.0f, player1.getPosX(), player1.getPosY());
 
+	OnImGuiRender();
+
 	sandbox_window.EndFrame();
+}
+
+void TestLayer::OnImGuiRender()
+{
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+
+	if (showImGuiDemoWindow)
+		ImGui::ShowDemoWindow(&showImGuiDemoWindow);
+
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void TestLayer::OnEvent()
@@ -62,4 +79,3 @@ void TestLayer::OnEvent()
 	}
 
 }
-

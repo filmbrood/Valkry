@@ -12,10 +12,7 @@ namespace Valkry {
 	bool KeyEvent::Pressed(Window& win)
 	{
 		if (glfwGetKey(win.GetWindow(), keycode_) == GLFW_PRESS)
-		{
-			Logger::Get().LogInfo("Event - Key Pressed", (double)keycode_);
 			return true;
-		}
 		else
 			return false;
 	}
@@ -23,9 +20,7 @@ namespace Valkry {
 	bool KeyEvent::Released(Window& win)
 	{
 		if (glfwGetKey(win.GetWindow(), keycode_) == GLFW_RELEASE)
-		{
 			return true;
-		}
 		else
 			return false;
 	}
@@ -33,9 +28,7 @@ namespace Valkry {
 	bool KeyEvent::Repeated(Window& win)
 	{
 		if (glfwGetKey(win.GetWindow(), keycode_) == GLFW_REPEAT)
-		{
 			return true;
-		}
 		else
 			return false;
 	}

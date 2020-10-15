@@ -35,3 +35,9 @@ bool Valkry::LayerStack::CheckForClosingFlags()
 {
 	return programShouldClose_;
 }
+
+Valkry::LayerStack::~LayerStack()
+{
+	for (int i = 0; i < layers_.size(); i++)
+		layers_[i]->OnClose();
+}

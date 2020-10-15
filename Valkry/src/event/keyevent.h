@@ -9,15 +9,15 @@ namespace Valkry {
 
 	class KeyEvent
 	{
-	private:
-		int keycode_;
-
 	public:
 		KeyEvent(int keycode);
 
 		bool Pressed(Window& window);
 		bool Released(Window& window);
 		bool Repeated(Window& window);
+
+	private:
+		int keycode_;
 	};
 
 	namespace Keys {

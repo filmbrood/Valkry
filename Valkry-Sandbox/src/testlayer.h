@@ -6,6 +6,7 @@ class TestLayer : public Valkry::Layer
 public:
 	void OnInit();
 	void OnUpdate();
+	void OnImGuiRender();
 	void OnEvent();
 
 private:
@@ -14,8 +15,9 @@ private:
 
 	Valkry::Shader flat_shader;
 	Valkry::Shader textured_shader;
-
 	Valkry::Texture texture1;
 
 	player player1;
+
+	bool showImGuiDemoWindow = true;
 };

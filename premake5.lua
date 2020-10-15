@@ -14,6 +14,7 @@ IncludeDir = {}
 IncludeDir["glfw"] = "Valkry/vendor/glfw/include"
 IncludeDir["glad"] = "Valkry/vendor/glad/include"
 IncludeDir["glm"] = "Valkry/vendor/glm"
+IncludeDir["imgui"] = "Valkry/vendor/imgui-1.79"
 
 group "Dependencies"
 include "Valkry/vendor/glfw"
@@ -29,7 +30,7 @@ project "Valkry"
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "valkrypch.h"
-	pchsource "valkrypch.cpp"
+	pchsource "Valkry/valkrypch.cpp"
 
 	files
 	{
@@ -47,7 +48,8 @@ project "Valkry"
 		"Valkry/",
 		"%{IncludeDir.glfw}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.glad}"
+		"%{IncludeDir.glad}",
+		"%{IncludeDir.imgui}"
 	}
 
 	links
@@ -83,7 +85,8 @@ project "Valkry-Sandbox"
 	{
 		"Valkry/",
 		"%{IncludeDir.glfw}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.imgui}"
 	}
 
 	links
