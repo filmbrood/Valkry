@@ -11,7 +11,7 @@ namespace Valkry {
 	Window::Window()
 	{
 		if (!glfwInit())
-			Logger::Get().LogError("GLFW failed to initialize");
+			Logger::Get().LogFatal("GLFW failed to initialize");
 	}
 
 	Window::~Window()
