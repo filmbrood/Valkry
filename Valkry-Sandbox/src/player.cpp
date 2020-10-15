@@ -16,22 +16,32 @@ void player::setPos(float x, float y)
 	posy = y;
 }
 
+void player::setDelta(float deltaTime)
+{
+	this->deltaTime = deltaTime;
+}
+
 void player::moveRight()
 { 
-	posx += 5.0f; 
+	posx += speed * deltaTime; 
 }
 
 void player::moveLeft()
 { 
-	posx -= 5.0f; 
+	posx -= speed * deltaTime;
 }
 
 void player::moveDown()
 { 
-	posy += 5.0f; 
+	posy += speed * deltaTime;
 }
 
 void player::moveUp()
 { 
-	posy -= 5.0f; 
+	posy -= speed * deltaTime;
+}
+
+void player::SetSpeed(float spd)
+{
+	speed = spd;
 }

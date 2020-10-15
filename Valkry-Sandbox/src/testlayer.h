@@ -9,6 +9,9 @@ public:
 	void OnImGuiRender();
 	void OnEvent();
 
+public:
+	void UpdateDeltaTime();
+
 private:
 	Valkry::Window sandbox_window;
 	Valkry::Renderer2D renderer;
@@ -20,6 +23,7 @@ private:
 	player player1;
 
 	bool showImGuiDemoWindow = true;
-	bool showImGuiTestWindow = true;
-	bool showImGuiViewport = true;
+	bool showImGuiPlayerInfo = true;
+
+	float deltaTime = 0.0f, lastFrame = 0.0f;
 };

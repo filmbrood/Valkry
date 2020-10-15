@@ -23,12 +23,13 @@ namespace Valkry {
 		// Runs on layer termination
 		virtual void OnClose();
 
-	public:
-		// Initializes ImGui
-		virtual void InitImGui(Window& win);
-
-		// Container function for all your ImGui stuff
+		// Render ImGui stuff here!
 		virtual void OnImGuiRender() = 0;
+
+	public: // ImGui helpers for niceties
+		virtual void InitImGui(Window& win);
+		void BeginImGuiFrame();
+		void EndImGuiFrame();
 
 	public:
 		void SetName(std::string name);
