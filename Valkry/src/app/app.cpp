@@ -1,7 +1,6 @@
 #include "valkrypch.h"
 
 #include "app.h"
-#include "logging.h"
 
 namespace Valkry{
 
@@ -21,6 +20,7 @@ namespace Valkry{
 			if (stack_.CheckForClosingFlags())
 				running_ = false;
 		}
+
 	}
 
 	void App::PushLayer(Layer* layer)

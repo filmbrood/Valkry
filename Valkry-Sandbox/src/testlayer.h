@@ -10,8 +10,12 @@ public:
 
 private:
 	Valkry::Window sandbox_window;
-	Valkry::Shader flat_shader;
 	Valkry::Renderer2D renderer;
+
+	Valkry::Shader flat_shader;
+	Valkry::Shader textured_shader;
+
+	Valkry::Texture texture1;
 
 	player player1;
 };

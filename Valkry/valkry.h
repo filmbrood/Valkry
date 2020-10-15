@@ -10,5 +10,6 @@
 #include "src/renderer/indexbuffer.h"
 #include "src/renderer/shader.h"
 #include "src/renderer/renderer2D.h"
+#include "src/renderer/texture.h"
 
 #include "src/event/keyevent.h"

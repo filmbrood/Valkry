@@ -2,29 +2,30 @@
 #version 330 core
 
 layout (location = 0) in vec3 Pos;
+layout (location = 1) in vec2 TexUV;
 
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 
-uniform vec4 color;
-
-out vec4 uColor;
+out vec2 uTexUV;
 
 void main()
 {
 	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(Pos, 1.0);
-	uColor = color;
+	uTexUV = TexUV;
 }
 
 #shader fragment
 #version 330 core
 
-layout (location = 0) out vec4 outColor;
+out vec4 outColor;
 
-in vec4 uColor;
+in vec2 uTexUV;
+
+uniform sampler2D uTexture;
 
 void main()
 {
-	outColor = uColor;
+	outColor = texture(uTexture, uTexUV);
 }

@@ -1,7 +1,7 @@
 workspace "Valkry"
 	architecture "x64"
 	startproject "Valkry-Sandbox"
-	
+
 	configurations
 	{
 		"Debug",
@@ -27,10 +27,10 @@ project "Valkry"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
+
 	pchheader "valkrypch.h"
 	pchsource "valkrypch.cpp"
-	
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -49,7 +49,7 @@ project "Valkry"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.glad}"
 	}
-	
+
 	links
 	{
 		"GLFW"
@@ -62,7 +62,7 @@ project "Valkry"
 	filter "configurations:Release"
 		runtime "Release"
 		optimize "On"
-		
+
 project "Valkry-Sandbox"
 	location "Valkry-Sandbox"
 	kind "ConsoleApp"
@@ -85,7 +85,7 @@ project "Valkry-Sandbox"
 		"%{IncludeDir.glfw}",
 		"%{IncludeDir.glm}"
 	}
-	
+
 	links
 	{
 		"Valkry"

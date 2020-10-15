@@ -37,6 +37,7 @@ namespace Valkry {
 		void SetBool(const std::string name, int value);
 		void SetVec2(const std::string name, float value1, float value2);
 		void SetVec3(const std::string name, float value1, float value2, float value3);
+		void SetVec4(const std::string name, float value1, float value2, float value3, float value4);
 		void SetMat4(const std::string name, glm::mat4 value);
 	};
 

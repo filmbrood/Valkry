@@ -7,6 +7,7 @@
 #include "vertexattribarray.h"
 #include "shader.h"
 #include "camera2D.h"
+#include "texture.h"
 
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
@@ -36,6 +37,8 @@ namespace Valkry {
 
 		// Creates vertex array with quad vertices, sends model, view, and projection matrices as uniforms to shader
 		void DrawQuad(Shader& Shader, float width, float height, float posx, float posy);
+
+		void DrawTexturedQuad(Shader& shader, Texture& texture, float width, float height, float posx, float posy);
 
 		// Sets the orthographic projection matrix based on resolution arguments
 		void SetResolution(float width, float height);

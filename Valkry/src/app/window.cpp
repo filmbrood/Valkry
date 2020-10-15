@@ -8,7 +8,7 @@ namespace Valkry {
 	Window::Window()
 	{
 		if (!glfwInit())
-			LogError("GLFW failed to initialize");
+			Logger::Get().LogError("GLFW failed to initialize");
 	}
 
 	Window::~Window()
@@ -28,14 +28,14 @@ namespace Valkry {
 			window_ = glfwCreateWindow(size_x_, size_y_, title_.c_str(), NULL, NULL);
 
 		if (!window_)
-			LogError("Failed to create GLFW window");
+			Logger::Get().LogError("Failed to create GLFW window");
 		else
-			LogInfo("Created GLFW window");
+			Logger::Get().LogInfo("Created GLFW window");
 
 		glfwMakeContextCurrent(window_);
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-			LogFatal("Failed to initialize Glad");
+			Logger::Get().LogFatal("Failed to initialize Glad");
 
 		glViewport(0, 0, (int)size_x_, (int)size_y_);
 	}

@@ -7,11 +7,13 @@ namespace Valkry{
 
 	Renderer2D::Renderer2D()
 	{
-		LogInfo("Initialized Valkry 2D Renderer");
+		Logger::Get().LogInfo("Initialized Valkry 2D Renderer");
 	}
 
 	void Renderer2D::DrawQuad(Shader& shader, float width, float height, float posx, float posy)
 	{
+		shader.Bind();
+
 		// Create data for drawing quad
 		float vertices[] = {
 			-0.5f * width, -0.5f * height, 0.0f,
@@ -38,10 +40,6 @@ namespace Valkry{
 		IndexBuffer ibo;
 		ibo.SetData(indices, sizeof(indices));
 
-		//Bind all necessary things before drawing
-		shader.Bind();
-		vao.Bind();
-
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(posx, posy, 0.0f));
 
@@ -50,6 +48,49 @@ namespace Valkry{
 		shader.SetMat4("modelMatrix", modelMatrix);
 
 		//Draw the quad
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	}
+
+	void Renderer2D::DrawTexturedQuad(Shader& shader, Texture& texture, float width, float height, float posx, float posy)
+	{
+		shader.Bind();
+		texture.Bind();
+
+		// Create data for drawing quad
+		float vertices[] = {
+			-0.5f * width, -0.5f * height, 0.0f, 0.0f, 0.0f,
+			 0.5f * width, -0.5f * height, 0.0f, 1.0f, 0.0f,
+			 0.5f * width,  0.5f * height, 0.0f, 1.0f, 1.0f,
+			-0.5f * width,  0.5f * height, 0.0f, 0.0f, 1.0f
+		};
+
+		unsigned int indices[] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		// Bind the vertex array, vertex buffer and attrib arrays, and then index buffer
+		VertexArray vao;
+		vao.Bind();
+
+		VertexBuffer vbo;
+		vbo.SetData(vertices, sizeof(vertices));
+
+		VertexAttribArray attrib;
+		attrib.SetData(0, 3, 5 * sizeof(float), 0);
+		attrib.SetData(1, 2, 5 * sizeof(float), 3 * sizeof(float));
+
+		IndexBuffer ibo;
+		ibo.SetData(indices, sizeof(indices));
+		
+		glm::mat4 modelMatrix = glm::mat4(1.0f);
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(posx, posy, 0.0f));
+
+		shader.SetMat4("projectionMatrix", projectionmatrix_);
+		shader.SetMat4("viewMatrix", viewmatrix_);
+		shader.SetMat4("modelMatrix", modelMatrix);
+
+		// Draw the quad
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	}
 
