@@ -10,7 +10,6 @@ void TestLayer::OnInit()
 	sandbox_window.SetDimensions(SCREENWIDTH, SCREENHEIGHT);
 	sandbox_window.SetTitle(this->GetName());
 	sandbox_window.SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-	sandbox_window.SetVerticalSync(vsync);
 	sandbox_window.SetFullscreen(false);
 	sandbox_window.Create();
 
@@ -21,7 +20,7 @@ void TestLayer::OnInit()
 
 	renderer.SetResolution(16, 9);
 
-	InitImGui(sandbox_window);
+	this->InitImGui(sandbox_window);
 }
 
 void TestLayer::OnUpdate()
@@ -80,14 +79,14 @@ void TestLayer::OnImGuiRender()
 		ImGui::Begin("Settings", &showImGuiSettings);
 		if (ImGui::Button("Toggle Vsync"))
 		{
-			if (vsync)
+			if (sandbox_window.GetVerticalSync())
 			{
-				vsync = false;
+				sandbox_window.SetVerticalSync(false);
 				vsyncStateString = "Vsync Off";
 			}
-			else if (!vsync)
+			else if (!sandbox_window.GetVerticalSync())
 			{
-				vsync = true;
+				sandbox_window.SetVerticalSync(true);
 				vsyncStateString = "Vsync On";
 			}
 		}

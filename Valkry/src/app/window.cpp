@@ -58,6 +58,11 @@ namespace Valkry {
 		return size_y_;
 	}
 
+	bool Window::GetVerticalSync()
+	{
+		return vsync_;
+	}
+
 	void Window::SetDimensions(int width, int height)
 	{
 		size_x_ = width;
@@ -77,9 +82,13 @@ namespace Valkry {
 		vsync_ = state;
 
 		if (vsync_)
+		{
 			glfwSwapInterval(1);
-		else
+		}
+		else if (!vsync_)
+		{
 			glfwSwapInterval(0);
+		}
 	}
 
 	void Window::SetResizable(bool state)
@@ -109,6 +118,7 @@ namespace Valkry {
 		glfwSwapBuffers(window_);
 		glfwPollEvents();
 		glfwGetCursorPos(window_, &mousex_, &mousey_);
+		this->SetVerticalSync(vsync_);
 	}
 
 	void Window::Close()

@@ -27,6 +27,7 @@ namespace Valkry {
 		int GetHeight();
 		double GetCursorPositionX();
 		double GetCursorPositionY();
+		bool GetVerticalSync();
 
 	public:
 		// Clears the color buffer, calls glClearColor

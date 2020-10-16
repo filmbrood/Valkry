@@ -31,6 +31,5 @@ private:
 	unsigned int frameCount = 0;
 	float FPS = 0;
 
-	bool vsync = true;
-	std::string vsyncStateString;
+	std::string vsyncStateString = "Vsync Off";
 };
