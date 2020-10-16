@@ -1,7 +1,7 @@
 #include "testlayer.h"
 
-#define SCREENWIDTH 1280
-#define SCREENHEIGHT 720
+#define SCREENWIDTH 1920
+#define SCREENHEIGHT 1080
 
 void TestLayer::OnInit()
 {
@@ -10,7 +10,7 @@ void TestLayer::OnInit()
 	sandbox_window.SetDimensions(SCREENWIDTH, SCREENHEIGHT);
 	sandbox_window.SetTitle(this->GetName());
 	sandbox_window.SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-	sandbox_window.SetFullscreen(false);
+	sandbox_window.SetFullscreen(true);
 	sandbox_window.Create();
 
 	flat_shader.SetSource("shaders/flat_color.glsl");
@@ -31,12 +31,12 @@ void TestLayer::OnUpdate()
 
 	float xpos = 0;
 	float ypos = 0;
-	for (int i = 0; i < 300; i++)
+	for (int i = 0; i < quadCount; i++)
 	{
 		ypos = 0;
 		renderer.DrawTexturedQuad(textured_shader, texture1, 1, 1, xpos, 0.0f);
 		xpos++;
-		for (int i = 0; i < 300; i++)
+		for (int i = 0; i < quadCount; i++)
 		{
 			renderer.DrawTexturedQuad(textured_shader, texture1, 1, 1, xpos, ypos);
 			ypos++;
@@ -123,7 +123,8 @@ void TestLayer::OnImGuiRender()
 			minFPS = 0;
 		}
 		float rdoffset = renderer.GetRenderDistanceOffset();
-		ImGui::SliderFloat("Render Distance Offset", &rdoffset, -10.0f, 10.0f);
+		ImGui::SliderFloat("Render Distance Offset", &rdoffset, -3.0f, 3.0f);
+		ImGui::SliderInt("Quad Count (will be squared!)", &quadCount, 0, 3000);
 		renderer.SetRenderDistanceOffset(rdoffset);
 		ImGui::Text(vsyncStateString.c_str());
 		ImGui::End();

@@ -22,6 +22,7 @@ namespace Valkry{
 		else
 		{
 			stats_.DrawCallsInFrame++;
+
 			shader.Bind();
 
 			// Create data for drawing quad
@@ -70,6 +71,11 @@ namespace Valkry{
 		|| posy < camera_.GetPosY() - renderDistanceOffset_ - viewMatrixHeight_ / 2)
 		{
 			stats_.DrawSkipsInFrame++;
+			if (stats_.DrawSkipsInFrame + stats_.DrawCallsInFrame >= 1000000 && !quadWarningShown_)
+			{
+				Logger::Get().LogWarn("Total draw requests per frame exceeding 1,000,000 quads.");
+				quadWarningShown_ = true;
+			}
 		}
 		else
 		{

@@ -59,10 +59,12 @@ namespace Valkry {
 		Camera2D camera_;
 		Renderer2DStats stats_;
 
+		bool quadWarningShown_ = false;
+		
 		// Sets view matrix based on two float coordinates
 		void SetViewMatrix(float posx, float posy);
 		float viewMatrixHeight_, viewMatrixWidth_;
-		float renderDistanceOffset_ = 1;
+		float renderDistanceOffset_ = 0.5;
 
 		// Sets orthographic projection matrix (preferably from screen width and height)
 		void SetProjectionMatrix(float width, float height);

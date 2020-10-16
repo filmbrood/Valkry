@@ -33,5 +33,7 @@ private:
 	float maxFPS = 0;
 	float minFPS = 0;
 
+	int quadCount = 10;
+
 	std::string vsyncStateString = "Vsync Off";
 };
