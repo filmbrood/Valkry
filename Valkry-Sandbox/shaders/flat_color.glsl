@@ -14,7 +14,7 @@ out vec4 uColor;
 void main()
 {
 	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(Pos, 1.0);
-	uColor = color;
+	uColor = vec4(0.8f, 0.1f, 0.1f, 0.1f);
 }
 
 #shader fragment

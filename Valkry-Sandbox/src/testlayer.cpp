@@ -19,7 +19,6 @@ void TestLayer::OnInit()
 	texture1.LoadFromPath("res/concrete_diffuse.png");
 
 	renderer.SetResolution(16, 9);
-
 	this->InitImGui(sandbox_window);
 }
 
@@ -30,7 +29,19 @@ void TestLayer::OnUpdate()
 
 	sandbox_window.BeginFrame();
 
-	renderer.DrawTexturedQuad(textured_shader, texture1, 10, 10, 0.0f, 0.0f);
+	float xpos = 0;
+	float ypos = 0;
+	for (int i = 0; i < 31; i++)
+	{
+		ypos = 0;
+		renderer.DrawTexturedQuad(textured_shader, texture1, 1, 1, xpos, 0.0f);
+		xpos++;
+		for (int i = 0; i < 31; i++)
+		{
+			renderer.DrawTexturedQuad(textured_shader, texture1, 1, 1, xpos, ypos);
+			ypos++;
+		}
+	}
 
 	flat_shader.SetVec4("color", 0.8f, 0.1f, 0.1f, 0.5f);
 	renderer.DrawQuad(flat_shader, 1, 1, player1.getPosX(), player1.getPosY());
@@ -47,7 +58,16 @@ void TestLayer::OnUpdate()
 	{
 		FPS = 1 / deltaTime;
 		frameCount = 0;
+
+		if (FPS > maxFPS)
+			maxFPS = FPS;
+
+		if (FPS < minFPS)
+			minFPS = FPS;
 	}
+
+	if (minFPS == 0)
+		minFPS = FPS;
 }
 
 void TestLayer::OnImGuiRender()
@@ -66,7 +86,10 @@ void TestLayer::OnImGuiRender()
 		ImGui::Text(std::to_string(deltaTime * 1000).c_str());
 		ImGui::Text("FPS");
 		ImGui::Text(std::to_string(FPS).c_str());
-		ImGui::Text("");
+		ImGui::Text("Max FPS");
+		ImGui::Text(std::to_string(maxFPS).c_str());
+		ImGui::Text("Min FPS");
+		ImGui::Text(std::to_string(minFPS).c_str());
 		ImGui::Text("Camera X");
 		ImGui::Text(std::to_string(renderer.GetCameraPositionX()).c_str());
 		ImGui::Text("Camera Y");
@@ -89,6 +112,11 @@ void TestLayer::OnImGuiRender()
 				sandbox_window.SetVerticalSync(true);
 				vsyncStateString = "Vsync On";
 			}
+		}
+		if (ImGui::Button("Reset Min/Max FPS Counters"))
+		{
+			maxFPS = 0;
+			minFPS = 0;
 		}
 		ImGui::Text(vsyncStateString.c_str());
 		ImGui::End();
