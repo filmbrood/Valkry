@@ -5,7 +5,7 @@ namespace Valkry {
 
 	Logger Logger::s_Instance; // Instantiate singleton instance of Logger
 
-	Logger::~Logger()
+	void Logger::DumpLogToFile()
 	{
 		std::ofstream logFileOutput;
 		logFileOutput.open("valkry.log");

@@ -8,6 +8,8 @@ namespace Valkry{
 	{
 		running_ = false;
 		Logger::Get().LogInfo("Closing program with exit code ", exitCode);
+		Logger::Get().LogInfo("Dumping log to valkry.log");
+		Logger::Get().DumpLogToFile();
 	}
 
 

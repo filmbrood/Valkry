@@ -6,7 +6,6 @@ class Camera2D
 public:
 	void SetPosX(float value);
 	void SetPosY(float value);
-
 	float GetPosX();
 	float GetPosY();
 

@@ -24,19 +24,19 @@ void TestLayer::OnInit()
 
 void TestLayer::OnUpdate()
 {
-	renderer.SetCameraPosition(player1.getPosX() - 8, player1.getPosY() - 4.5);
+	renderer.SetCameraPosition(player1.getPosX(), player1.getPosY());
 	renderer.Update();
 
 	sandbox_window.BeginFrame();
 
 	float xpos = 0;
 	float ypos = 0;
-	for (int i = 0; i < 31; i++)
+	for (int i = 0; i < 300; i++)
 	{
 		ypos = 0;
 		renderer.DrawTexturedQuad(textured_shader, texture1, 1, 1, xpos, 0.0f);
 		xpos++;
-		for (int i = 0; i < 31; i++)
+		for (int i = 0; i < 300; i++)
 		{
 			renderer.DrawTexturedQuad(textured_shader, texture1, 1, 1, xpos, ypos);
 			ypos++;
@@ -82,6 +82,10 @@ void TestLayer::OnImGuiRender()
 		ImGui::Text("Player Y");
 		ImGui::Text(std::to_string(player1.getPosY()).c_str());
 		ImGui::Text("");
+		ImGui::Text("Draw Calls per Frame");
+		ImGui::Text(std::to_string(renderer.GetStats().DrawCallsInFrame).c_str());
+		ImGui::Text("Draw Skips per Frame");
+		ImGui::Text(std::to_string(renderer.GetStats().DrawSkipsInFrame).c_str());
 		ImGui::Text("Delta Time (ms)");
 		ImGui::Text(std::to_string(deltaTime * 1000).c_str());
 		ImGui::Text("FPS");
@@ -118,6 +122,9 @@ void TestLayer::OnImGuiRender()
 			maxFPS = 0;
 			minFPS = 0;
 		}
+		float rdoffset = renderer.GetRenderDistanceOffset();
+		ImGui::SliderFloat("Render Distance Offset", &rdoffset, -10.0f, 10.0f);
+		renderer.SetRenderDistanceOffset(rdoffset);
 		ImGui::Text(vsyncStateString.c_str());
 		ImGui::End();
 	}

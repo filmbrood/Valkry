@@ -15,9 +15,7 @@ namespace Valkry {
 		void LogError(std::string desc, double data = 69420);
 		void LogFatal(std::string desc, double data = 69420);
 
-	public:
-		// Deconstructor dumps m_LogStream to valkry.log file
-		~Logger();
+		void DumpLogToFile();
 
 	private:
 		Logger() {}

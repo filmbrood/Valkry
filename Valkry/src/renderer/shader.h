@@ -8,11 +8,11 @@
 #include "gtx/quaternion.hpp"
 
 namespace Valkry {
-	
+
 	// Container class for an OpenGL shader program.
 	class Shader
 	{
-	
+
 	public:
 		// Retrieves GLSL source file from argument path. For use with vertex + fragment shader in one file. Denote use with #shader vertex and #shader fragment.
 		void SetSource(std::string path);
