@@ -11,7 +11,7 @@ void TestLayer::OnInit()
 	sandbox_window.SetTitle(this->GetName());
 	sandbox_window.SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	sandbox_window.SetVerticalSync(vsync);
-	sandbox_window.SetFullscreen(true);
+	sandbox_window.SetFullscreen(false);
 	sandbox_window.Create();
 
 	flat_shader.SetSource("shaders/flat_color.glsl");

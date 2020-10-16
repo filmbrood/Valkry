@@ -39,4 +39,10 @@ project "Valkry-Sandbox"
 	  linkoptions {"-ldl -pthread" }
 
 	configuration { "windows", "gmake2" }
-		linkoptions { "-lglfw3 -lgdiplus" }
+		linkoptions { "-lglfw3 -lgdi32 -lgdiplus" }
+
+	postbuildcommands
+	{
+		"{COPY} res/*.png %{wks.location}/bin/" .. outputdir .. "/%{prj.name}/res/",
+		"{COPY} shaders/*.glsl %{wks.location}/bin/" .. outputdir .. "/%{prj.name}/shaders/"
+	}
