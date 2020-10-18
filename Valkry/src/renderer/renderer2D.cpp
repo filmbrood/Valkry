@@ -12,12 +12,15 @@ namespace Valkry{
 
 	void Renderer2D::DrawQuad(Shader& shader, float width, float height, float posx, float posy)
 	{
-		if (posx > camera_.GetPosX() + renderDistanceOffset_ + viewMatrixWidth_ / 2
-		|| posy > camera_.GetPosY() + renderDistanceOffset_ + viewMatrixHeight_ / 2
-		|| posx < camera_.GetPosX() - renderDistanceOffset_ - viewMatrixWidth_ / 2
-		|| posy < camera_.GetPosY() - renderDistanceOffset_ - viewMatrixHeight_ / 2)
+		if (quadDrawSkipping_ && this->CheckIfQuadOutsideCameraBounds(posx, posy))
 		{
 			stats_.DrawSkipsInFrame++;
+
+			if (stats_.DrawSkipsInFrame + stats_.DrawCallsInFrame >= 1000000 && !quadWarningShown_)
+			{
+				Logger::Get().LogWarn("Total draw requests per frame exceeding 1,000,000 quads.");
+				quadWarningShown_ = true;
+			}
 		}
 		else
 		{
@@ -65,12 +68,10 @@ namespace Valkry{
 
 	void Renderer2D::DrawTexturedQuad(Shader& shader, Texture& texture, float width, float height, float posx, float posy)
 	{
-		if (posx > camera_.GetPosX() + renderDistanceOffset_ + viewMatrixWidth_ / 2
-		|| posy > camera_.GetPosY() + renderDistanceOffset_ + viewMatrixHeight_ / 2
-		|| posx < camera_.GetPosX() - renderDistanceOffset_ - viewMatrixWidth_ / 2
-		|| posy < camera_.GetPosY() - renderDistanceOffset_ - viewMatrixHeight_ / 2)
+		if (quadDrawSkipping_ && this->CheckIfQuadOutsideCameraBounds(posx, posy))
 		{
 			stats_.DrawSkipsInFrame++;
+
 			if (stats_.DrawSkipsInFrame + stats_.DrawCallsInFrame >= 1000000 && !quadWarningShown_)
 			{
 				Logger::Get().LogWarn("Total draw requests per frame exceeding 1,000,000 quads.");
@@ -175,5 +176,26 @@ namespace Valkry{
 	float Renderer2D::GetRenderDistanceOffset()
 	{
 		return renderDistanceOffset_;
+	}
+
+	void Renderer2D::SetQuadDrawSkipping(bool state)
+	{
+		quadDrawSkipping_ = state;
+	}
+
+	bool Renderer2D::CheckIfSkipping()
+	{
+		return quadDrawSkipping_;
+	}
+
+	bool Renderer2D::CheckIfQuadOutsideCameraBounds(float posx, float posy)
+	{
+		if (posx > camera_.GetPosX() + renderDistanceOffset_ + viewMatrixWidth_ / 2
+		|| posy > camera_.GetPosY() + renderDistanceOffset_ + viewMatrixHeight_ / 2
+		|| posx < camera_.GetPosX() - renderDistanceOffset_ - viewMatrixWidth_ / 2
+		|| posy < camera_.GetPosY() - renderDistanceOffset_ - viewMatrixHeight_ / 2)
+			return true;
+		else
+			return false;
 	}
 }

@@ -52,6 +52,9 @@ namespace Valkry {
 		void SetRenderDistanceOffset(float value);
 		float GetRenderDistanceOffset();
 
+		void SetQuadDrawSkipping(bool state);
+		bool CheckIfSkipping();
+
 	private:
 		glm::mat4 viewmatrix_ = glm::mat4(1.0f);
 		glm::mat4 projectionmatrix_ = glm::mat4(1.0f);
@@ -60,7 +63,8 @@ namespace Valkry {
 		Renderer2DStats stats_;
 
 		bool quadWarningShown_ = false;
-		
+		bool quadDrawSkipping_ = true;
+
 		// Sets view matrix based on two float coordinates
 		void SetViewMatrix(float posx, float posy);
 		float viewMatrixHeight_, viewMatrixWidth_;
@@ -69,6 +73,7 @@ namespace Valkry {
 		// Sets orthographic projection matrix (preferably from screen width and height)
 		void SetProjectionMatrix(float width, float height);
 
+		bool CheckIfQuadOutsideCameraBounds(float posx, float posy);
 	};
 
 }

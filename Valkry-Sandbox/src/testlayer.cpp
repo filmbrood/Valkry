@@ -124,9 +124,10 @@ void TestLayer::OnImGuiRender()
 		}
 		float rdoffset = renderer.GetRenderDistanceOffset();
 		ImGui::SliderFloat("Render Distance Offset", &rdoffset, -3.0f, 3.0f);
-		ImGui::SliderInt("Quad Count (will be squared!)", &quadCount, 0, 3000);
-		renderer.SetRenderDistanceOffset(rdoffset);
+		ImGui::SliderInt("Quad Count (will be squared!)", &quadCount, 0, 3000); renderer.SetRenderDistanceOffset(rdoffset);
 		ImGui::Text(vsyncStateString.c_str());
+		if (ImGui::Button("Set quad skipping on")) { renderer.SetQuadDrawSkipping(true); }
+		if (ImGui::Button("Set quad skipping off")) { renderer.SetQuadDrawSkipping(false); }
 		ImGui::End();
 	}
 
