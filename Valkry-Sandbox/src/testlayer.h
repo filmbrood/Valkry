@@ -27,13 +27,14 @@ private:
 	bool showImGuiSettings = true;
 
 	float deltaTime = 0.0f, lastFrame = 0.0f;
+	float runtime = 0.0f;
 
 	unsigned int frameCount = 0;
 	float FPS = 0;
 	float maxFPS = 0;
 	float minFPS = 0;
 
-	int quadCount = 10;
+	int quadCount = 1;
 
 	std::string vsyncStateString = "Vsync Off";
 };

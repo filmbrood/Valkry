@@ -1,7 +1,7 @@
 #include "testlayer.h"
 
-#define SCREENWIDTH 1920
-#define SCREENHEIGHT 1080
+#define SCREENWIDTH 1280
+#define SCREENHEIGHT 720
 
 void TestLayer::OnInit()
 {
@@ -10,7 +10,7 @@ void TestLayer::OnInit()
 	sandbox_window.SetDimensions(SCREENWIDTH, SCREENHEIGHT);
 	sandbox_window.SetTitle(this->GetName());
 	sandbox_window.SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-	sandbox_window.SetFullscreen(true);
+	sandbox_window.SetFullscreen(false);
 	sandbox_window.Create();
 
 	flat_shader.SetSource("shaders/flat_color.glsl");
@@ -20,30 +20,27 @@ void TestLayer::OnInit()
 
 	renderer.SetResolution(16, 9);
 	this->InitImGui(sandbox_window);
+
+	renderer.InitBatch(textured_shader, texture1);
 }
 
 void TestLayer::OnUpdate()
 {
+	float xpos = -5;
+	for (int i = 0; i < quadCount; i++)
+	{
+		renderer.AddToBatch(1, 1, xpos, 0.0f);
+		xpos++;
+	}
+
 	renderer.SetCameraPosition(player1.getPosX(), player1.getPosY());
 	renderer.Update();
 
 	sandbox_window.BeginFrame();
 
-	float xpos = 0;
-	float ypos = 0;
-	for (int i = 0; i < quadCount; i++)
-	{
-		ypos = 0;
-		renderer.DrawTexturedQuad(textured_shader, texture1, 1, 1, xpos, 0.0f);
-		xpos++;
-		for (int i = 0; i < quadCount; i++)
-		{
-			renderer.DrawTexturedQuad(textured_shader, texture1, 1, 1, xpos, ypos);
-			ypos++;
-		}
-	}
+	renderer.DrawBatch();
+	renderer.ClearBatch();
 
-	flat_shader.SetVec4("color", 0.8f, 0.1f, 0.1f, 0.5f);
 	renderer.DrawQuad(flat_shader, 1, 1, player1.getPosX(), player1.getPosY());
 
 	this->OnImGuiRender();
@@ -77,10 +74,16 @@ void TestLayer::OnImGuiRender()
 	if (showImGuiPlayerInfo)
 	{
 		ImGui::Begin("Info", &showImGuiPlayerInfo);
+		ImGui::Text("Runtime");
+		ImGui::Text(std::to_string(glfwGetTime()).c_str());
 		ImGui::Text("Player X");
 		ImGui::Text(std::to_string(player1.getPosX()).c_str());
 		ImGui::Text("Player Y");
 		ImGui::Text(std::to_string(player1.getPosY()).c_str());
+		ImGui::Text("Camera X");
+		ImGui::Text(std::to_string(renderer.GetCameraPositionX()).c_str());
+		ImGui::Text("Camera Y");
+		ImGui::Text(std::to_string(renderer.GetCameraPositionY()).c_str());
 		ImGui::Text("");
 		ImGui::Text("Draw Calls per Frame");
 		ImGui::Text(std::to_string(renderer.GetStats().DrawCallsInFrame).c_str());
@@ -94,10 +97,6 @@ void TestLayer::OnImGuiRender()
 		ImGui::Text(std::to_string(maxFPS).c_str());
 		ImGui::Text("Min FPS");
 		ImGui::Text(std::to_string(minFPS).c_str());
-		ImGui::Text("Camera X");
-		ImGui::Text(std::to_string(renderer.GetCameraPositionX()).c_str());
-		ImGui::Text("Camera Y");
-		ImGui::Text(std::to_string(renderer.GetCameraPositionY()).c_str());
 		ImGui::End();
 	}
 
@@ -124,7 +123,7 @@ void TestLayer::OnImGuiRender()
 		}
 		float rdoffset = renderer.GetRenderDistanceOffset();
 		if (ImGui::SliderFloat("Render Distance Offset", &rdoffset, -3.0f, 3.0f)) { renderer.SetRenderDistanceOffset(rdoffset); }
-		ImGui::SliderInt("Quad Count (will be squared!)", &quadCount, 0, 3000); renderer.SetRenderDistanceOffset(rdoffset);
+		ImGui::InputInt("Quad Count (will be squared!)", &quadCount);
 		ImGui::Text(vsyncStateString.c_str());
 		if (ImGui::Button("Set quad skipping on")) { renderer.SetQuadDrawSkipping(true); }
 		if (ImGui::Button("Set quad skipping off")) { renderer.SetQuadDrawSkipping(false); }

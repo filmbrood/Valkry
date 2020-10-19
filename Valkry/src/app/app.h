@@ -25,6 +25,6 @@ namespace Valkry{
 	private:
 		bool running_ = true;
 		LayerStack stack_;
-		int exitCode = 0;
+		int exitCode_ = 0;
 	};
 }

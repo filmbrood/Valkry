@@ -7,7 +7,7 @@ namespace Valkry{
 	void App::CloseApp()
 	{
 		running_ = false;
-		Logger::Get().LogInfo("Closing program with exit code ", exitCode);
+		Logger::Get().LogInfo("Closing program with exit code ", exitCode_);
 		Logger::Get().LogInfo("Dumping log to valkry.log");
 		Logger::Get().DumpLogToFile();
 	}
@@ -19,10 +19,12 @@ namespace Valkry{
 
 		while (running_)
 		{
+			exitCode_ = -1;
 			stack_.RunLayers();
 
 			if (stack_.CheckForClosingFlags())
 				this->CloseApp();
+			exitCode_ = 0;
 		}
 
 	}

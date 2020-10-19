@@ -23,6 +23,21 @@ namespace Valkry {
 		unsigned int DrawSkipsInFrame = 0;
 	};
 
+	// Vertex struct - mainly used in batch rendering, will be added to normal rendering
+	struct Vertex
+	{
+		float x = 0, y = 0, z = 0, uvx = 0, uvy = 0;
+	};
+
+	// Struct containing vertex data for batch drawing.
+	// Only contains a single shader and texture, so multiple batches will have to be used for different textures/shaders.
+	struct BatchedQuads
+	{
+		std::vector<Vertex> vertices;
+		Shader* shader;
+		Texture* texture;
+	};
+
 	// Class for rendering in 2D. Contains matrices and drawing functions to do so.
 	class Renderer2D
 	{
@@ -40,6 +55,12 @@ namespace Valkry {
 		// Draws quad with texture for use with shaders that have a sampler2D uniform.
 		void DrawTexturedQuad(Shader& shader, Texture& texture, float width, float height, float posx, float posy);
 
+		void InitBatch(Shader& shader, Texture& texture);
+		void AddToBatch(float width, float height, float posx, float posy);
+		void DrawBatch();
+		void ClearBatch();
+
+	public:
 		// Sets the orthographic projection matrix
 		void SetResolution(float width, float height);
 
@@ -62,6 +83,8 @@ namespace Valkry {
 	private:
 		Camera2D camera_;
 		Renderer2DStats stats_;
+
+		BatchedQuads batchedquads_;
 
 	private:
 		void LogExcessiveQuadWarning();

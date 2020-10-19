@@ -81,6 +81,56 @@ namespace Valkry{
 		}
 	}
 
+	void Renderer2D::InitBatch(Shader& shader, Texture& texture)
+	{
+		batchedquads_.shader = &shader;
+		batchedquads_.texture = &texture;
+	}
+
+	void Renderer2D::AddToBatch(float width, float height, float posx, float posy)
+	{
+		Vertex vertices[6];
+		vertices[0] = {-0.5f * width + posx, -0.5f * height + posy, 0.0f, 0.0f, 0.0f};
+		vertices[1] = { 0.5f * width + posx, -0.5f * height + posy, 0.0f, 1.0f, 0.0f};
+		vertices[2] = { 0.5f * width + posx,  0.5f * height + posy, 0.0f, 1.0f, 1.0f};
+		vertices[3] = { 0.5f * width + posx,  0.5f * height + posy, 0.0f, 1.0f, 1.0f};
+		vertices[4] = {-0.5f * width + posx,  0.5f * height + posy, 0.0f, 0.0f, 1.0f};
+		vertices[5] = {-0.5f * width + posx, -0.5f * height + posy, 0.0f, 0.0f, 0.0f};
+
+		for (int i = 0; i < 6; i++)
+			batchedquads_.vertices.push_back(vertices[i]);
+	}
+
+	void Renderer2D::DrawBatch()
+	{
+		stats_.DrawCallsInFrame++;
+
+		batchedquads_.shader->Bind();
+		batchedquads_.texture->Bind();
+
+		VertexArray vao;
+		vao.Bind();
+
+		VertexBuffer vbo;
+		vbo.SetData(batchedquads_.vertices.data(),  batchedquads_.vertices.size() * (6 * sizeof(float)));
+
+		VertexAttribArray attrib;
+		attrib.SetData(0, 3, 5 * sizeof(float), 0);
+		attrib.SetData(1, 2, 5 * sizeof(float), 3 * sizeof(float));
+
+		glm::mat4 modelMatrix = glm::mat4(1.0f);
+		batchedquads_.shader->SetMat4("projectionMatrix", projectionmatrix_);
+		batchedquads_.shader->SetMat4("viewMatrix", viewmatrix_);
+		batchedquads_.shader->SetMat4("modelMatrix", modelMatrix);
+
+		glDrawArrays(GL_TRIANGLES, 0, batchedquads_.vertices.size());
+	}
+
+	void Renderer2D::ClearBatch()
+	{
+		batchedquads_.vertices.clear();
+	}
+
 	void Renderer2D::SetResolution(float width, float height)
 	{
 		viewMatrixWidth_ = width;
