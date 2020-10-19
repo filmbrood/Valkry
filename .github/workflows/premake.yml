@@ -29,4 +29,4 @@ jobs:
     - name: premake
       run: ./premake/premake5.exe gmake2
     - name: make
-      run: make
+      run: mingw32-make CC=mingw-w64-gcc CXX=mingw-w64-g++
