@@ -72,7 +72,3 @@ project "GLFW"
 	filter "configurations:Release"
 		runtime "Release"
 		optimize "on"
-
-	configurations { "windows", "gmake2" }
-		os.mkdir("-p bin/" .. outputdir .. "/%{prj.name}")
-		os.mkdir("-p bin-int/" .. outputdir .. "/%{prj.name")
