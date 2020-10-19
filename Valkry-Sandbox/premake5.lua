@@ -36,7 +36,7 @@ project "Valkry-Sandbox"
 		optimize "On"
 
 	configuration { "linux", "gmake2" }
-	  linkoptions {"-dl -pthread" }
+	  linkoptions {"-ldl -pthread" }
 
 	configuration { "windows", "gmake2" }
 		linkoptions { "-lglfw3 -lgdi32 -lgdiplus" }
