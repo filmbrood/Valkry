@@ -40,9 +40,6 @@ project "Valkry-Sandbox"
 
 	configuration { "windows", "gmake2" }
 		linkoptions { "-lglfw3 -lgdi32 -lgdiplus" }
-		os.mkdir("-p %{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
-		os.mkdir("-p %{wks.location}/bin-int/" .. outputdir .. "/%{prj.name")
-
 
 	postbuildcommands
 	{
