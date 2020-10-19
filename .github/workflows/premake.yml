@@ -16,7 +16,7 @@ jobs:
     - name: premake
       run: ./premake/premake5 gmake2
     - name: make
-      run: make -ldl
+      run: make
       
   windows-build:
     runs-on: windows-latest
