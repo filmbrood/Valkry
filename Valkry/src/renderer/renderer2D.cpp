@@ -10,59 +10,58 @@ namespace Valkry{
 		Logger::Get().LogInfo("Initialized Valkry 2D Renderer");
 	}
 
+	void Renderer2D::DrawQuadImpl(Shader& shader, float width, float height, float posx, float posy)
+	{
+		// Create data for drawing quad
+		float vertices[] = {
+			-0.5f * width, -0.5f * height, 0.0f, 0.0f, 0.0f,
+			 0.5f * width, -0.5f * height, 0.0f, 1.0f, 0.0f,
+			 0.5f * width,  0.5f * height, 0.0f, 1.0f, 1.0f,
+			-0.5f * width,  0.5f * height, 0.0f, 0.0f, 1.0f
+		};
+
+		unsigned int indices[] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		// Bind the vertex array, vertex buffer and attrib arrays, and then index buffer
+		VertexArray vao;
+		vao.Bind();
+
+		VertexBuffer vbo;
+		vbo.SetData(vertices, sizeof(vertices));
+
+		VertexAttribArray attrib;
+		attrib.SetData(0, 3, 5 * sizeof(float), 0);
+		attrib.SetData(1, 2, 5 * sizeof(float), 3 * sizeof(float));
+
+		IndexBuffer ibo;
+		ibo.SetData(indices, sizeof(indices));
+
+		glm::mat4 modelMatrix = glm::mat4(1.0f);
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(posx, posy, 0.0f));
+
+		shader.SetMat4("projectionMatrix", projectionmatrix_);
+		shader.SetMat4("viewMatrix", viewmatrix_);
+		shader.SetMat4("modelMatrix", modelMatrix);
+
+		// Draw the quad
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	}
+
 	void Renderer2D::DrawQuad(Shader& shader, float width, float height, float posx, float posy)
 	{
 		if (quadDrawSkipping_ && this->CheckIfQuadOutsideCameraBounds(posx, posy))
 		{
 			stats_.DrawSkipsInFrame++;
-
-			if (stats_.DrawSkipsInFrame + stats_.DrawCallsInFrame >= 1000000 && !quadWarningShown_)
-			{
-				Logger::Get().LogWarn("Total draw requests per frame exceeding 1,000,000 quads.");
-				quadWarningShown_ = true;
-			}
+			this->LogExcessiveQuadWarning();
 		}
 		else
 		{
 			stats_.DrawCallsInFrame++;
-
 			shader.Bind();
-
-			// Create data for drawing quad
-			float vertices[] = {
-				-0.5f * width, -0.5f * height, 0.0f,
-				 0.5f * width, -0.5f * height, 0.0f,
-				 0.5f * width,  0.5f * height, 0.0f,
-				-0.5f * width,  0.5f * height, 0.0f
-			};
-
-			unsigned int indices[] = {
-				0, 1, 2,
-				2, 3, 0
-			};
-
-			//Bind the vertex array, vertex buffer and attrib arrays, and then index buffer
-			VertexArray vao;
-			vao.Bind();
-
-			VertexBuffer vbo;
-			vbo.SetData(vertices, sizeof(vertices));
-
-			VertexAttribArray attrib;
-			attrib.SetData(0, 3, 3 * sizeof(float), 0);
-
-			IndexBuffer ibo;
-			ibo.SetData(indices, sizeof(indices));
-
-			glm::mat4 modelMatrix = glm::mat4(1.0f);
-			modelMatrix = glm::translate(modelMatrix, glm::vec3(posx, posy, 0.0f));
-
-			shader.SetMat4("projectionMatrix", projectionmatrix_);
-			shader.SetMat4("viewMatrix", viewmatrix_);
-			shader.SetMat4("modelMatrix", modelMatrix);
-
-			//Draw the quad
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+			this->DrawQuadImpl(shader, width, height, posx, posy);
 		}
 	}
 
@@ -71,55 +70,14 @@ namespace Valkry{
 		if (quadDrawSkipping_ && this->CheckIfQuadOutsideCameraBounds(posx, posy))
 		{
 			stats_.DrawSkipsInFrame++;
-
-			if (stats_.DrawSkipsInFrame + stats_.DrawCallsInFrame >= 1000000 && !quadWarningShown_)
-			{
-				Logger::Get().LogWarn("Total draw requests per frame exceeding 1,000,000 quads.");
-				quadWarningShown_ = true;
-			}
+			this->LogExcessiveQuadWarning();
 		}
 		else
 		{
 			stats_.DrawCallsInFrame++;
-
 			shader.Bind();
 			texture.Bind();
-			// Create data for drawing quad
-			float vertices[] = {
-				-0.5f * width, -0.5f * height, 0.0f, 0.0f, 0.0f,
-				 0.5f * width, -0.5f * height, 0.0f, 1.0f, 0.0f,
-				 0.5f * width,  0.5f * height, 0.0f, 1.0f, 1.0f,
-				-0.5f * width,  0.5f * height, 0.0f, 0.0f, 1.0f
-			};
-
-			unsigned int indices[] = {
-				0, 1, 2,
-				2, 3, 0
-			};
-
-			// Bind the vertex array, vertex buffer and attrib arrays, and then index buffer
-			VertexArray vao;
-			vao.Bind();
-
-			VertexBuffer vbo;
-			vbo.SetData(vertices, sizeof(vertices));
-
-			VertexAttribArray attrib;
-			attrib.SetData(0, 3, 5 * sizeof(float), 0);
-			attrib.SetData(1, 2, 5 * sizeof(float), 3 * sizeof(float));
-
-			IndexBuffer ibo;
-			ibo.SetData(indices, sizeof(indices));
-
-			glm::mat4 modelMatrix = glm::mat4(1.0f);
-			modelMatrix = glm::translate(modelMatrix, glm::vec3(posx, posy, 0.0f));
-
-			shader.SetMat4("projectionMatrix", projectionmatrix_);
-			shader.SetMat4("viewMatrix", viewmatrix_);
-			shader.SetMat4("modelMatrix", modelMatrix);
-
-			// Draw the quad
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+			this->DrawQuadImpl(shader, width, height, posx, posy);
 		}
 	}
 
@@ -128,6 +86,7 @@ namespace Valkry{
 		viewMatrixWidth_ = width;
 		viewMatrixHeight_ = height;
 		SetProjectionMatrix(width, height);
+		Logger::Get().LogInfo("Renderer2D projection matrix set to " + std::to_string(width) + ", " + std::to_string(height));
 	}
 
 	void Renderer2D::SetCameraPosition(float x, float y)
@@ -170,7 +129,14 @@ namespace Valkry{
 
 	void Renderer2D::SetRenderDistanceOffset(float value)
 	{
-		renderDistanceOffset_ = value;
+		if (renderDistanceOffset_ == value)
+			return;
+		else
+		{
+			renderDistanceOffset_ = value;
+			Logger::Get().LogInfo("Renderer2D render distance offset set", renderDistanceOffset_);
+		}
+
 	}
 
 	float Renderer2D::GetRenderDistanceOffset()
@@ -181,6 +147,7 @@ namespace Valkry{
 	void Renderer2D::SetQuadDrawSkipping(bool state)
 	{
 		quadDrawSkipping_ = state;
+		Logger::Get().LogInfo("Renderer2D draw skipping toggled", quadDrawSkipping_);
 	}
 
 	bool Renderer2D::CheckIfSkipping()
@@ -197,5 +164,14 @@ namespace Valkry{
 			return true;
 		else
 			return false;
+	}
+
+	void Renderer2D::LogExcessiveQuadWarning()
+	{
+		if (stats_.DrawSkipsInFrame + stats_.DrawCallsInFrame >= 1000000 && !quadWarningShown_)
+		{
+			Logger::Get().LogWarn("Total draw requests per frame exceeding 1,000,000 quads.");
+			quadWarningShown_ = true;
+		}
 	}
 }

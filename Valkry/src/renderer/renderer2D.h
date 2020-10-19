@@ -34,10 +34,10 @@ namespace Valkry {
 		// To be called at the beginning of every frame
 		void Update();
 
-		// Creates vertex array with quad vertices, sends model, view, and projection matrices as uniforms to shader, makes draw call to OpenGL
+		// Draws simple quad with shader only.
 		void DrawQuad(Shader& Shader, float width, float height, float posx, float posy);
 
-		// Like DrawQuad(), but takes in a texture that can be read as a sampler2D uniform by the shader.
+		// Draws quad with texture for use with shaders that have a sampler2D uniform.
 		void DrawTexturedQuad(Shader& shader, Texture& texture, float width, float height, float posx, float posy);
 
 		// Sets the orthographic projection matrix
@@ -56,24 +56,29 @@ namespace Valkry {
 		bool CheckIfSkipping();
 
 	private:
-		glm::mat4 viewmatrix_ = glm::mat4(1.0f);
-		glm::mat4 projectionmatrix_ = glm::mat4(1.0f);
+		// Called by DrawQuad and DrawTexturedQuad. Binds a vertex array w/ necessary data before calling glDrawElements().
+		void DrawQuadImpl(Shader& shader, float width, float height, float posx, float posy);
 
+	private:
 		Camera2D camera_;
 		Renderer2DStats stats_;
 
+	private:
+		void LogExcessiveQuadWarning();
 		bool quadWarningShown_ = false;
-		bool quadDrawSkipping_ = true;
 
 		// Sets view matrix based on two float coordinates
 		void SetViewMatrix(float posx, float posy);
+		glm::mat4 viewmatrix_ = glm::mat4(1.0f);
 		float viewMatrixHeight_, viewMatrixWidth_;
 		float renderDistanceOffset_ = 0.5;
 
 		// Sets orthographic projection matrix (preferably from screen width and height)
 		void SetProjectionMatrix(float width, float height);
+		glm::mat4 projectionmatrix_ = glm::mat4(1.0f);
 
 		bool CheckIfQuadOutsideCameraBounds(float posx, float posy);
+		bool quadDrawSkipping_ = true;
 	};
 
 }
