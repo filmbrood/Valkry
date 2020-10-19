@@ -21,16 +21,22 @@ void TestLayer::OnInit()
 	renderer.SetResolution(16, 9);
 	this->InitImGui(sandbox_window);
 
-	renderer.InitBatch(textured_shader, texture1);
+	renderer.InitQuadBatch(textured_shader, texture1);
 }
 
 void TestLayer::OnUpdate()
 {
-	float xpos = -5;
+	float xpos = -5, ypos = 5;
 	for (int i = 0; i < quadCount; i++)
 	{
-		renderer.AddToBatch(1, 1, xpos, 0.0f);
+		ypos = 0;
+		renderer.AddQuadToBatch(1, 1, xpos, 0.0f);
 		xpos++;
+		for (int j = 0; j < quadCount; j++)
+		{
+			renderer.AddQuadToBatch(1, 1, xpos, ypos);
+			ypos++;
+		}
 	}
 
 	renderer.SetCameraPosition(player1.getPosX(), player1.getPosY());
@@ -38,8 +44,8 @@ void TestLayer::OnUpdate()
 
 	sandbox_window.BeginFrame();
 
-	renderer.DrawBatch();
-	renderer.ClearBatch();
+	renderer.DrawQuadBatch();
+	renderer.ClearQuadBatch();
 
 	renderer.DrawQuad(flat_shader, 1, 1, player1.getPosX(), player1.getPosY());
 
@@ -50,17 +56,22 @@ void TestLayer::OnUpdate()
 	this->UpdateDeltaTime();
 	player1.setDelta(deltaTime);
 
+	runtime = glfwGetTime();
 	frameCount++;
-	if (frameCount == 10)
+	currentFPSMeasure += deltaTime;
+	if (currentFPSMeasure > 0.3)
 	{
 		FPS = 1 / deltaTime;
-		frameCount = 0;
+		currentFPSMeasure = 0;
+		FPSmeasurecount++;
 
 		if (FPS > maxFPS)
 			maxFPS = FPS;
 
 		if (FPS < minFPS)
 			minFPS = FPS;
+
+		avgFPS = frameCount / runtime;
 	}
 
 	if (minFPS == 0)
@@ -71,6 +82,14 @@ void TestLayer::OnImGuiRender()
 {
 	this->BeginImGuiFrame();
 
+	ImGui::BeginMainMenuBar();
+	if (ImGui::BeginMenu("ImGui Panels"))
+	{
+		if (ImGui::MenuItem("Info")) { showImGuiPlayerInfo = true; }
+		if (ImGui::MenuItem("Settings")) { showImGuiSettings = true; }
+		ImGui::EndMenu();
+	}
+	ImGui::EndMainMenuBar();
 	if (showImGuiPlayerInfo)
 	{
 		ImGui::Begin("Info", &showImGuiPlayerInfo);
@@ -89,14 +108,24 @@ void TestLayer::OnImGuiRender()
 		ImGui::Text(std::to_string(renderer.GetStats().DrawCallsInFrame).c_str());
 		ImGui::Text("Draw Skips per Frame");
 		ImGui::Text(std::to_string(renderer.GetStats().DrawSkipsInFrame).c_str());
+		ImGui::Text("Batch Quads per Frame");
+		ImGui::Text(std::to_string(renderer.GetStats().BatchDrawsInFrame).c_str());
+		ImGui::Text("Batch Skips per Frame");
+		ImGui::Text(std::to_string(renderer.GetStats().BatchSkipsInFrame).c_str());
 		ImGui::Text("Delta Time (ms)");
 		ImGui::Text(std::to_string(deltaTime * 1000).c_str());
 		ImGui::Text("FPS");
 		ImGui::Text(std::to_string(FPS).c_str());
 		ImGui::Text("Max FPS");
 		ImGui::Text(std::to_string(maxFPS).c_str());
+		ImGui::Text("Avg FPS");
+		ImGui::Text(std::to_string(avgFPS).c_str());
 		ImGui::Text("Min FPS");
 		ImGui::Text(std::to_string(minFPS).c_str());
+		ImGui::Text("FPS Measure Count");
+		ImGui::Text(std::to_string(FPSmeasurecount).c_str());
+		ImGui::Text("Frame Count");
+		ImGui::Text(std::to_string(frameCount).c_str());
 		ImGui::End();
 	}
 
@@ -105,7 +134,7 @@ void TestLayer::OnImGuiRender()
 		ImGui::Begin("Settings", &showImGuiSettings);
 		if (ImGui::Button("Set Vsync On")) { sandbox_window.SetVerticalSync(true); }
 		if (ImGui::Button("Set Vsync Off")) { sandbox_window.SetVerticalSync(false); }
-		if (ImGui::Button("Reset Min/Max FPS Counters")) { maxFPS = 0; minFPS = 0; }
+		if (ImGui::Button("Reset FPS Counters")) { maxFPS = 0; minFPS = 0; avgFPS = 0; FPSmeasurecount = 0; frameCount = 0;}
 		float rdoffset = renderer.GetRenderDistanceOffset();
 		if (ImGui::SliderFloat("Render Distance Offset", &rdoffset, -3.0f, 3.0f)) { renderer.SetRenderDistanceOffset(rdoffset); }
 		ImGui::InputInt("Quad Count (will be squared!)", &quadCount);

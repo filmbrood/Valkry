@@ -21,6 +21,8 @@ namespace Valkry {
 	{
 		unsigned int DrawCallsInFrame = 0;
 		unsigned int DrawSkipsInFrame = 0;
+		unsigned int BatchSkipsInFrame = 0;
+		unsigned int BatchDrawsInFrame = 0;
 	};
 
 	// Vertex struct - mainly used in batch rendering, will be added to normal rendering
@@ -55,10 +57,10 @@ namespace Valkry {
 		// Draws quad with texture for use with shaders that have a sampler2D uniform.
 		void DrawTexturedQuad(Shader& shader, Texture& texture, float width, float height, float posx, float posy);
 
-		void InitBatch(Shader& shader, Texture& texture);
-		void AddToBatch(float width, float height, float posx, float posy);
-		void DrawBatch();
-		void ClearBatch();
+		void InitQuadBatch(Shader& shader, Texture& texture);
+		void AddQuadToBatch(float width, float height, float posx, float posy);
+		void DrawQuadBatch();
+		void ClearQuadBatch();
 
 	public:
 		// Sets the orthographic projection matrix
@@ -89,6 +91,7 @@ namespace Valkry {
 	private:
 		void LogExcessiveQuadWarning();
 		bool quadWarningShown_ = false;
+		bool batchWarningShown = false;
 
 		// Sets view matrix based on two float coordinates
 		void SetViewMatrix(float posx, float posy);

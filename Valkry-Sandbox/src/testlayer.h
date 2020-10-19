@@ -33,6 +33,8 @@ private:
 	float FPS = 0;
 	float maxFPS = 0;
 	float minFPS = 0;
-
+	float avgFPS = 0;
+	float currentFPSMeasure = 0;
+	unsigned int FPSmeasurecount = 0;
 	int quadCount = 1;
 };

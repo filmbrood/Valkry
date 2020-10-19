@@ -19,14 +19,12 @@ namespace Valkry{
 
 		while (running_)
 		{
-			exitCode_ = -1;
 			stack_.RunLayers();
-
 			if (stack_.CheckForClosingFlags())
+			{
 				this->CloseApp();
-			exitCode_ = 0;
+			}
 		}
-
 	}
 
 	void App::PushLayer(Layer* layer)

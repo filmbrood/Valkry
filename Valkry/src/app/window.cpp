@@ -41,6 +41,12 @@ namespace Valkry {
 			Logger::Get().LogFatal("Failed to initialize Glad");
 
 		glViewport(0, 0, (int)size_x_, (int)size_y_);
+
+		std::string VendorInfo(reinterpret_cast<const char*>(glGetString(GL_VENDOR)));
+		Logger::Get().LogInfo("GPU Vendor: " + VendorInfo);
+		std::string GPUInfo(reinterpret_cast<const char*>(glGetString(GL_VERSION)));
+		Logger::Get().LogInfo("OpenGL Driver Info: " + GPUInfo);
+
 	}
 
 	GLFWwindow* Window::GetWindow()

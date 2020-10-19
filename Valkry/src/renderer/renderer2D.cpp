@@ -81,21 +81,31 @@ namespace Valkry{
 		}
 	}
 
-	void Renderer2D::InitBatch(Shader& shader, Texture& texture)
+	void Renderer2D::InitQuadBatch(Shader& shader, Texture& texture)
 	{
 		batchedquads_.shader = &shader;
 		batchedquads_.texture = &texture;
 	}
 
-	void Renderer2D::AddToBatch(float width, float height, float posx, float posy)
+	void Renderer2D::AddQuadToBatch(float width, float height, float posx, float posy)
 	{
 		if (quadDrawSkipping_ && this->CheckIfQuadOutsideCameraBounds(posx, posy))
 		{
-			stats_.DrawSkipsInFrame++;
+			stats_.BatchSkipsInFrame++;
 			this->LogExcessiveQuadWarning();
+		}
+		else if (!quadDrawSkipping_ && batchedquads_.vertices.size() > 4000 && !batchWarningShown)
+		{
+			batchWarningShown = true;
+			Logger::Get().LogWarn("Batch renderer receiving too many requests (> 1,000 quads) without quad skipping enabled.");
+			Logger::Get().LogWarn("Cannot render batched quads past 1,000. Please re-enable quad skipping.");
+			Logger::Get().LogInfo("Dumping log to file...");
+			Logger::Get().DumpLogToFile();
+			return;
 		}
 		else
 		{
+			stats_.BatchDrawsInFrame++;
 			Vertex vertices[6];
 			vertices[0] = {-0.5f * width + posx, -0.5f * height + posy, 0.0f, 0.0f, 0.0f};
 			vertices[1] = { 0.5f * width + posx, -0.5f * height + posy, 0.0f, 1.0f, 0.0f};
@@ -109,10 +119,9 @@ namespace Valkry{
 		}
 	}
 
-	void Renderer2D::DrawBatch()
+	void Renderer2D::DrawQuadBatch()
 	{
 		stats_.DrawCallsInFrame++;
-
 		batchedquads_.shader->Bind();
 		batchedquads_.texture->Bind();
 
@@ -134,7 +143,7 @@ namespace Valkry{
 		glDrawArrays(GL_TRIANGLES, 0, batchedquads_.vertices.size());
 	}
 
-	void Renderer2D::ClearBatch()
+	void Renderer2D::ClearQuadBatch()
 	{
 		batchedquads_.vertices.clear();
 	}
@@ -165,7 +174,7 @@ namespace Valkry{
 
 	void Renderer2D::Update()
 	{
-		stats_ = {0, 0};
+		stats_ = {0, 0, 0, 0};
 		SetViewMatrix((camera_.GetPosX() * -1) + (viewMatrixWidth_ / 2), (camera_.GetPosY() * -1) + (viewMatrixHeight_ / 2));
 	}
 
@@ -206,6 +215,7 @@ namespace Valkry{
 	{
 		quadDrawSkipping_ = state;
 		Logger::Get().LogInfo("Renderer2D draw skipping toggled", quadDrawSkipping_);
+		batchWarningShown = false;
 	}
 
 	bool Renderer2D::CheckIfSkipping()
