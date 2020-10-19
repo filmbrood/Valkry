@@ -12,23 +12,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: premake
-      run: ./premake/premake5
+      run: ./premake/premake5 gmake2
     - name: make
       run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
       
   windows-build:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - name: premake
-      run: ./premake/premake5
+      run: ./premake/premake5 gmake2
     - name: make
       run: make
-    - name: make check
-      run: make check
     - name: make distcheck
       run: make distcheck
