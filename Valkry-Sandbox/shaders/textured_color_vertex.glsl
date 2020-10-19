@@ -1,4 +1,3 @@
-#shader vertex
 #version 410 core
 
 layout (location = 0) in vec3 Pos;
@@ -14,18 +13,4 @@ void main()
 {
 	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(Pos, 1.0);
 	uTexUV = TexUV;
-}
-
-#shader fragment
-#version 410 core
-
-out vec4 outColor;
-
-in vec2 uTexUV;
-
-uniform sampler2D uTexture;
-
-void main()
-{
-	outColor = texture(uTexture, uTexUV);
 }

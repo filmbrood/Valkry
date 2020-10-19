@@ -13,8 +13,8 @@ void TestLayer::OnInit()
 	sandbox_window.SetFullscreen(false);
 	sandbox_window.Create();
 
-	flat_shader.SetSource("shaders/flat_color.glsl");
-	textured_shader.SetSource("shaders/textured_color.glsl");
+	flat_shader.SetSeparateSource("shaders/flat_color_vertex.glsl", "shaders/flat_color_fragment.glsl");
+	textured_shader.SetSeparateSource("shaders/textured_color_vertex.glsl", "shaders/textured_color_fragment.glsl");
 
 	texture1.LoadFromPath("res/concrete_diffuse.png");
 
