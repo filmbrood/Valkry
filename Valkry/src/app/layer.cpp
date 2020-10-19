@@ -23,7 +23,7 @@ void Valkry::Layer::InitImGui(Window& win)
 	ImGui::StyleColorsLight();
 
 	ImGui_ImplGlfw_InitForOpenGL(win.GetWindow(), true);
-	ImGui_ImplOpenGL3_Init("#version 330");
+	ImGui_ImplOpenGL3_Init("#version 460");
 
 	ImGuiStyle& style = ImGui::GetStyle();
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
