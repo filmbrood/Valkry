@@ -26,6 +26,9 @@ void TestLayer::OnInit()
 
 void TestLayer::OnUpdate()
 {
+	renderer.SetCameraPosition(player1.getPosX(), player1.getPosY());
+	renderer.Update();
+
 	float xpos = -5, ypos = 5;
 	for (int i = 0; i < quadCount; i++)
 	{
@@ -38,9 +41,6 @@ void TestLayer::OnUpdate()
 			ypos++;
 		}
 	}
-
-	renderer.SetCameraPosition(player1.getPosX(), player1.getPosY());
-	renderer.Update();
 
 	sandbox_window.BeginFrame();
 
