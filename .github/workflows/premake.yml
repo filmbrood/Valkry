@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: dependencies
+      run: sudo apt install xorg-dev
     - name: premake
       run: ./premake/premake5 gmake2
     - name: make
