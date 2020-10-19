@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Enable Command Extenstions
-      run: cmd /x
+      run: /E:ON
     - name: premake
       run: ./premake/premake5.exe gmake2
     - name: make
