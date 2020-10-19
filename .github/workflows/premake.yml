@@ -22,10 +22,8 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Create GLFW bin
-      run: mkdir -p Valkry/vendor/glfw/bin/Debug-windows-x86_64/GLFW
-    - name: Create GLFW bin-int
-      run: mkdir -p Valkry/vendor/glfw/bin-int/Debug-windows-x86_64/GLFW
+    - name: Enable Command Extenstions
+      run: cmd /x
     - name: premake
       run: ./premake/premake5.exe gmake2
     - name: make
