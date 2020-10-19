@@ -14,7 +14,7 @@ jobs:
     - name: dependencies
       run: sudo apt install xorg-dev
     - name: premake
-      run: ./premake/premake5.exe gmake2
+      run: ./premake/premake5 gmake2
     - name: make
       run: make
       
@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: premake
-      run: ./premake/premake5 gmake2
+      run: ./premake/premake5.exe gmake2
     - name: make
       run: make
     - name: make distcheck
