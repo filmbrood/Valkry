@@ -22,10 +22,10 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-    - name: create bin
-      run: mkdir -p bin/
-    - name: create bin-int/
-      run: mkdir -p bin-int/
+    - name: Create GLFW bin
+      run: mkdir -p Valkry/vendor/glfw/bin/Debug-windows-x86_64/GLFW
+    - name: Create GLFW bin-int
+      run: mkdir -p Valkry/vendor/glfw/bin/Debug-windows-x86_64/GLFW
     - name: premake
       run: ./premake/premake5.exe gmake2
     - name: make
