@@ -11,20 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: dependencies
+    - name: Install Dependencies
       run: sudo apt install xorg-dev
-    - name: premake
+    - name: Run Premake5
       run: ./premake/premake5 gmake2
-    - name: make
+    - name: Run Make
       run: make
       
   windows-build:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Enable Command Extenstions
-      run: /E:ON
-    - name: premake
+    - name: Run Premake5.exe
       run: ./premake/premake5.exe gmake2
-    - name: make
+    - name: Run Mingw32-make
       run: mingw32-make CC=gcc CXX=g++
