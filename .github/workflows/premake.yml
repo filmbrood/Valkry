@@ -17,14 +17,3 @@ jobs:
       run: ./premake/premake5 gmake2
     - name: Run Make
       run: make LDFLAGS="-Wl,--no-as-needed"
-      
-  windows-build:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set Folder Permissions
-      run: Icacls C:/ /e /p Everyone:f
-    - name: Run Premake5.exe
-      run: ./premake/premake5.exe gmake2
-    - name: Run Mingw32-make
-      run: mingw32-make CC=gcc CXX=g++
