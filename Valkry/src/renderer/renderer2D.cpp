@@ -89,16 +89,24 @@ namespace Valkry{
 
 	void Renderer2D::AddToBatch(float width, float height, float posx, float posy)
 	{
-		Vertex vertices[6];
-		vertices[0] = {-0.5f * width + posx, -0.5f * height + posy, 0.0f, 0.0f, 0.0f};
-		vertices[1] = { 0.5f * width + posx, -0.5f * height + posy, 0.0f, 1.0f, 0.0f};
-		vertices[2] = { 0.5f * width + posx,  0.5f * height + posy, 0.0f, 1.0f, 1.0f};
-		vertices[3] = { 0.5f * width + posx,  0.5f * height + posy, 0.0f, 1.0f, 1.0f};
-		vertices[4] = {-0.5f * width + posx,  0.5f * height + posy, 0.0f, 0.0f, 1.0f};
-		vertices[5] = {-0.5f * width + posx, -0.5f * height + posy, 0.0f, 0.0f, 0.0f};
+		if (quadDrawSkipping_ && this->CheckIfQuadOutsideCameraBounds(posx, posy))
+		{
+			stats_.DrawSkipsInFrame++;
+			this->LogExcessiveQuadWarning();
+		}
+		else
+		{
+			Vertex vertices[6];
+			vertices[0] = {-0.5f * width + posx, -0.5f * height + posy, 0.0f, 0.0f, 0.0f};
+			vertices[1] = { 0.5f * width + posx, -0.5f * height + posy, 0.0f, 1.0f, 0.0f};
+			vertices[2] = { 0.5f * width + posx,  0.5f * height + posy, 0.0f, 1.0f, 1.0f};
+			vertices[3] = { 0.5f * width + posx,  0.5f * height + posy, 0.0f, 1.0f, 1.0f};
+			vertices[4] = {-0.5f * width + posx,  0.5f * height + posy, 0.0f, 0.0f, 1.0f};
+			vertices[5] = {-0.5f * width + posx, -0.5f * height + posy, 0.0f, 0.0f, 0.0f};
 
-		for (int i = 0; i < 6; i++)
-			batchedquads_.vertices.push_back(vertices[i]);
+			for (int i = 0; i < 6; i++)
+				batchedquads_.vertices.push_back(vertices[i]);
+		}
 	}
 
 	void Renderer2D::DrawBatch()

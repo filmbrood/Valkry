@@ -103,28 +103,12 @@ void TestLayer::OnImGuiRender()
 	if (showImGuiSettings)
 	{
 		ImGui::Begin("Settings", &showImGuiSettings);
-		if (ImGui::Button("Toggle Vsync"))
-		{
-			if (sandbox_window.GetVerticalSync())
-			{
-				sandbox_window.SetVerticalSync(false);
-				vsyncStateString = "Vsync Off";
-			}
-			else if (!sandbox_window.GetVerticalSync())
-			{
-				sandbox_window.SetVerticalSync(true);
-				vsyncStateString = "Vsync On";
-			}
-		}
-		if (ImGui::Button("Reset Min/Max FPS Counters"))
-		{
-			maxFPS = 0;
-			minFPS = 0;
-		}
+		if (ImGui::Button("Set Vsync On")) { sandbox_window.SetVerticalSync(true); }
+		if (ImGui::Button("Set Vsync Off")) { sandbox_window.SetVerticalSync(false); }
+		if (ImGui::Button("Reset Min/Max FPS Counters")) { maxFPS = 0; minFPS = 0; }
 		float rdoffset = renderer.GetRenderDistanceOffset();
 		if (ImGui::SliderFloat("Render Distance Offset", &rdoffset, -3.0f, 3.0f)) { renderer.SetRenderDistanceOffset(rdoffset); }
 		ImGui::InputInt("Quad Count (will be squared!)", &quadCount);
-		ImGui::Text(vsyncStateString.c_str());
 		if (ImGui::Button("Set quad skipping on")) { renderer.SetQuadDrawSkipping(true); }
 		if (ImGui::Button("Set quad skipping off")) { renderer.SetQuadDrawSkipping(false); }
 		ImGui::End();
