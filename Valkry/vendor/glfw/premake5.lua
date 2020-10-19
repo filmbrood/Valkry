@@ -74,5 +74,5 @@ project "GLFW"
 		optimize "on"
 
 	configurations { "windows", "gmake2" }
-		os.mkdir("bin/" .. outputdir .. "/%{prj.name}")
-		os.mkdir("bin-int/" .. outputdir .. "/%{prj.name")
+		os.mkdir("-p bin/" .. outputdir .. "/%{prj.name}")
+		os.mkdir("-p bin-int/" .. outputdir .. "/%{prj.name")
