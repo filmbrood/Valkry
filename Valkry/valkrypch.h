@@ -1,5 +1,7 @@
 #pragma once
 
+// Precompiled header for Valkry library
+
 #define VALKRY_GL_VERSION_MAJOR 4
 #define VALKRY_GL_VERSION_MINOR 1
 
