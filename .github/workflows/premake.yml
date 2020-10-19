@@ -22,6 +22,8 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Set Folder Permissions
+      run: C:/ e/ p/ Everyone:f
     - name: Run Premake5.exe
       run: ./premake/premake5.exe gmake2
     - name: Run Mingw32-make
