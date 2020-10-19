@@ -22,9 +22,11 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
+    - name: create bin
+      run: mkdir -p bin/
+    - name: create bin-int/
+      run: mkdir -p bin-int/
     - name: premake
       run: ./premake/premake5.exe gmake2
     - name: make
       run: make
-    - name: make distcheck
-      run: make distcheck
