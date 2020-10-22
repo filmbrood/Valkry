@@ -1,6 +1,8 @@
 #Directories
 .vs/
 scripts/
+bin/
+bin-int/
 
 #files
 *.sln
