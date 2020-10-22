@@ -16,7 +16,7 @@ jobs:
     - name: Run Premake5
       run: ./premake/premake5 gmake2
     - name: Run Make
-      run: make LDFLAGS="-Wl,--no-as-needed"
+      run: make
 
   windows-build:
     runs-on: windows-latest
