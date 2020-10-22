@@ -1,5 +1,4 @@
-#shader vertex
-#version 460 core
+#version 410 core
 
 layout (location = 0) in vec3 Pos;
 
@@ -15,16 +14,4 @@ void main()
 {
 	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(Pos, 1.0);
 	uColor = vec4(0.8f, 0.1f, 0.1f, 0.1f);
-}
-
-#shader fragment
-#version 460 core
-
-layout (location = 0) out vec4 outColor;
-
-in vec4 uColor;
-
-void main()
-{
-	outColor = uColor;
 }

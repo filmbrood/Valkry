@@ -1,8 +1,8 @@
 #pragma once
 
-/* 
+/*
 
-Valkry Renderer Include File
+Valkry Renderer and Application Framework
 
 Copyright Dawn Moore 2020. All rights reserved.
 
