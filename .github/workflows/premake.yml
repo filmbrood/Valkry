@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Enable Command Extensions
-      run: cmd /x
+      run: cmd.exe /E:ON
     - name: Run Premake5
       run: ./premake/premake5 gmake2
     - name: Run MinGW Make
