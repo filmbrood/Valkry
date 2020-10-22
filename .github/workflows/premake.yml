@@ -17,3 +17,13 @@ jobs:
       run: ./premake/premake5 gmake2
     - name: Run Make
       run: make LDFLAGS="-Wl,--no-as-needed"
+
+  windows-build:
+    runs-on: windows-latest
+    -uses: actions/checkout@v2
+    -name: Enable Command Extensions
+     run: cmd /x
+    -name: Run Premake5
+     run: ./premake/premake5.exe gmake2
+    -name: Run MinGW Make
+     run: mingw32-make CC=gcc CXX=g++
