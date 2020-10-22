@@ -16,3 +16,4 @@
 #include <sstream>
 
 #include "src/app/logging.h"
+#include "src/app/platform.h"

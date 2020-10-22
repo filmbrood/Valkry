@@ -1,5 +1,4 @@
 #include "valkrypch.h"
-
 #include "app.h"
 
 namespace Valkry{
@@ -12,9 +11,11 @@ namespace Valkry{
 		Logger::Get().DumpLogToFile();
 	}
 
-
 	void App::Run()
 	{
+		std::string platformString = VALKRY_PLATFORM_STRING;
+		Logger::Get().LogInfo("Starting Valkry Application");
+		Logger::Get().LogInfo("Platform: " + platformString);
 		stack_.InitLayers();
 
 		while (running_)
