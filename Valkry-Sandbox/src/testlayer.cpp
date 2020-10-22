@@ -18,14 +18,17 @@ void TestLayer::OnInit()
 
 	texture1.LoadFromPath("res/concrete_diffuse.png");
 
-	renderer.SetResolution(16, 9);
-	this->InitImGui(sandbox_window);
-
+	renderer.SetProjectionMatrix(16, 9);
 	renderer.InitQuadBatch(textured_shader, texture1);
+
+	this->InitImGui(sandbox_window);
 }
 
 void TestLayer::OnUpdate()
 {
+	renderer.SetCameraPosition(player1.getPosX(), player1.getPosY());
+	renderer.Update();
+
 	float xpos = -5, ypos = 5;
 	for (int i = 0; i < quadCount; i++)
 	{
@@ -38,9 +41,6 @@ void TestLayer::OnUpdate()
 			ypos++;
 		}
 	}
-
-	renderer.SetCameraPosition(player1.getPosX(), player1.getPosY());
-	renderer.Update();
 
 	sandbox_window.BeginFrame();
 
@@ -71,7 +71,7 @@ void TestLayer::OnUpdate()
 		if (FPS < minFPS)
 			minFPS = FPS;
 
-		avgFPS = frameCount / runtime;
+		avgFPS = frameCount / FPSmeasurecount;
 	}
 
 	if (minFPS == 0)

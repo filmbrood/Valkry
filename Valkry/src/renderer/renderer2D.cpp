@@ -148,11 +148,11 @@ namespace Valkry{
 		batchedquads_.vertices.clear();
 	}
 
-	void Renderer2D::SetResolution(float width, float height)
+	void Renderer2D::SetProjectionMatrix(float width, float height)
 	{
 		viewMatrixWidth_ = width;
 		viewMatrixHeight_ = height;
-		SetProjectionMatrix(width, height);
+		projectionmatrix_ = glm::ortho(0.0f, width, height, 0.0f, -10.0f, 10.0f);
 		Logger::Get().LogInfo("Renderer2D projection matrix set to " + std::to_string(width) + ", " + std::to_string(height));
 	}
 
@@ -176,11 +176,6 @@ namespace Valkry{
 	{
 		stats_ = {0, 0, 0, 0};
 		SetViewMatrix((camera_.GetPosX() * -1) + (viewMatrixWidth_ / 2), (camera_.GetPosY() * -1) + (viewMatrixHeight_ / 2));
-	}
-
-	void Renderer2D::SetProjectionMatrix(float width, float height)
-	{
-		projectionmatrix_ = glm::ortho(0.0f, width, height, 0.0f, -10.0f, 10.0f);
 	}
 
 	void Renderer2D::SetViewMatrix(float posx, float posy)

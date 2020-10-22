@@ -64,7 +64,7 @@ namespace Valkry {
 
 	public:
 		// Sets the orthographic projection matrix
-		void SetResolution(float width, float height);
+		void SetProjectionMatrix(float width, float height);
 
 		void SetCameraPosition(float posx, float posy);
 		float GetCameraPositionX();
@@ -99,8 +99,6 @@ namespace Valkry {
 		float viewMatrixHeight_, viewMatrixWidth_;
 		float renderDistanceOffset_ = 0.5;
 
-		// Sets orthographic projection matrix (preferably from screen width and height)
-		void SetProjectionMatrix(float width, float height);
 		glm::mat4 projectionmatrix_ = glm::mat4(1.0f);
 
 		bool CheckIfQuadOutsideCameraBounds(float posx, float posy);
