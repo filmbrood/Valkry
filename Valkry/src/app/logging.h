@@ -3,6 +3,11 @@
 
 namespace Valkry {
 
+	enum class LogState
+	{
+		INFO = 0, WARNING, ERROR, FATAL
+	};
+
 	// Singleton logging class. Call with Logger::Get().
 	class Logger
 	{
@@ -21,5 +26,6 @@ namespace Valkry {
 		Logger() {}
 		static Logger s_Instance;
 		std::string m_LogStream;
+		LogState m_LogState;
 	};
 }

@@ -3,6 +3,8 @@
 
 namespace Valkry{
 
+	App App::s_Instance;
+
 	void App::CloseApp()
 	{
 		running_ = false;
@@ -38,4 +40,18 @@ namespace Valkry{
 		stack_.PopLayer();
 	}
 
+	Window& App::GetWindow()
+	{
+		return window_;
+	}
+
+	Renderer2D& App::GetRenderer2D()
+	{
+		return renderer2D_;
+	}
+
+	App& App::Get()
+	{
+		return s_Instance;
+	}
 }

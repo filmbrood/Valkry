@@ -1,6 +1,9 @@
 #include "valkry.h"
 #include "player.h"
 
+#define SCREENWIDTH 1280
+#define SCREENHEIGHT 720
+
 class TestLayer : public Valkry::Layer
 {
 public:
@@ -13,9 +16,6 @@ public:
 	void UpdateDeltaTime();
 
 private:
-	Valkry::Window sandbox_window;
-	Valkry::Renderer2D renderer;
-
 	Valkry::Shader flat_shader;
 	Valkry::Shader textured_shader;
 	Valkry::Texture texture1;
