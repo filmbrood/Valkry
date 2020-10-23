@@ -10,7 +10,7 @@ The codebase is designed to be as portable as possible, so if your platform supp
 - Batch 2D rendering (also with skipping)
 
 #### Contributing
-If you'd like to contribute to Valkry, feel free to clone the repository with `git clone --recursive https://github.com/filmbrood/Valkry.git`.
+If you'd like to contribute to Valkry, feel free to clone the repository with `git clone https://github.com/filmbrood/Valkry.git`.
 
 Valkry is primarily built and tested on Windows, originally with VS 2019, and now with Atom and MinGW. The code has been successfully built and tested on Linux systems with G++/GNU Make, albeit with a few more bugs than the former.
 
