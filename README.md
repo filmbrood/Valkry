@@ -3,7 +3,7 @@
 
 #### The Rundown
 Valkry is a basic OpenGL-based 2D renderer with rudimentary event handling and ImGui integration. 3D rendering, more application features, and other niceties are in the queue.
-The codebase is designed to be as portable as possible, so if your platform supports OpenGL, you should be able to make it run.
+The codebase is designed to be as portable as possible, so if your platform supports OpenGL and the C++17 standard, you should be able to make it run.
 
 #### Features So Far
 - Dynamic 2D quad skipping (culling) based on camera position
