@@ -42,6 +42,8 @@ namespace Valkry {
 		// Returns whether or not GLFW window has been set to close
 		bool CheckIfClosed();
 
+		bool CheckForFailure();
+
 	private:
 		GLFWwindow* window_;
 
@@ -56,6 +58,7 @@ namespace Valkry {
 		// Float values for clear color
 		float red_ = 0.0f, green_ = 0.0f, blue_ = 0.0f, alpha_ = 0.0f;
 
+		bool failure_;
 	};
 
 }

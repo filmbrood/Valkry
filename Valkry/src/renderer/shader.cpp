@@ -87,7 +87,7 @@ namespace Valkry {
 			Logger::Get().LogError(infolog);
 		}
 		else
-			Logger::Get().LogInfo("Created shader program with render ID ", renderer_id_);
+			Logger::Get().LogInfo("Created shader program with render ID " + std::to_string(renderer_id_));
 
 		glDeleteShader(vertex);
 		glDeleteShader(fragment);
@@ -147,7 +147,7 @@ namespace Valkry {
 	{
 		auto location = glGetUniformLocation(renderer_id_, name.c_str());
 
-		if (location < -1) Logger::Get().LogError("Uniform location not found", renderer_id_);
+		if (location < -1) this->LogUniformNotFoundError(name);
 
 		glUniform1f(location, value);
 	}
@@ -156,7 +156,7 @@ namespace Valkry {
 	{
 		auto location = glGetUniformLocation(renderer_id_, name.c_str());
 
-		if (location < -1) Logger::Get().LogError("Uniform location not found", renderer_id_);
+		if (location < -1) this->LogUniformNotFoundError(name);
 
 		glUniform1i(location, value);
 	}
@@ -165,7 +165,7 @@ namespace Valkry {
 	{
 		auto location = glGetUniformLocation(renderer_id_, name.c_str());
 
-		if (location < -1) Logger::Get().LogError("Uniform location not found", renderer_id_);
+		if (location < -1) this->LogUniformNotFoundError(name);
 
 		glUniform1i(location, (int)value);
 	}
@@ -176,7 +176,7 @@ namespace Valkry {
 
 		auto location = glGetUniformLocation(renderer_id_, name.c_str());
 
-		if (location < -1) Logger::Get().LogError("Uniform location not found", renderer_id_);
+		if (location < -1) this->LogUniformNotFoundError(name);
 
 		glUniform2fv(location, 1, glm::value_ptr(value));
 	}
@@ -187,7 +187,7 @@ namespace Valkry {
 
 		auto location = glGetUniformLocation(renderer_id_, name.c_str());
 
-		if (location < -1) Logger::Get().LogError("Uniform location not found", renderer_id_);
+		if (location < -1) this->LogUniformNotFoundError(name);
 
 		glUniform3fv(location, 1, glm::value_ptr(value));
 	}
@@ -198,7 +198,7 @@ namespace Valkry {
 
 		auto location = glGetUniformLocation(renderer_id_, name.c_str());
 
-		if (location < -1) Logger::Get().LogError("Uniform location not found", renderer_id_);
+		if (location < -1) this->LogUniformNotFoundError(name);
 
 		glUniform4fv(location, 1, glm::value_ptr(value));
 	}
@@ -207,9 +207,13 @@ namespace Valkry {
 	{
 		auto location = glGetUniformLocation(renderer_id_, name.c_str());
 
-		if (location < -1) Logger::Get().LogError("Uniform location not found", renderer_id_);
+		if (location < -1) this->LogUniformNotFoundError(name);
 
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 	}
 
+	void Shader::LogUniformNotFoundError(const std::string& name)
+	{
+		Logger::Get().LogError("Uniform '" + name + "' location not found" + std::to_string(renderer_id_));
+	}
 }

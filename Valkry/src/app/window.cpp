@@ -11,7 +11,9 @@ namespace Valkry {
 	Window::Window()
 	{
 		if (!glfwInit())
+		{
 			Logger::Get().LogFatal("GLFW failed to initialize");
+		}
 	}
 
 	Window::~Window()
@@ -140,6 +142,11 @@ namespace Valkry {
 	bool Window::CheckIfClosed()
 	{
 		return glfwWindowShouldClose(window_);
+	}
+
+	bool Window::CheckForFailure()
+	{
+		return failure_;
 	}
 
 	double Window::GetCursorPositionX()

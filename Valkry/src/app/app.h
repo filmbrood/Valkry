@@ -23,7 +23,10 @@ namespace Valkry{
 		void PopLayer();
 
 		// Sets running_ variable to false
-		virtual void CloseApp();
+		void CloseApp();
+
+		// Sets running_ variable to false, crashes app with exitCode_ = -1
+		void CrashApp();
 
 	public:
 		Window& GetWindow();

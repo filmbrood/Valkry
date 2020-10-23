@@ -15,14 +15,16 @@ namespace Valkry {
 		static Logger& Get();
 
 	public:
-		void LogInfo(std::string desc, double data = 69420);
-		void LogWarn(std::string desc, double data = 69420);
-		void LogError(std::string desc, double data = 69420);
-		void LogFatal(std::string desc, double data = 69420);
+		void LogInfo(std::string desc);
+		void LogWarn(std::string desc);
+		void LogError(std::string desc);
+		void LogFatal(std::string desc);
 
 		void DumpLogToFile();
 
 	private:
+		void LogImpl(const std::string& desc, const std::string& type);
+
 		Logger() {}
 		static Logger s_Instance;
 		std::string m_LogStream;

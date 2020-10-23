@@ -196,7 +196,7 @@ namespace Valkry{
 		else
 		{
 			renderDistanceOffset_ = value;
-			Logger::Get().LogInfo("Renderer2D render distance offset set", renderDistanceOffset_);
+			Logger::Get().LogInfo("Renderer2D render distance offset set" + std::to_string(renderDistanceOffset_));
 		}
 
 	}
@@ -209,7 +209,7 @@ namespace Valkry{
 	void Renderer2D::SetQuadDrawSkipping(bool state)
 	{
 		quadDrawSkipping_ = state;
-		Logger::Get().LogInfo("Renderer2D draw skipping toggled", quadDrawSkipping_);
+		Logger::Get().LogInfo("Renderer2D draw skipping toggled" + std::to_string(quadDrawSkipping_));
 		batchWarningShown = false;
 	}
 

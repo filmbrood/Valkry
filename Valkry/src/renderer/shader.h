@@ -47,6 +47,7 @@ namespace Valkry {
 		// Compiles vertex and fragment shaders, links into program
 		void CompileSource();
 
+		void LogUniformNotFoundError(const std::string& name);
 	};
 
 }

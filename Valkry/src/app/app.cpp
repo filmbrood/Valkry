@@ -7,9 +7,17 @@ namespace Valkry{
 
 	void App::CloseApp()
 	{
+		exitCode_ = 0;
 		running_ = false;
-		Logger::Get().LogInfo("Closing program with exit code ", exitCode_);
-		Logger::Get().LogInfo("Dumping log to valkry.log");
+		Logger::Get().LogInfo("Closing program with exit code " + std::to_string(exitCode_));
+		Logger::Get().DumpLogToFile();
+	}
+
+	void App::CrashApp()
+	{
+		exitCode_ = 1;
+		running_ = false;
+		Logger::Get().LogFatal("Crashing app with exit code " + std::to_string(exitCode_));
 		Logger::Get().DumpLogToFile();
 	}
 
@@ -22,11 +30,14 @@ namespace Valkry{
 
 		while (running_)
 		{
+			exitCode_ = -1;
 			stack_.RunLayers();
+
 			if (stack_.CheckForClosingFlags())
-			{
 				this->CloseApp();
-			}
+
+			if (window_.CheckForFailure())
+				this->CrashApp();
 		}
 	}
 
