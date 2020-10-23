@@ -150,10 +150,10 @@ namespace Valkry{
 
 	void Renderer2D::SetProjectionMatrix(float width, float height)
 	{
-		viewMatrixWidth_ = width;
-		viewMatrixHeight_ = height;
-		projectionmatrix_ = glm::ortho(0.0f, width, height, 0.0f, -10.0f, 10.0f);
-		Logger::Get().LogInfo("Renderer2D projection matrix set to " + std::to_string(width) + ", " + std::to_string(height));
+		viewMatrixWidth_ = width / 100;
+		viewMatrixHeight_ = height / 100;
+
+		projectionmatrix_ = glm::ortho(0.0f, viewMatrixWidth_, viewMatrixHeight_, 0.0f, -10.0f, 10.0f);
 	}
 
 	void Renderer2D::SetCameraPosition(float x, float y)

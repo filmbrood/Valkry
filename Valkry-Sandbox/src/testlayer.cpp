@@ -5,20 +5,20 @@
 
 void TestLayer::OnInit()
 {
-	SetName("Valkry Sandbox");
+	this->SetName("Valkry Sandbox");
 
 	sandbox_window.SetDimensions(SCREENWIDTH, SCREENHEIGHT);
 	sandbox_window.SetTitle(this->GetName());
 	sandbox_window.SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	sandbox_window.SetFullscreen(false);
 	sandbox_window.Create();
+	sandbox_window.SetViewportResizeable();
 
 	flat_shader.SetSeparateSource("shaders/flat_color_vertex.glsl", "shaders/flat_color_fragment.glsl");
 	textured_shader.SetSeparateSource("shaders/textured_color_vertex.glsl", "shaders/textured_color_fragment.glsl");
 
 	texture1.LoadFromPath("res/concrete_diffuse.png");
 
-	renderer.SetProjectionMatrix(16, 9);
 	renderer.InitQuadBatch(textured_shader, texture1);
 
 	this->InitImGui(sandbox_window);
@@ -26,6 +26,7 @@ void TestLayer::OnInit()
 
 void TestLayer::OnUpdate()
 {
+	renderer.SetProjectionMatrix(sandbox_window.GetWidth(), sandbox_window.GetHeight());
 	renderer.SetCameraPosition(player1.getPosX(), player1.getPosY());
 	renderer.Update();
 

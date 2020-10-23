@@ -21,10 +21,10 @@ namespace Valkry {
 		void SetTitle(std::string title);
 		void SetClearColor(float red, float green, float blue, float alpha);
 		void SetVerticalSync(bool state);
-		void SetResizable(bool state);
 		void SetFullscreen(bool state);
-		int GetWidth();
-		int GetHeight();
+		void SetViewportResizeable();
+		int& GetWidth();
+		int& GetHeight();
 		double GetCursorPositionX();
 		double GetCursorPositionY();
 		bool GetVerticalSync();
@@ -48,7 +48,6 @@ namespace Valkry {
 		int size_x_ = 1280, size_y_ = 720;
 		bool vsync_ = false;
 		bool fullscreen_ = false;
-		bool resizeable_ = false;
 		std::string title_ = "Valkry";
 
 		// Stores mouse cursor coordinates

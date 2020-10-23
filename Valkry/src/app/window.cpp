@@ -54,13 +54,15 @@ namespace Valkry {
 		return window_;
 	}
 
-	int Window::GetWidth()
+	int& Window::GetWidth()
 	{
+		glfwGetFramebufferSize(window_, &size_x_, &size_y_);
 		return size_x_;
 	}
 
-	int Window::GetHeight()
+	int& Window::GetHeight()
 	{
+		glfwGetFramebufferSize(window_, &size_x_, &size_y_);
 		return size_y_;
 	}
 
@@ -97,12 +99,6 @@ namespace Valkry {
 		}
 	}
 
-	void Window::SetResizable(bool state)
-	{
-		// Just sets the member variable for now, but will have extra code to create a framebuffer callback
-		resizeable_ = state;
-	}
-
 	void Window::SetFullscreen(bool state)
 	{
 		fullscreen_ = state;
@@ -111,6 +107,15 @@ namespace Valkry {
 	void Window::SetTitle(std::string title)
 	{
 		this->title_ = title;
+	}
+
+	void Window::SetViewportResizeable()
+	{
+			glfwSetFramebufferSizeCallback(window_, [](GLFWwindow* window, int width, int height)
+			{
+				Logger::Get().LogInfo("Resized GLFW window to " + std::to_string(width) + ", " + std::to_string(height));
+				glViewport(0, 0, width, height);
+			});
 	}
 
 	void Window::BeginFrame()
