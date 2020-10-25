@@ -1,4 +1,5 @@
-![Valkry Logo] (https://imgur.com/a/oNBkSdk)
+![Valkry Logo] (/res/ValkryLogo_AlphaBG.png)
+
 ### OpenGL renderer and application framework.
 
 #### The Rundown
