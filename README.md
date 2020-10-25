@@ -1,4 +1,4 @@
-![Valkry Logo] (/res/ValkryLogo_AlphaBG.png?raw=true "Valkry")
+![Valkry Logo] (res/ValkryLogo_AlphaBG.png)
 
 ### OpenGL renderer and application framework.
 
