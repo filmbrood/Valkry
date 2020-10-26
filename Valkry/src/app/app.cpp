@@ -23,6 +23,9 @@ namespace Valkry{
 
 	void App::Run()
 	{
+		stats_.frames++;
+		stats_.runtime = glfwGetTime();
+
 		std::string platformString = VALKRY_PLATFORM_STRING;
 		Logger::Get().LogInfo("Starting Valkry Application");
 		Logger::Get().LogInfo("Platform: " + platformString);
@@ -32,13 +35,18 @@ namespace Valkry{
 		{
 			if (window_.CheckForFailure())
 				this->CrashApp();
-				
+
 			exitCode_ = -1;
 			stack_.RunLayers();
 
 			if (stack_.CheckForClosingFlags())
 				this->CloseApp();
+
+			UpdateDeltaTime();
+			CalculateFPS();
 		}
+
+
 	}
 
 	void App::PushLayer(Layer* layer)
@@ -59,6 +67,28 @@ namespace Valkry{
 	Renderer2D& App::GetRenderer2D()
 	{
 		return renderer2D_;
+	}
+
+	AppStats App::GetStats()
+	{
+		return stats_;
+	}
+
+	void App::UpdateDeltaTime()
+	{
+		float currentFrame = glfwGetTime();
+		stats_.deltaTime = currentFrame - stats_.lastFrame;
+		stats_.lastFrame = currentFrame;
+	}
+
+	void App::CalculateFPS()
+	{
+		fpsMeasures++;
+		if (fpsMeasures >= 20)
+		{
+			stats_.fps = 1 / stats_.deltaTime;
+			fpsMeasures = 0;
+		}
 	}
 
 	App& App::Get()

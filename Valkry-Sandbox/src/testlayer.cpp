@@ -34,39 +34,14 @@ void TestLayer::OnUpdate()
 	}
 
 	Valkry::App::Get().GetWindow().BeginFrame();
-
 	Valkry::App::Get().GetRenderer2D().DrawQuadBatch();
 	Valkry::App::Get().GetRenderer2D().ClearQuadBatch();
-
 	Valkry::App::Get().GetRenderer2D().DrawQuad(flat_shader, 1, 1, player1.getPosX(), player1.getPosY());
 
 	this->OnImGuiRender();
-
 	Valkry::App::Get().GetWindow().EndFrame();
 
-	this->UpdateDeltaTime();
-	player1.setDelta(deltaTime);
-
-	runtime = glfwGetTime();
-	frameCount++;
-	currentFPSMeasure += deltaTime;
-	if (currentFPSMeasure > 0.3)
-	{
-		FPS = 1 / deltaTime;
-		currentFPSMeasure = 0;
-		FPSmeasurecount++;
-
-		if (FPS > maxFPS)
-			maxFPS = FPS;
-
-		if (FPS < minFPS)
-			minFPS = FPS;
-
-		avgFPS = frameCount / FPSmeasurecount;
-	}
-
-	if (minFPS == 0)
-		minFPS = FPS;
+	player1.setDelta(Valkry::App::Get().GetStats().deltaTime);
 }
 
 void TestLayer::OnImGuiRender()
@@ -81,6 +56,7 @@ void TestLayer::OnImGuiRender()
 		ImGui::EndMenu();
 	}
 	ImGui::EndMainMenuBar();
+
 	if (showImGuiPlayerInfo)
 	{
 		ImGui::Begin("Info", &showImGuiPlayerInfo);
@@ -103,20 +79,11 @@ void TestLayer::OnImGuiRender()
 		ImGui::Text(std::to_string(Valkry::App::Get().GetRenderer2D().GetStats().BatchDrawsInFrame).c_str());
 		ImGui::Text("Batch Skips per Frame");
 		ImGui::Text(std::to_string(Valkry::App::Get().GetRenderer2D().GetStats().BatchSkipsInFrame).c_str());
-		ImGui::Text("Delta Time (ms)");
-		ImGui::Text(std::to_string(deltaTime * 1000).c_str());
-		ImGui::Text("FPS");
-		ImGui::Text(std::to_string(FPS).c_str());
-		ImGui::Text("Max FPS");
-		ImGui::Text(std::to_string(maxFPS).c_str());
-		ImGui::Text("Avg FPS");
-		ImGui::Text(std::to_string(avgFPS).c_str());
-		ImGui::Text("Min FPS");
-		ImGui::Text(std::to_string(minFPS).c_str());
-		ImGui::Text("FPS Measure Count");
-		ImGui::Text(std::to_string(FPSmeasurecount).c_str());
-		ImGui::Text("Frame Count");
-		ImGui::Text(std::to_string(frameCount).c_str());
+		ImGui::Text("");
+		ImGui::Text("Delta Time: ");
+		ImGui::Text(std::to_string(Valkry::App::Get().GetStats().deltaTime).c_str());
+		ImGui::Text("Frames per Second: ");
+		ImGui::Text(std::to_string(Valkry::App::Get().GetStats().fps).c_str());
 		ImGui::End();
 	}
 
@@ -125,7 +92,6 @@ void TestLayer::OnImGuiRender()
 		ImGui::Begin("Settings", &showImGuiSettings);
 		if (ImGui::Button("Set Vsync On")) { Valkry::App::Get().GetWindow().SetVerticalSync(true); }
 		if (ImGui::Button("Set Vsync Off")) { Valkry::App::Get().GetWindow().SetVerticalSync(false); }
-		if (ImGui::Button("Reset FPS Counters")) { maxFPS = 0; minFPS = 0; avgFPS = 0; FPSmeasurecount = 0; frameCount = 0;}
 		float rdoffset = Valkry::App::Get().GetRenderer2D().GetRenderDistanceOffset();
 		if (ImGui::SliderFloat("Render Distance Offset", &rdoffset, -3.0f, 3.0f)) { Valkry::App::Get().GetRenderer2D().SetRenderDistanceOffset(rdoffset); }
 		ImGui::InputInt("Quad Count (will be squared!)", &quadCount);
@@ -174,11 +140,4 @@ void TestLayer::OnEvent()
 	else
 		player1.SetSpeed(playerSpeed);
 
-}
-
-void TestLayer::UpdateDeltaTime()
-{
-	float currentFrame = glfwGetTime();
-	deltaTime = currentFrame - lastFrame;
-	lastFrame = currentFrame;
 }

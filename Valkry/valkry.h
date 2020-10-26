@@ -24,3 +24,4 @@ Copyright Dawn Moore 2020. All rights reserved.
 
 // Events
 #include "src/event/keyevent.h"
+#include "src/event/mousebuttonevent.h"

@@ -12,9 +12,9 @@ namespace Valkry {
 	{
 	public:
 		KeyEvent(int keycode);
-		bool Pressed(Window& window);
-		bool Released(Window& window);
-		bool Repeated(Window& window);
+		bool Pressed(Window& win);
+		bool Released(Window& win);
+		bool Repeated(Window& win);
 
 	private:
 		int keycode_;

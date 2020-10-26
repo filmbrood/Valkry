@@ -7,6 +7,12 @@
 
 namespace Valkry{
 
+	struct AppStats
+	{
+		float runtime, fps, deltaTime, lastFrame;
+		unsigned int frames;
+	};
+
 	// Class containing layer stack, window, and renderer2D. Acts as singleton, call with Valkry::App::Get().
 	class App
 	{
@@ -29,18 +35,26 @@ namespace Valkry{
 		// Sets running_ variable to false, crashes app with exitCode_ = -1
 		void CrashApp();
 
+		AppStats GetStats();
+
 	public:
 		Window& GetWindow();
 		Renderer2D& GetRenderer2D();
+
+	private:
+		void UpdateDeltaTime();
+		void CalculateFPS();
 
 	private:
 		App() {}
 		static App s_Instance;
 		Window window_;
 		Renderer2D renderer2D_;
-
-		bool running_ = true;
 		LayerStack stack_;
+		AppStats stats_;
+		bool running_ = true;
 		int exitCode_ = 0;
+
+		float fpsMeasures;
 	};
 }
