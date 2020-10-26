@@ -131,6 +131,8 @@ void TestLayer::OnImGuiRender()
 		ImGui::InputInt("Quad Count (will be squared!)", &quadCount);
 		if (ImGui::Button("Set quad skipping on")) { Valkry::App::Get().GetRenderer2D().SetQuadDrawSkipping(true); }
 		if (ImGui::Button("Set quad skipping off")) { Valkry::App::Get().GetRenderer2D().SetQuadDrawSkipping(false); }
+		ImGui::SliderFloat("Player Speed", &playerSpeed, 0.1f, 100.0f);
+		if (ImGui::SliderFloat("Camera Zoom", &cameraZoom, 0.01f, 10.0f)) { Valkry::App::Get().GetRenderer2D().SetCameraZoom(cameraZoom); }
 		ImGui::End();
 	}
 
@@ -168,9 +170,9 @@ void TestLayer::OnEvent()
 		|| Valkry::Keys::W.Pressed(Valkry::App::Get().GetWindow()) && Valkry::Keys::D.Pressed(Valkry::App::Get().GetWindow())
 		|| Valkry::Keys::S.Pressed(Valkry::App::Get().GetWindow()) && Valkry::Keys::D.Pressed(Valkry::App::Get().GetWindow())
 		|| Valkry::Keys::A.Pressed(Valkry::App::Get().GetWindow()) && Valkry::Keys::S.Pressed(Valkry::App::Get().GetWindow()))
-		player1.SetSpeed(4.0f);
+		player1.SetSpeed(playerSpeed * 0.8f);
 	else
-		player1.SetSpeed(5.0f);
+		player1.SetSpeed(playerSpeed);
 
 }
 

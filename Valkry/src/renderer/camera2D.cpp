@@ -1,22 +1,36 @@
 #include "valkrypch.h"
 #include "camera2D.h"
 
-void Camera2D::SetPosX(float value)
-{
-	posx_ = value;
-}
+namespace Valkry{
 
-void Camera2D::SetPosY(float value)
-{
-	posy_ = value;
-}
+	void Camera2D::SetPosX(float value)
+	{
+		posx_ = value;
+	}
 
-float Camera2D::GetPosX()
-{
-	return posx_;
-}
+	void Camera2D::SetPosY(float value)
+	{
+		posy_ = value;
+	}
 
-float Camera2D::GetPosY()
-{
-	return posy_;
+	float Camera2D::GetPosX()
+	{
+		return posx_;
+	}
+
+	float Camera2D::GetPosY()
+	{
+		return posy_;
+	}
+
+	void Camera2D::SetZoom(float value)
+	{
+		zoom_ = value;
+	}
+
+	float Camera2D::GetZoom()
+	{
+		return zoom_;
+	}
+
 }

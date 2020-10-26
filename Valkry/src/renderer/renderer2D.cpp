@@ -175,12 +175,14 @@ namespace Valkry{
 	void Renderer2D::Update()
 	{
 		stats_ = {0, 0, 0, 0};
-		SetViewMatrix((camera_.GetPosX() * -1) + (viewMatrixWidth_ / 2), (camera_.GetPosY() * -1) + (viewMatrixHeight_ / 2));
+		SetViewMatrix((camera_.GetPosX() * -1), (camera_.GetPosY() * -1));
 	}
 
 	void Renderer2D::SetViewMatrix(float posx, float posy)
 	{
 		viewmatrix_ = glm::mat4(1.0f);
+		viewmatrix_ = glm::translate(viewmatrix_, glm::vec3(viewMatrixWidth_ / 2, viewMatrixHeight_ / 2, 0.0f));
+		viewmatrix_ = glm::scale(viewmatrix_, glm::vec3(camera_.GetZoom(), camera_.GetZoom(), 1.0f));
 		viewmatrix_ = glm::translate(viewmatrix_, glm::vec3(posx, posy, -1.0f));
 	}
 
@@ -204,6 +206,16 @@ namespace Valkry{
 	float Renderer2D::GetRenderDistanceOffset()
 	{
 		return renderDistanceOffset_;
+	}
+
+	void Renderer2D::SetCameraZoom(float value)
+	{
+		camera_.SetZoom(value);
+	}
+
+	float Renderer2D::GetCameraZoom()
+	{
+		return camera_.GetZoom();
 	}
 
 	void Renderer2D::SetQuadDrawSkipping(bool state)

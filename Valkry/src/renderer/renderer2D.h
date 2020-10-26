@@ -70,6 +70,9 @@ namespace Valkry {
 		float GetCameraPositionX();
 		float GetCameraPositionY();
 
+		void SetCameraZoom(float value);
+		float GetCameraZoom();
+		
 		Renderer2DStats GetStats();
 
 		void SetRenderDistanceOffset(float value);

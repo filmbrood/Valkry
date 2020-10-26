@@ -11,6 +11,7 @@ namespace Valkry{
 	class App
 	{
 	public:
+		// Returns s_Instance
 		static App& Get();
 
 		// Initializes all layers in layer stack, call the RunLayers() function of the stack, and checks for closing flags from any of the layers.

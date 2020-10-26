@@ -30,14 +30,14 @@ namespace Valkry{
 
 		while (running_)
 		{
+			if (window_.CheckForFailure())
+				this->CrashApp();
+				
 			exitCode_ = -1;
 			stack_.RunLayers();
 
 			if (stack_.CheckForClosingFlags())
 				this->CloseApp();
-
-			if (window_.CheckForFailure())
-				this->CrashApp();
 		}
 	}
 

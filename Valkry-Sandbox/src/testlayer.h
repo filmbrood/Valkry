@@ -21,7 +21,10 @@ private:
 	Valkry::Texture texture1;
 
 	player player1;
+	float playerSpeed = 5;
 
+	float cameraZoom = 1;
+	
 	bool showImGuiDemoWindow = true;
 	bool showImGuiPlayerInfo = true;
 	bool showImGuiSettings = true;
